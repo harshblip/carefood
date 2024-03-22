@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 
 // GET
 export const getUserByID = async (id) => {
-    const user = await prisma.account.findUnique({
+    const user = await prisma.user.findUnique({
         where: {
             id,
         },
@@ -34,6 +34,14 @@ export const loginUser = async (email, password) => {
 
     // Generate JWT token
     const token = jwt.sign({ userId: user.id }, ACCESS_TOKEN_SECRET, { expiresIn: '1h' });
+    
     // Return the user and token
+    await prisma.token.create({
+        data: {
+            token: "lolz",
+            email: email,
+        },
+    });
+
     return { user, token };
 }
