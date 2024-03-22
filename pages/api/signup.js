@@ -1,4 +1,4 @@
-import { createUser } from "../../prisma/Userr";
+import { createUser } from "../../prisma/User";
 
 export default async function handler(req, res) {
     console.log(req.body);
