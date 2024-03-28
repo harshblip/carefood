@@ -34,12 +34,16 @@ export const loginUser = async (email, password) => {
 
     // Generate JWT token
     const token = jwt.sign({ userId: user.id }, ACCESS_TOKEN_SECRET, { expiresIn: '1h' });
-    
+
+    const currentTime = new Date();
+    const expirationTime = new Date(currentTime.getTime() + 60 * 60 * 1000);
     // Return the user and token
-    await prisma.token.create({
+    await prisma.tokens.create({
         data: {
-            token: "lolz",
+            token: ACCESS_TOKEN_SECRET,
             email: email,
+            currentTime: currentTime,
+            expirationTime: expirationTime,
         },
     });
 

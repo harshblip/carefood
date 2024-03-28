@@ -28,4 +28,6 @@ model Tokens {
   id      String    @id @default(auto()) @map("_id") @db.ObjectId
   token   String
   email   String @unique
+  currentTime DateTime
+  expirationTime DateTime
 }
