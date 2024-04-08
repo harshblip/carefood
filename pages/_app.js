@@ -3,13 +3,13 @@ import { Provider } from "react-redux";
 import { SessionProvider } from "next-auth/react";
 import store from "../store";
 import DefaultLayout from "../layout/default";
-import { Poppins } from 'next/font/google';
+import { Actor } from 'next/font/google';
 
-const poppins = Poppins({
+const poppins = Actor({
     subsets: ['latin'],
     display: 'swap',
     variable: '--font-poppins',
-    weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900']
+    weight: ['400']
 });
 
 export const metadata = {

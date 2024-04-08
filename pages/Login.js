@@ -1,12 +1,15 @@
 // pages/login.js
 import { useState } from 'react';
+import { useRouter } from 'next/router';
 
 export default function LoginPage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const router = useRouter();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log(email, password);
         const response = await fetch('/api/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -14,11 +17,9 @@ export default function LoginPage() {
         });
 
         if (response.ok) {
-            // Handle successful login
+            router.push('/restaurants')
             console.log('User logged in successfully');
-            // Redirect or perform other actions as needed
         } else {
-            // Handle login error
             console.error('Error logging in user');
         }
     };

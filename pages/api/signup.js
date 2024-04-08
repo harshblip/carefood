@@ -1,7 +1,7 @@
 import { createUser } from "../../prisma/User";
 
 export default async function handler(req, res) {
-    console.log(req.body);
+    // console.log(req.body);
     if (req.method == "POST") {
         const { name, email, password, city, phoneNumber, funFood } = req.body;
         try {

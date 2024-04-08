@@ -28,7 +28,7 @@ export const createUser = async (name, email, password, city, phoneNumber, funFo
         },
     });
 
-    // Optionally, retrieve the newly created user to return
+    // retrieve the newly created user to return
     const user = await getUserByID(newUser.id);
 
     return user;

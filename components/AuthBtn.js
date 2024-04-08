@@ -6,6 +6,24 @@ const AuthBtn = () => {
     const { data: session, status } = useSession();
     const router = useRouter();
 
+    const handleLogout = async () => {
+        try {
+            const response = await fetch('/api/logout', {
+                method: 'POST',
+                credentials: 'include',
+            });
+
+            if (response.ok) {
+                console.log("User logged out")
+                router.push('/Login');
+            } else {
+                console.error('Failed to log out');
+            }
+        } catch (error) {
+            console.error('Error logging out:', error);
+        }
+    };
+
     const handleLoginClick = () => {
         router.push('/Login');
     };
@@ -20,8 +38,9 @@ const AuthBtn = () => {
     }
     if (status === "unauthenticated") {
         return (
-            <div className="auth-btn mt-2">
+            <div className="auth-btn mt-2 space-x-4">
                 <button onClick={handleLoginClick}>Login</button>
+                <button onClick={handleLogout} >Signout</button>
             </div>
         );
     }
