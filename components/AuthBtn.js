@@ -25,7 +25,7 @@ const AuthBtn = () => {
             if (response.status >= 200 && response.status < 300) {
                 dispatch(logout());
                 console.log("User logged out");
-                router.push('/login');
+                router.push('/Login');
             } else {
                 console.error('Failed to log out');
             }

@@ -3,7 +3,7 @@ import { deleteTokenByUserEmail } from "../../prisma/Userout";
 export default async function handler(req, res) {
     if (req.method === 'POST') {
         try {
-            const { email } = req.body();
+            const { email } = req.body;
             await deleteTokenByUserEmail(email);
             res.status(200).json({ message: 'Logged out successfully' });
         } catch (error) {
@@ -14,4 +14,3 @@ export default async function handler(req, res) {
         res.status(405).end(`Method ${req.method} Not Allowed`);
     }
 }
-
