@@ -2,20 +2,30 @@ import { RefreshIcon } from "@heroicons/react/solid";
 import { useSession, signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import { useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux';
+import { logout } from "../slices/signupSlice";
+import axios from 'axios';
+
 const AuthBtn = () => {
     const { data: session, status } = useSession();
     const router = useRouter();
+    const dispatch = useDispatch();
+    const userEmail = useSelector(state => state.signup.email)
+    console.log("userEmail", userEmail);
 
     const handleLogout = async () => {
         try {
-            const response = await fetch('/api/logout', {
-                method: 'POST',
-                credentials: 'include',
+            const response = await axios.post('/api/logout', {
+                email: userEmail,
+            }, {
+                withCredentials: true,
             });
 
-            if (response.ok) {
-                console.log("User logged out")
-                router.push('/Login');
+            if (response.status >= 200 && response.status < 300) {
+                dispatch(logout());
+                console.log("User logged out");
+                router.push('/login');
             } else {
                 console.error('Failed to log out');
             }

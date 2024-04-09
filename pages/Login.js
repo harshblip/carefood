@@ -1,26 +1,38 @@
 // pages/login.js
 import { useState } from 'react';
 import { useRouter } from 'next/router';
+import { loginSuccess } from '../slices/signupSlice';
+import { useDispatch } from 'react-redux';
+import axios from 'axios';
 
 export default function LoginPage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const router = useRouter();
+    const dispatch = useDispatch();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(email, password);
-        const response = await fetch('/api/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password }),
-        });
+        // console.log(email, password);
+        try {
+            const response = await axios.post('/api/login', {
+                email,
+                password,
+            }, {
+                headers: { 'Content-Type': 'application/json' },
+            });
 
-        if (response.ok) {
-            router.push('/restaurants')
-            console.log('User logged in successfully');
-        } else {
-            console.error('Error logging in user');
+            if (response.status >= 200 && response.status < 300) {
+                const user = response.data; // Access response data
+                console.log(user.user.email);
+                dispatch(loginSuccess({ email: user.user.email }));
+                router.push('/restaurants');
+                console.log('User logged in successfully');
+            } else {
+                console.error('Error logging in user');
+            }
+        } catch (error) {
+            console.error('Error:', error);
         }
     };
 
