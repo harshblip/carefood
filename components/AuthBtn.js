@@ -12,7 +12,7 @@ const AuthBtn = () => {
     const router = useRouter();
     const dispatch = useDispatch();
     const userEmail = useSelector(state => state.signup.email)
-    console.log("userEmail", userEmail);
+    console.log(userEmail);
 
     const handleLogout = async () => {
         try {

@@ -13,22 +13,20 @@ const signupSlice = createSlice({
             funFood: '',
         },
         email: '',
+        name: '',
         isLoggedIn: false,
     },
     reducers: {
-        updateForm: (state, action) => {
-            state.formData[action.payload.field] = action.payload.value;
-        },
         loginSuccess: (state, action) => {
-            state.isLoggedIn = true;
-            state.email = action.payload.email;
-        },
-        loginFailure: (state) => {
-            state.isLoggedIn = false;
+            const { email, isLoggedIn, name } = action.payload;
+            state.email = email;
+            state.isLoggedIn = isLoggedIn;
+            state.name = name;
         },
         logout: (state) => {
             state.isLoggedIn = false;
             state.email = ''; // Reset email state on logout
+            state.name = '';
         },
     }
 });

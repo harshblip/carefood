@@ -1,13 +1,19 @@
-// store.js
 import { configureStore } from '@reduxjs/toolkit';
-import notesReducer from './slices/notesSlice';
-import authSlice from './slices/authSlice';
-import signupSlice from './slices/signupSlice';
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 
-export default configureStore({
-    reducer: {
-        notes: notesReducer,
-        auth: authSlice,
-        signup: signupSlice,
-    },
+import rootReducer from './reducer';
+
+const persistConfig = {
+ key: 'root',
+ storage,
+ whitelist: ['signup']
+};
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+export const store = configureStore({
+ reducer: persistedReducer,
 });
+
+export const persistor = persistStore(store);

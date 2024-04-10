@@ -1,7 +1,8 @@
 import "../src/app/globals.css";
 import { Provider } from "react-redux";
 import { SessionProvider } from "next-auth/react";
-import store from "../store";
+import { PersistGate } from 'redux-persist/integration/react';
+import { store, persistor } from "../store";
 import DefaultLayout from "../layout/default";
 import { Actor } from 'next/font/google';
 
@@ -22,9 +23,11 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
         <div className={poppins.className}>
             <SessionProvider session={session}>
                 <Provider store={store}>
-                    <DefaultLayout>
-                        <Component {...pageProps} />
-                    </DefaultLayout>
+                    <PersistGate loading={null} persistor={persistor}>
+                        <DefaultLayout>
+                            <Component {...pageProps} />
+                        </DefaultLayout>
+                    </PersistGate>
                 </Provider>
             </SessionProvider>
         </div>
