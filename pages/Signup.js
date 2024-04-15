@@ -18,18 +18,14 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Call the API to send the form data to the backend
     const response = await fetch('/api/signup', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formData),
     });
-    // console.log(response);  
     if (response.ok) {
-      // Handle successful submission
       console.log('User signed up successfully');
     } else {
-      // Handle error
       console.error('Error signing up user');
     }
   };

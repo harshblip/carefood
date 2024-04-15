@@ -1,6 +1,7 @@
 import { getSession } from "next-auth/react";
 import HomeStyles from "../src/app/Home.module.css";
 import SignupForm from "./Signup";
+import '../prisma/scheduleTokenCleanup';
 
 export async function getServerSideProps(context) {
     const session = await getSession(context);
