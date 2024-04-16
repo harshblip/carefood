@@ -1,8 +1,9 @@
 import { loginUser } from "../../prisma/Userin";
-import validateMethod from "./middleware";
+import checkUser from "./middleware";
 
 export default async function handler(req, res) {
-    validateMethod(req, res, async() => {
+    console.log("ok")
+    checkUser(req, res, async () => {
         if (req.method === 'POST') {
             const { email, password } = req.body;
 

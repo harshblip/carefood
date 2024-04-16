@@ -33,3 +33,13 @@ export const createUser = async (name, email, password, city, phoneNumber, funFo
 
     return user;
 };
+
+export const checkUserByEmail = async (email) => {
+    const user = await prisma.tokens.findUnique({
+        where: {
+            email,
+        },
+    });
+    return !!user; // Return true if user exists, false otherwise
+};
+
