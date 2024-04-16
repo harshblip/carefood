@@ -20,14 +20,35 @@ model User {
   emailVerified DateTime?
   password      String
   city          String
-  phoneNumber   String @unique
+  phoneNumber   String    @unique
   funFood       String
+  orders        Order[]
+}
+
+model Order {
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  items          Item[]
+  orderTime      DateTime
+  restaurantName String
+  address        String
+  orderStatus    String
+  totalAmt       Int
+  user           User     @relation(fields: [userId], references: [id])
+  userId         String   @db.ObjectId
+}
+
+model Item {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  name     String
+  quantity Int
+  price    Float
+  order    Order  @relation(fields: [orderId], references: [id]) // Define opposite relation
+  orderId  String @db.ObjectId
 }
 
 model Tokens {
-  id      String    @id @default(auto()) @map("_id") @db.ObjectId
-  token   String
-  email   String @unique
-  currentTime DateTime
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  email          String   @unique
+  currentTime    DateTime
   expirationTime DateTime
 }

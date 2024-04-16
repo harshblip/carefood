@@ -41,7 +41,6 @@ export const loginUser = async (email, password) => {
     expirationTime.setTime(expirationTime.getTime() + ISTOffset);
     await prisma.tokens.create({
         data: {
-            token: jwtoken,
             email: email,
             currentTime: currentTime,
             expirationTime: expirationTime,
