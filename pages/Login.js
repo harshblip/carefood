@@ -24,9 +24,9 @@ export default function LoginPage() {
 
             if (response.status >= 200 && response.status < 300) {
                 const user = response.data; // Access response data
-                console.log(user);
-                dispatch(loginSuccess({ email: user.user.email, name: user.user.name }));
+                dispatch(loginSuccess({ email: user.user.email, name: user.user.name, userId: user.user.id }));
                 router.push('/restaurants');
+                console.log(user);
                 console.log('User logged in successfully');
             } else {
                 console.error('Error logging in user');

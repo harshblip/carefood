@@ -14,19 +14,22 @@ const signupSlice = createSlice({
         },
         email: '',
         name: '',
+        userId: '',
         isLoggedIn: false,
     },
     reducers: {
         loginSuccess: (state, action) => {
-            const { email, isLoggedIn, name } = action.payload;
+            const { email, isLoggedIn, name, userId } = action.payload;
             state.email = email;
             state.isLoggedIn = isLoggedIn;
             state.name = name;
+            state.userId = userId;
         },
         logout: (state) => {
             state.isLoggedIn = false;
             state.email = ''; // Reset email state on logout
             state.name = '';
+            state.userId = '';
         },
     }
 });
