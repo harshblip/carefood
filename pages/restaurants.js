@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 
@@ -26,6 +26,7 @@ function restaurants() {
     const [orderStatus, setOrderStatus] = useState('');
     const [restaurantName, setRestaurantName] = useState('');
     const [selectedItems, setSelectedItems] = useState([]);
+    const [cartItems, setCartItems] = useState([]);
 
     const handleCheckboxChange = (e, index) => {
         const { checked } = e.target;
@@ -50,6 +51,24 @@ function restaurants() {
             )
         );
     };
+
+    useEffect(() => {
+        const fetchCartItems = async () => {
+            try {
+                const response = await axios.get('/api/addToCart');
+                if (response.status === 200) {
+                    setCartItems(response.data);
+                    console.log("cartItems", cartItems);
+                } else {
+                    console.error('Failed to fetch cart items');
+                }
+            } catch (error) {
+                console.error('Error fetching cart items:', error);
+            }
+        };
+
+        fetchCartItems();
+    }, []);
 
     const currentTime = new Date();
 
@@ -137,7 +156,7 @@ function restaurants() {
                 </div>
             </form>
             <p className='absolute mt-52 ml-2 mb-2'> Showing cart items  </p>
-            
+
         </div>
     )
 }

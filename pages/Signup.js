@@ -1,5 +1,7 @@
 // components/Signup.js
 import React, { useState } from 'react';
+import { signupSuccess } from '../slices/signupSlice';
+import { useDispatch } from 'react-redux';
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -16,6 +18,8 @@ const Signup = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const dispatch = useDispatch();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const response = await fetch('/api/signup', {
@@ -24,6 +28,7 @@ const Signup = () => {
       body: JSON.stringify(formData),
     });
     if (response.ok) {
+      dispatch(signupSuccess({ userId: user.user.id }))
       console.log('User signed up successfully');
     } else {
       console.error('Error signing up user');

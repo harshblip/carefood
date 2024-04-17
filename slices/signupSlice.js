@@ -23,17 +23,19 @@ const signupSlice = createSlice({
             state.email = email;
             state.isLoggedIn = isLoggedIn;
             state.name = name;
-            state.userId = userId;
         },
         logout: (state) => {
             state.isLoggedIn = false;
             state.email = ''; // Reset email state on logout
             state.name = '';
-            state.userId = '';
         },
+        signupSuccess: (state, action) => {
+            const { userId } = action.payload;
+            state.userId = userId;
+        }
     }
 });
 
-export const { updateForm, loginSuccess, loginFailure, logout } = signupSlice.actions;
+export const { updateForm, loginSuccess, loginFailure, logout, signupSuccess } = signupSlice.actions;
 
 export default signupSlice.reducer;
