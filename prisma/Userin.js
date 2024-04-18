@@ -31,7 +31,7 @@ export const loginUser = async (email, password) => {
     }
 
     // Generate JWT token
-    const jwtoken = jwt.sign({ userId: user.id }, ACCESS_TOKEN_SECRET, { expiresIn: '5m' });
+    const jwtoken = jwt.sign({ userId: user.id }, ACCESS_TOKEN_SECRET, { expiresIn: '1h' });
 
     const currentTime = new Date();
     const expirationTime = new Date(currentTime.getTime() + 60 * 60 * 1000);

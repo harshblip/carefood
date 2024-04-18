@@ -14,7 +14,6 @@ function restaurants() {
 
     const userName = useSelector(state => state.signup.name)
     const userEemail = useSelector(state => state.signup.email)
-    const usorId = useSelector(state => state.signup.userId)
 
     const FoodItems = [
         { name: 'Rice', price: 10 },
