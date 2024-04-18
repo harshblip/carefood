@@ -13,7 +13,7 @@ function restaurants() {
     )
 
     const userName = useSelector(state => state.signup.name)
-    const userEmail = useSelector(state => state.signup.email)
+    const userEemail = useSelector(state => state.signup.email)
     const usorId = useSelector(state => state.signup.userId)
 
     const FoodItems = [
@@ -81,19 +81,19 @@ function restaurants() {
                 address,
                 orderStatus,
                 restaurantName,
-                userId: usorId,
+                userEmail: userEemail,
                 orderTime: currentTime,
                 totalAmt: 100
             });
         } catch (error) {
             console.error('Error adding items to cart:', error);
         }
-        console.log(selectedItems, address, orderStatus, restaurantName, usorId);
+        console.log(selectedItems, address, orderStatus, restaurantName, userEemail);
     };
 
     return (
         <div>
-            hi {userName} with {userEmail} <br />
+            hi {userName} with {userEemail} <br />
             <h2 className='mt-8 mb-2 ml-2'>Order Form</h2>
             <form onSubmit={handleSubmit} className='flex justify-center space-x-10 bg-slate-200 absolute p-6 rounded-lg ml-2'>
                 <div className='space-y-4 mt-4'>

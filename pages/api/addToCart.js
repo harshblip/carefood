@@ -2,18 +2,18 @@ import { createOrder, getOrders, deleteOrder } from "../../prisma/UserCart";
 
 export default async function handler(req, res) {
     if (req.method === 'POST') {
-        const { items, address, orderStatus, restaurantName, userId, orderTime, totalAmt } = req.body;
+        const { items, address, orderStatus, restaurantName, userEmail, orderTime, totalAmt } = req.body;
         try {
-            await createOrder(items, address, orderStatus, restaurantName, userId, orderTime, totalAmt);
+            await createOrder(items, address, orderStatus, restaurantName, userEmail, orderTime, totalAmt);
             res.status(201).json('Items added to cart successfully');
         } catch (error) {
             console.error('Error adding items to cart:', error);
             res.status(500).json({ error: 'Internal Server Error' });
         }
     } else if (req.method === 'GET') {
-        const { userId } = req.body;
+        const { userEmail } = req.body;
         try {
-            const orders = await getOrders(userId); // Fetch all orders from the database
+            const orders = await getOrders(userEmail); // Fetch all orders from the database
             res.status(200).json({ orders });
         } catch (error) {
             console.error('Error fetching orders:', error);
