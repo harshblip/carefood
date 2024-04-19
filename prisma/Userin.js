@@ -1,7 +1,6 @@
 import prisma from "./prisma";
 import bcrypt from 'bcryptjs';
 import jwt from "jsonwebtoken";
-import { setCookie } from 'next-cookies'
 
 // GET
 export const getUserByID = async (id) => {

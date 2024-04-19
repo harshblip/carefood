@@ -28,7 +28,7 @@ const signupSlice = createSlice({
         },
         logout: (state) => {
             state.isLoggedIn = false;
-            state.email = ''; // Reset email state on logout
+            state.email = '';
             state.name = '';
             state.accessToken = '';
         },
