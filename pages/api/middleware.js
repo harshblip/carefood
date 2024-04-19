@@ -3,7 +3,6 @@ import { verifyRefreshToken, signAccessToken } from '../../services/token';
 
 export default async function authMiddleware(req, res, next) {
     const accessToken = req.headers.authorization?.split(' ')[1]; // Extract access token from headers
-        console.log("cookied rt", req.cookies.refreshToken);
     if (!accessToken) {
         return res.status(401).json({ error: 'Access token missing' });
     }
@@ -29,7 +28,7 @@ export default async function authMiddleware(req, res, next) {
                 req.headers.authorization = `Bearer ${newAccessToken}`;
                 console.log("access token refreshed")
                 // Proceed with the request
-                return next();
+                return true;
             } catch (refreshError) {
                 // Handle refresh token verification error
                 console.error('Error verifying refresh token:', refreshError);

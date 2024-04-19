@@ -55,10 +55,14 @@ function restaurants() {
     useEffect(() => {
         const fetchCartItems = async () => {
             try {
-                const response = await axios.get('/api/addToCart');
+                const response = await axios.get('/api/addToCart', {
+                    params: {
+                        userEemail: userEemail
+                    }
+                });
                 if (response.status === 200) {
                     setCartItems(response.data);
-                    console.log("cartItems", cartItems);
+                    console.log("cartItems", response.data);
                 } else {
                     console.error('Failed to fetch cart items');
                 }
