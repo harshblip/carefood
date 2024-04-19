@@ -33,8 +33,10 @@ model Order {
   address        String
   orderStatus    String
   totalAmt       Int
-  userEmail      String   @unique
+  userEmail      String
   user           User     @relation(fields: [userEmail], references: [email])
+
+  @@unique([id, userEmail]) // Define a unique constraint on the combination of id and userEmail
 }
 
 model Item {
@@ -42,9 +44,10 @@ model Item {
   name     String
   quantity Int
   price    Float
-  orderId  String
-  order    Order  @relation(fields: [orderId], references: [userEmail]) // Define opposite relation
+  orderId  String @db.ObjectId
+  order    Order  @relation(fields: [orderId], references: [id]) // Define opposite relation
 }
+
 
 model Tokens {
   id             String   @id @default(auto()) @map("_id") @db.ObjectId

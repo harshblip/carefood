@@ -1,6 +1,7 @@
 import prisma from "./prisma";
 import bcrypt from 'bcryptjs';
 import jwt from "jsonwebtoken";
+import { setCookie } from 'next-cookies'
 
 // GET
 export const getUserByID = async (id) => {
@@ -30,8 +31,10 @@ export const loginUser = async (email, password) => {
         throw new Error('Invalid password');
     }
 
-    // Generate JWT token
-    const jwtoken = jwt.sign({ userId: user.id }, ACCESS_TOKEN_SECRET, { expiresIn: '1h' });
+    // Generate Access token
+    const accessToken = jwt.sign({ userId: user.id }, ACCESS_TOKEN_SECRET, { expiresIn: '1h' });
+    // Generate Refresh Token
+    const refreshToken = jwt.sign({ userId: user.id }, ACCESS_TOKEN_SECRET, { expiresIn: '7d' });
 
     const currentTime = new Date();
     const expirationTime = new Date(currentTime.getTime() + 60 * 60 * 1000);
@@ -47,5 +50,5 @@ export const loginUser = async (email, password) => {
         },
     });
 
-    return { user, jwtoken };
+    return { user, accessToken, refreshToken };
 }

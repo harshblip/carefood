@@ -14,6 +14,7 @@ function restaurants() {
 
     const userName = useSelector(state => state.signup.name)
     const userEemail = useSelector(state => state.signup.email)
+    const accessToken = useSelector(state => state.signup.accessToken)
 
     const FoodItems = [
         { name: 'Rice', price: 10 },
@@ -83,7 +84,13 @@ function restaurants() {
                 userEmail: userEemail,
                 orderTime: currentTime,
                 totalAmt: 100
-            });
+            },
+                {
+                    headers: {
+                        'Authorization': `Bearer ${accessToken}`
+                    }
+                }
+            );
         } catch (error) {
             console.error('Error adding items to cart:', error);
         }

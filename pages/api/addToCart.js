@@ -1,9 +1,11 @@
 import { createOrder, getOrders, deleteOrder } from "../../prisma/UserCart";
+import authMiddleware from "./middleware";
 
 export default async function handler(req, res) {
     if (req.method === 'POST') {
         const { items, address, orderStatus, restaurantName, userEmail, orderTime, totalAmt } = req.body;
         try {
+            await authMiddleware(req, res);
             await createOrder(items, address, orderStatus, restaurantName, userEmail, orderTime, totalAmt);
             res.status(201).json('Items added to cart successfully');
         } catch (error) {

@@ -1,22 +1,44 @@
-import { checkUserByEmail } from "../../prisma/User";
+import jwt from 'jsonwebtoken';
+import { verifyRefreshToken, signAccessToken } from '../../services/token';
 
-const checkUser = async (req, res, next) => {
-    const { email } = req.body;
-    console.log("hi", email);
-    if (req.method === 'POST') {
-        try {
-            const userExists = await checkUserByEmail(email);
-            if (userExists) {
-                console.log("exists");
-                res.status(200).json({ redirectTo: '/cart' });
-            } else {
-                next();
-            }
-        } catch (error) {
-            console.error('Error checking user:', error);
-            res.status(500).json({ error: 'Internal Server Error' });
-        }
+export default async function authMiddleware(req, res, next) {
+    const accessToken = req.headers.authorization?.split(' ')[1]; // Extract access token from headers
+        console.log("cookied rt", req.cookies.refreshToken);
+    if (!accessToken) {
+        return res.status(401).json({ error: 'Access token missing' });
     }
-};
 
-export default checkUser;
+    try {
+        // Verify the access token
+        const decoded = jwt.verify(accessToken, process.env.JWT_SECRET);
+        console.log("token is fresh")
+        // Attach the user ID to the request object
+        req.userId = decoded.userId;
+
+        // Proceed with the request
+        return true;
+    } catch (error) {
+        // If the access token is expired, try refreshing it
+        if (error.name === 'TokenExpiredError') {
+            try {
+                // Use the refresh token to obtain a new access token
+                const refreshToken = req.cookies.refreshToken; // Assuming refresh token is stored in a cookie
+                const newAccessToken = signAccessToken(verifyRefreshToken(refreshToken));
+
+                // Update request headers with the new access token
+                req.headers.authorization = `Bearer ${newAccessToken}`;
+                console.log("access token refreshed")
+                // Proceed with the request
+                return next();
+            } catch (refreshError) {
+                // Handle refresh token verification error
+                console.error('Error verifying refresh token:', refreshError);
+                return res.status(401).json({ error: 'Unauthorized' });
+            }
+        }
+
+        // Handle other token verification errors
+        console.error('Error verifying access token:', error);
+        return res.status(401).json({ error: 'Unauthorized' });
+    }
+}
