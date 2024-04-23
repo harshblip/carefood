@@ -1,36 +1,92 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<div align="center">
+  
+![Circular Image](https://images.weserv.nl/?url=https://cdn.dribbble.com/userupload/4879954/file/original-4fd6edf2e6a875ca9f5bd8fdbae9b309.jpg?resize=1504x1128&vertical=center&h=200&w=250&fit=cover&mask=circle&maxage=7d)
 
-## Getting Started
+</div>
 
-First, run the development server:
+<h1 align="center">Carefood</h1>
+<h3 align="center"> Your Go-To Food Delivery App with Heart  </h3>
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+<p align="center">
+     <img src = "https://img.shields.io/badge/Prisma-5849BE?style=for-the-badge&logo=Prisma&logoColor=white" />
+     <img src = "https://img.shields.io/badge/nextjs-%23000000.svg?style=for-the-badge&logo=next.js&logoColor=white" />
+     <img src = "https://img.shields.io/badge/mongodb-%2347A248.svg?style=for-the-badge&logo=mongodb&logoColor=white" />
+     <img src = "https://img.shields.io/badge/redux-%23311C87.svg?style=for-the-badge&logo=redux&logoColor=white" />
+     <img src = "https://img.shields.io/badge/JWT-%23000000.svg?style=for-the-badge&logo=json-web-tokens&logoColor=white" />
+ </p>
+
+ <div align="center">
+   
+   [![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://github.com/harshblip/carefood)
+ 
+ </div>
+
+<h2> Description </h2>
+<p>
+  Carefood isn't your average food delivery service—it's a platform with a purpose. Imagine a sleek, user-friendly app that not only lets you order from your favorite restaurants but also lets you make a positive difference in the world.
+  
+  With Carefood, you can easily explore nearby eateries, customize your orders while knowing that every meal you order can help someone in need. Whether you're treating yourself or giving back to the community, Carefood's state-of-art design ensures a seamless experience every time.
+</p>
+
+<h2> Backend on this app </h2>
+<p>
+  Carefood's backend, powered by Next.js, MongoDB, and Prisma, serves as the backbone of the application, facilitating seamless communication between the frontend and the database. The integration of MongoDB as the database provides scalability and flexibility, allowing Carefood to handle large volumes of data efficiently.
+
+  The backend employs JSON Web Tokens (JWT) for user authentication, ensuring secure access to the platform's features. Middleware functions are implemented to handle tasks such as token verification, error handling, and route protection, enhancing the overall security and reliability of the application.
+
+JWTs provide a secure and efficient means of authentication, allowing them to access their accounts and perform actions within the application with confidence. With JWTs, users can enjoy seamless and uninterrupted access to their accounts across different devices and sessions, eliminating the need for frequent logins.
+
+One of the standout features of JWT-based authentication is automatic token refreshing, a functionality that simplifies the user experience and ensures continuous access to application resources. With automatic token refreshing, users no longer need to manually log in and out to generate new JWT tokens, saving time and reducing friction in the authentication process. Instead, JWT tokens are automatically refreshed and extended, seamlessly maintaining user sessions and preserving application state. This feature not only enhances user convenience but also improves application security by reducing the likelihood of expired tokens and unauthorized access attempts.
+</p>
+
+<h2> Figma Design of Carefood </h2>
+
+```link
+https://www.figma.com/file/6BLOvvqFCjK9azoWiSzik2/carefood?type=design&node-id=0-1&mode=design&t=MylUs64l9iFmYBOA-0
+```
+<h2> Userflow of Carefood </h2>
+
+```
+https://whimsical.com/carefood-6Kw8i1JUGndnsnJSL9bCHT
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+<h2>
+  Installation and Setup
+</h2>
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+<p>
+  Clone this repository and install dependencies by running:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+  ```bash
+npm install
+#or
+yarn install
+```
 
-## Learn More
+Create a new file named `config.env` with the following environment variables in the root of the project folder:
+``` env
+DATABASE_URL = 
 
-To learn more about Next.js, take a look at the following resources:
+NEXTAUTH_URL = 
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+NEXTAUTH_URL_INTERNAL = 
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+JWT_SECRET = 
+```
 
-## Deploy on Vercel
+Create a new file named `.env.local` with following configuration:
+``` env
+NEXT_PUBLIC_BASE_URL = http://localhost:4000
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+For development mode, run:
+```bash
+npm run dev
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+For production mode, run:
+```bash
+npm run build
+npm start
+```
+</p>
