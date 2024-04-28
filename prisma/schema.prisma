@@ -48,10 +48,21 @@ model Item {
   order    Order  @relation(fields: [orderId], references: [id]) // Define opposite relation
 }
 
-
 model Tokens {
   id             String   @id @default(auto()) @map("_id") @db.ObjectId
   email          String   @unique
   currentTime    DateTime
   expirationTime DateTime
+}
+
+model Ngopapers {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  name String
+  directorName String
+  address String
+  email String
+  city String
+  description String
+  workforce Int
+  phoneNumber Int
 }

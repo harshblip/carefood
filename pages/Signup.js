@@ -2,6 +2,8 @@
 import React, { useState } from 'react';
 import { signupSuccess } from '../slices/signupSlice';
 import { useDispatch } from 'react-redux';
+import { useRouter } from 'next/router';
+import axios from 'axios';
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -19,21 +21,31 @@ const Signup = () => {
   };
 
   const dispatch = useDispatch();
+  const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch('/api/signup', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(formData),
-    });
-    if (response.ok) {
-      dispatch(signupSuccess({ userId: user.user.id }))
-      console.log('User signed up successfully');
-    } else {
-      console.error('Error signing up user');
+
+    try {
+      const response = await axios.post('/api/signup', formData, {
+        headers: { 'Content-Type': 'application/json' }
+      });
+
+      if (response.status === 200) {
+        dispatch(signupSuccess({ userId: response.data.user.id }));
+        console.log('User signed up successfully');
+      } else {
+        console.error('Error signing up user');
+      }
+    } catch (error) {
+      console.error('Error signing up user:', error);
     }
   };
+
+
+  const jao = () => {
+    router.push('/Ngoregister');
+  }
 
   return (
     <form onSubmit={handleSubmit} className='flex flex-col space-y-4 w-[24rem]'>
@@ -45,6 +57,7 @@ const Signup = () => {
       <input name="phoneNumber" placeholder="Phone Number" onChange={handleChange} className='p-2 border  rounded-md transition-all' />
       <input name="funFood" placeholder="Which food/fruit would describe you the best?" onChange={handleChange} className='p-2 border  rounded-md transition-all' />
       <button type="submit">Sign Up</button>
+      <button onClick={jao} className='border-2 p-2 hover:rounded-lg transition-all'> register an ngo </button>
     </form>
   );
 };
