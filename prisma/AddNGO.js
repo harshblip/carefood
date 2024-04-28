@@ -29,3 +29,8 @@ export const registerNGO = async (
     });
 
 };
+
+export const getNGOs = async () => {
+    const ngos = await prisma.ngopapers.findMany();
+    return ngos;
+};
