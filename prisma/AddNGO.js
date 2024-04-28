@@ -1,5 +1,6 @@
 import prisma from "./prisma";
 
+// prisma call to db for creating new ngo which has registered.
 export const registerNGO = async (
     name,
     directorName,
