@@ -10,7 +10,7 @@ export const signAccessToken = (userId) => {
 };
 
 // Function to verify a refresh token
-export const  verifyRefreshToken = (refreshToken) => {
+export const verifyRefreshToken = (refreshToken) => {
     return new Promise((resolve, reject) => {
         jwt.verify(refreshToken, REFRESH_TOKEN_SECRET, (err, decoded) => {
             if (err) {

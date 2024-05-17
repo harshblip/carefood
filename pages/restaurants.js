@@ -20,6 +20,58 @@ function restaurants() {
     const [selectedItems, setSelectedItems] = useState([]);
     const [cartItems, setCartItems] = useState([]);
     const [Ngos, setNgos] = useState([]);
+    const [selectedFoods, setSelectedFoods] = useState([]);
+    const [selectedNgo, setSelectedNgo] = useState('');
+
+    const handleItemChange = (e) => {
+        const { value, checked } = e.target;
+        const order = cartItems.orders.find((order) => order.id === value);
+
+        if (order && checked) {
+            const selectedItem = order.items.find((item) => item.id === value);
+            setSelectedFoods((prevSelected) => [
+                ...prevSelected,
+                {
+                    id: selectedItem.id,
+                    name: selectedItem.name,
+                    price: selectedItem.price,
+                    quantity: selectedItem.quantity,
+                },
+            ]);
+        } else {
+            console.log("nahi mila")
+            setSelectedFoods((prevSelected) =>
+                prevSelected.filter((food) => food.id !== value)
+            );
+        }
+    };
+
+    const handleNgoChange = (e) => {
+        const { value, checked } = e.target;
+        if (checked) {
+            setSelectedNgo((prevNgos) => [...prevNgos, value]);
+        } else {
+            setSelectedNgo((prevNgos) => prevNgos.filter((ngo) => ngo !== value));
+        }
+    };
+
+    const handleSubmi = async () => {
+        try {
+            const response = await axios.post('/api/donate', {
+                email: userEemail,
+                items: selectedFoods,
+                ngos: selectedNgo,
+                totalAmt: 200,
+                date: currentTime
+            });
+            console.log('Donation successful:', response.data);
+            // Reset selected items and ngos after successful donation
+            setSelectedItems([]);
+            setSelectedNgo('');
+        } catch (error) {
+            console.error('Error donating items:', error);
+        }
+    };
 
     const handleCheckboxChange = (e, index) => {
         const { checked } = e.target;
@@ -174,39 +226,55 @@ function restaurants() {
                 </form>
             </div>
             <div className='flex'>
+                <div className='flex flex-col'>
 
-                <div className='ml-56'>
-                    {cartItems.orders && cartItems.orders.length > 0 ? (
-                        <div>
-                            <h2>Orders in Cart:</h2>
-                            <ul>
-                                {cartItems.orders.map((order) => (
-                                    <li key={order.id} className='mt-4 border border-slate-400 p-4 rounded-lg'>
-                                        <p className='mt-1'>Order ID: {order.id}</p>
-                                        <p className='mt-1'>User Email: {order.userEmail}</p>
-                                        <p className='mt-1'>Restaurant: {order.restaurantName}</p>
-                                        <p className='mt-1'>Order Status: {order.orderStatus}</p>
-                                        <h4 className='mt-2'>Items:</h4>
-                                        <ul>
-                                            {order.items.map((item) => (
-                                                <li key={item.id}>
-                                                    <strong>{item.name}: </strong>
-                                                    <span>{item.quantity} x ${item.price}</span>
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    ) : (
-                        <p>No orders in cart</p>
-                    )}
+                    <div className='ml-56'>
+                        {cartItems.orders && cartItems.orders.length > 0 ? (
+                            <div>
+                                <h2>Orders in Cart:</h2>
+                                <ul>
+                                    {cartItems.orders.map((order) => (
+                                        <li key={order.id} className='mt-4 border border-slate-400 p-4 rounded-lg'>
+                                            <p className='mt-1'>Order ID: {order.id}</p>
+                                            <p className='mt-1'>User Email: {order.userEmail}</p>
+                                            <p className='mt-1'>Restaurant: {order.restaurantName}</p>
+                                            <p className='mt-1'>Order Status: {order.orderStatus}</p>
+                                            <h4 className='mt-2'>Items:</h4>
+                                            <ul>
+                                                {order.items.map((item) => (
+                                                    <li key={item.id}>
+                                                        <label>
+                                                            <input
+                                                                type="checkbox"
+                                                                value={item.id}
+                                                                checked={selectedFoods.some((food) => food.id === item.id)}
+                                                                onChange={handleItemChange}
+                                                            />
+                                                            {item.name}
+                                                        </label>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        ) : (
+                            <p>No orders in cart</p>
+                        )}
+                    </div>
+                    <button onClick={handleSubmi}>post</button>
                 </div>
                 <div className='ml-6'>
                     <ul>
                         {Ngos.map((ngo) => (
                             <li key={ngo.id}>
+                                <input
+                                    type="checkbox"
+                                    value={ngo.id}
+                                    checked={selectedNgo.includes(ngo.id)}
+                                    onChange={handleNgoChange}
+                                />
                                 <h3>Name: {ngo.name}</h3>
                                 <p>Email: {ngo.email}</p>
                             </li>

@@ -35,17 +35,9 @@ export const loginUser = async (email, password) => {
     // Generate Refresh Token
     const refreshToken = jwt.sign({ userId: user.id }, ACCESS_TOKEN_SECRET, { expiresIn: '7d' });
 
-    const currentTime = new Date();
-    const expirationTime = new Date(currentTime.getTime() + 60 * 60 * 1000);
-
-    const ISTOffset = 5.5 * 60 * 60 * 1000; // 5 hours and 30 minutes in milliseconds
-    currentTime.setTime(currentTime.getTime() + ISTOffset);
-    expirationTime.setTime(expirationTime.getTime() + ISTOffset);
     await prisma.tokens.create({
         data: {
-            email: email,
-            currentTime: currentTime,
-            expirationTime: expirationTime,
+            email: email
         },
     });
 

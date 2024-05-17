@@ -59,8 +59,6 @@ model Item {
 model Tokens {
   id             String   @id @default(auto()) @map("_id") @db.ObjectId
   email          String   @unique
-  currentTime    DateTime
-  expirationTime DateTime
 }
 
 model Ngopapers {
