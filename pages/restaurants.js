@@ -159,28 +159,28 @@ function restaurants() {
     };
 
     return (
-        <div className='flex'>
+        <div className='flex mt-4'>
             <div>
-
-                hi {userName} with {userEemail} <br />
-                <h2 className='mt-8 mb-2 ml-2'>Order Form</h2>
-                <form onSubmit={handleSubmit} className='flex justify-center space-x-10 bg-slate-200 absolute p-6 rounded-lg ml-2'>
-                    <div className='space-y-4 mt-4'>
+                <h2 className='mb-2 ml-8'>Order Form</h2>
+                <form onSubmit={handleSubmit} className='flex flex-col p-10 rounded-lg ml-8 border-2 border-green-300'>
+                    <div className='space-y-4 mt-1'>
                         {FoodItems.map((item, index) => (
                             <div key={index}>
                                 <input
                                     type="checkbox"
                                     id={`food-${index}`}
                                     onChange={(e) => handleCheckboxChange(e, index)}
+                                    className='mr-4'
                                 />
-                                <label htmlFor={`food-${index}`}>
+                                <label htmlFor={`food-${index}`} className='mr-8'>
                                     {item.name} - ${item.price}
                                 </label>
                                 {selectedItems.some((selectedItem) => selectedItem.name === item.name) && (
-                                    <>
+                                    <div className='flex justify-end -mt-4 ml-8 space-x-4'>
                                         <button
                                             type="button"
                                             onClick={() => handleQuantityChange(index, 'dec')}
+                                            className='border border-slate-300 shadow-sm rounded-md p-1 w-6 h-6 -mt-1'
                                         >
                                             -
                                         </button>
@@ -191,37 +191,40 @@ function restaurants() {
                                         <button
                                             type="button"
                                             onClick={() => handleQuantityChange(index, 'inc')}
+                                            className='border border-slate-300 shadow-sm rounded-md p-1 w-6 h-6 -mt-1'
                                         >
                                             +
                                         </button>
-                                    </>
+                                    </div>
                                 )}
                             </div>
                         ))}
                     </div>
-                    <div className='flex flex-col space-y-4 mt-4'>
+                    <div className='text-start flex flex-col space-y-4 mt-6'>
 
-                        <div>
+                        <div className='flex flex-col space-y-2'>
                             <label>Address:</label>
-                            <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} />
+                            <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} className='border border-slate-200 w-52 p-1 focus:border-2 focus:bg-slate-100 focus:outline-none transition-all '/>
                         </div>
-                        <div>
+                        <div className='flex flex-col space-y-2'>
                             <label>Order Status:</label>
                             <input
                                 type="text"
                                 value={orderStatus}
                                 onChange={(e) => setOrderStatus(e.target.value)}
+                                className='border border-slate-200 w-52 p-1 focus:border-2 focus:bg-slate-100 focus:outline-none transition-all'
                             />
                         </div>
-                        <div>
+                        <div className='flex flex-col space-y-2'>
                             <label>Restaurant Name:</label>
                             <input
                                 type="text"
                                 value={restaurantName}
                                 onChange={(e) => setRestaurantName(e.target.value)}
+                                className='border border-slate-200 w-52 p-1 focus:border-2 focus:bg-slate-100 focus:outline-none transition-all'
                             />
                         </div>
-                        <button type="submit">Submit Order</button>
+                        <button type="submit" className=' p-2 bg-green-400 text-white rounded-lg outline-none'>Submit Order</button>
                     </div>
                 </form>
             </div>
@@ -242,15 +245,12 @@ function restaurants() {
                                             <h4 className='mt-2'>Items:</h4>
                                             <ul>
                                                 {order.items.map((item) => (
-                                                    <li key={item.id}>
+                                                    <li key={item.id} className='flex space-x-4'>
                                                         <label>
-                                                            <input
-                                                                type="checkbox"
-                                                                value={item.id}
-                                                                checked={selectedFoods.some((food) => food.id === item.id)}
-                                                                onChange={handleItemChange}
-                                                            />
                                                             {item.name}
+                                                        </label>
+                                                        <label>
+                                                            x{item.quantity}
                                                         </label>
                                                     </li>
                                                 ))}
@@ -264,22 +264,6 @@ function restaurants() {
                         )}
                     </div>
                     <button onClick={handleSubmi}>post</button>
-                </div>
-                <div className='ml-6'>
-                    <ul>
-                        {Ngos.map((ngo) => (
-                            <li key={ngo.id}>
-                                <input
-                                    type="checkbox"
-                                    value={ngo.id}
-                                    checked={selectedNgo.includes(ngo.id)}
-                                    onChange={handleNgoChange}
-                                />
-                                <h3>Name: {ngo.name}</h3>
-                                <p>Email: {ngo.email}</p>
-                            </li>
-                        ))}
-                    </ul>
                 </div>
             </div>
         </div>

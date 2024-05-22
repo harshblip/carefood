@@ -4,12 +4,11 @@ import { SessionProvider } from "next-auth/react";
 import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor } from "../store";
 import DefaultLayout from "../layout/default";
-import { Actor } from 'next/font/google';
+import { Radio_Canada } from 'next/font/google';
 
-const poppins = Actor({
+const poppins = Radio_Canada({
     subsets: ['latin'],
     display: 'swap',
-    variable: '--font-poppins',
     weight: ['400']
 });
 

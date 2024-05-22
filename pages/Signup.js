@@ -6,14 +6,10 @@ import { useRouter } from 'next/router';
 import axios from 'axios';
 import {
   Command,
-  CommandEmpty,
   CommandGroup,
-  CommandInput,
   CommandItem,
   CommandList,
-  CommandSeparator,
-  CommandShortcut,
-} from "@/components/ui/command"
+} from "../src/components/ui/command"
 
 const Signup = () => {
   const [formData, setFormData] = useState({

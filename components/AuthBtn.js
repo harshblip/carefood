@@ -5,14 +5,17 @@ import Image from "next/image";
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux';
 import { logout } from "../slices/signupSlice";
+import { LogOut } from "lucide-react";
 import axios from 'axios';
+import { TooltipProvider, TooltipTrigger, TooltipContent } from "@radix-ui/react-tooltip";
+import { Tooltip } from "@/components/ui/tooltip";
 
 const AuthBtn = () => {
     const { data: session, status } = useSession();
     const router = useRouter();
     const dispatch = useDispatch();
-    const userEmail = useSelector(state => state.signup.email)
-    console.log(userEmail);
+    const userName = useSelector(state => state.signup.name)
+    console.log(userName);
 
     const handleLogout = async () => {
         try {
@@ -49,8 +52,22 @@ const AuthBtn = () => {
     if (status === "unauthenticated") {
         return (
             <div className="auth-btn mt-2 space-x-4">
-                <button onClick={handleLoginClick}>Login</button>
-                <button onClick={handleLogout} >Signout</button>
+                {
+                    userName ?
+                        <div className="flex space-x-4"> <p> Hey, {userName} </p>
+                            <TooltipProvider>
+                                <Tooltip>
+                                    <TooltipTrigger asChild>
+                                        <button variant="outline" className="-mt-1"> <LogOut /> </button>
+                                    </TooltipTrigger>
+                                    <TooltipContent className="border border-black mt- p-1 text-xs mr-8 rounded-md transition-all">
+                                        <button>signout</button>
+                                    </TooltipContent>
+                                </Tooltip>
+                            </TooltipProvider>
+
+                        </div> : <button onClick={handleLoginClick}>Login</button>
+                }
             </div>
         );
     }
@@ -59,10 +76,6 @@ const AuthBtn = () => {
     // }
     return (
         <div className="">
-            <div className="flex space-x-2">
-                <Image src={session.user.image} alt={session.user.name} width={30} height={30} className="rounded-full" />
-                <p className="mt-2">Hi, {session.user.name}</p>
-            </div>
         </div>
     );
 };
