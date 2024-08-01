@@ -66,7 +66,7 @@ const AuthBtn = () => {
                                 </Tooltip>
                             </TooltipProvider>
 
-                        </div> : <button onClick={handleLoginClick}>Login</button>
+                        </div> : <button onClick={handleLoginClick} className="text-xs">Login</button>
                 }
             </div>
         );

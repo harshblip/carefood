@@ -1,5 +1,12 @@
 .polygon {
-    margin-left: 120px;
-    margin-top: 120px;
+    margin-left: -150px;
+    margin-top: 80px;
     position: absolute;
+    z-index: 0;
+}
+
+.h1 {
+    line-height: 1.4;
+    color: #063519;
+    font-weight: 900;
 }

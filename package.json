@@ -30,6 +30,7 @@
     "clsx": "^2.1.0",
     "cmdk": "^1.0.0",
     "dropdown-menu": "^0.1.1",
+    "framer-motion": "^11.3.19",
     "heroicons": "^2.1.1",
     "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.359.0",

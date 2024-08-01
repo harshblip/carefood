@@ -8,11 +8,49 @@ body {
   margin: 0;
   line-height: 1;
   font-variation-settings: 'wdth' 115;
-
 }
 
 .wrapper {
   padding: 2rem;
   justify-content: space-evenly;
   width: 100%;
+}
+
+.bg {
+  background-image: url('/eteyen.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+@keyframes slideOutUp {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+}
+
+@keyframes slideInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.slide-out-up {
+  animation: slideOutUp 0.2s forwards;
+}
+
+.slide-in-up {
+  animation: slideInUp 0.2s forwards;
 }

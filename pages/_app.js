@@ -3,14 +3,13 @@ import { Provider } from "react-redux";
 import { SessionProvider } from "next-auth/react";
 import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor } from "../store";
-import DefaultLayout from "../layout/default";
-import { Radio_Canada } from 'next/font/google';
+import { Comfortaa, Bodoni_Moda } from 'next/font/google';
 
-const poppins = Radio_Canada({
-    subsets: ['latin'],
-    display: 'swap',
-    weight: ['400']
-});
+    const poppins = Comfortaa({
+        subsets: ['latin'],
+        display: 'swap',
+        weight: ['300', '600', '700']
+    });
 
 export const metadata = {
     title: "Create Next App",
@@ -19,13 +18,11 @@ export const metadata = {
 
 export default function App({ Component, pageProps: { session, ...pageProps } }) {
     return (
-        <div className={poppins.className}>
+        <div>
             <SessionProvider session={session}>
                 <Provider store={store}>
                     <PersistGate loading={null} persistor={persistor}>
-                        <DefaultLayout>
                             <Component {...pageProps} />
-                        </DefaultLayout>
                     </PersistGate>
                 </Provider>
             </SessionProvider>

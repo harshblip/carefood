@@ -1,6 +1,6 @@
 import { getSession } from "next-auth/react";
 import HomeStyles from "../src/app/Home.module.css";
-import SignupForm from "./Signup";
+import Landingpage from "./Landingpage";
 
 export async function getServerSideProps(context) {
     const session = await getSession(context);
@@ -13,7 +13,7 @@ export default function Home({ session }) {
     return (
         <>
             <div className={HomeStyles.container}>
-                <SignupForm />
+                <Landingpage />
             </div>
         </>
     );

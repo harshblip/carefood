@@ -1,6 +1,4 @@
 import { loginUser } from "../../prisma/Userin";
-import { useDispatch } from "react-redux";
-import { loginSuccess } from "../../slices/signupSlice";
 
 export default async function handler(req, res) {
     console.log("ok")
@@ -10,6 +8,7 @@ export default async function handler(req, res) {
         try {
             const { user, accessToken, refreshToken } = await loginUser(email, password);
             res.setHeader('Set-Cookie', `refreshToken=${refreshToken}; HttpOnly; Max-Age=${60 * 60 * 24 * 7}; Path=/`);
+            // HttpOnly -- cookie inaccessible to JavaScript's Document.cookie API ie it's only sent to the server
             res.status(200).json({ message: 'Logged in successfully', user, accessToken, refreshToken});
         } catch (error) {
             res.status(500).json({ error: error.message });

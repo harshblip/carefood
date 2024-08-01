@@ -18,13 +18,15 @@ export default function LoginPage() {
             const response = await axios.post('/api/login', {
                 email,
                 password,
-            }, {
-                headers: { 'Content-Type': 'application/json' },
             });
 
-            if (response.status >= 200 && response.status < 300) {
+            if (response.status === 200) {
                 const user = response.data; // Access response data
-                dispatch(loginSuccess({ email: user.user.email, name: user.user.name, accessToken: user.accessToken }));
+                dispatch(loginSuccess({ 
+                    email: user.user.email, 
+                    name: user.user.name, 
+                    accessToken: user.accessToken 
+                }));
                 router.push('/restaurants');
                 // console.log(user);
                 console.log('User logged in successfully');

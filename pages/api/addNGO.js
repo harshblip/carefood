@@ -12,7 +12,6 @@ export default async function handler(req, res) {
             workforce,
             phoneNumber
         } = req.body;
-        console.log(req.body)
         try {
             await registerNGO(
                 name,

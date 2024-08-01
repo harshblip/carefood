@@ -1,27 +1,31 @@
 import AuthBtn from "./AuthBtn"
-import '../src/app/SiteHeader.module.css'
+import styles from '../src/app/SiteHeader.module.css'
 import { useSession, signOut } from "next-auth/react";
+import { Comfortaa } from 'next/font/google';
 import DropdownMenu from "./Dropdownbtn";
 import { useSelector } from "react-redux";
+
+const comfortaa = Comfortaa({
+  subsets: ['latin'],
+  display: 'swap',
+  weight: ['300', '600', '700']
+});
 
 const SiteHeader = () => {
   const userName = useSelector(state => state.signup.name)
   return (
-    <header>
+    <header className={comfortaa.className}>
       <figure>
         <div className="wrapper flex">
-          <div className="logo font-semibold">
+          <div className={styles.logo}>
             <a href={`/`} className="text-xl md:ml-16">
-              <span className="text-white bg-green-400 rounded-md mr-2 px-2 py-1 ">
-                C
-              </span>
-              <span className="tracking-widest text-[#70EA5C]">
-                AREFOOD
+              <span className="tracking-normal text-[#2d5c3c] text-2xl">
+                carefood
               </span>
             </a>
           </div>
 
-          <div className="invisible md:visible btngroup space-x-16 font-semibold mt-2">
+          <div className={`${styles.logo} invisible md:visible btngroup space-x-16 font-semibold mt-2 text-xs text-[#545a51]`}>
             <button>
               Home
             </button>
@@ -37,10 +41,10 @@ const SiteHeader = () => {
             <DropdownMenu />
           </div>
 
-          <div className="hidden md:flex space-x-4 md:mr-0">
+          <div className={`${styles.logo} hidden md:flex space-x-4 md:mr-0`}>
             <AuthBtn />
             {
-              userName ? <></> : <button className=" bg-green-400 p-2 rounded-md text-white h-10 w-20">Signup</button>
+              userName ? <></> : <button className={`${styles.logo} bg-[#216f3f] p-2 rounded-md text-white h-9 w-20  text-xs`}>Signup</button>
             }
           </div>
 
