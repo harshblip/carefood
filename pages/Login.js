@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { loginSuccess } from '../slices/signupSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 
 export default function LoginPage() {
@@ -22,13 +22,14 @@ export default function LoginPage() {
 
             if (response.status === 200) {
                 const user = response.data; // Access response data
-                dispatch(loginSuccess({ 
-                    email: user.user.email, 
-                    name: user.user.name, 
-                    accessToken: user.accessToken 
+                dispatch(loginSuccess({
+                    email: user.user.email,
+                    name: user.user.name,
+                    accessToken: user.accessToken,
+                    isLoggedIn: true
                 }));
+                console.log(user.user.name);
                 router.push('/restaurants');
-                // console.log(user);
                 console.log('User logged in successfully');
             } else {
                 console.error('Error logging in user');
@@ -37,6 +38,7 @@ export default function LoginPage() {
             console.error('Error:', error);
         }
     };
+
 
     return (
         <div>

@@ -26,7 +26,7 @@ const Signup = () => {
 
   const handleChange = async (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-    if (formData.city) {
+    if (e.target.name === 'city') { 
       try {
         const response = await axios.get(`${process.env.NEXT_PUBLIC_MAPBOX_URL}/suggest?q=${e.target.value}&language=en&session_token=${process.env.NEXT_PUBLIC_MAPBOX_SESSION_SECRET}&access_token=${process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}`)
 
@@ -48,6 +48,7 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(formData)
     if (formData.confirmPassword != formData.password) {
       setCheck(false);
     } else {
@@ -57,11 +58,11 @@ const Signup = () => {
         });
 
         if (response.status === 200) {
-          console.log(response.data.user)
-          dispatch(signupSuccess({ userId: response.data.user.id }));
+          console.log("conso", response.data.user)
+          // dispatch(signupSuccess({ userId: response.data.user.id }));
           console.log('User signed up successfully');
         } else {
-          console.error('Error signing up user');
+          console.error('Error response up user');
         }
       } catch (error) {
         console.error('Error signing up user:', error);

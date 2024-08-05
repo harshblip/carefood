@@ -1,0 +1,20 @@
+[
+    {
+        "id": 0,
+        "title": "How do we do it",
+        "smalltitls": "lol no we. this a project by me.",
+        "image": "image0"
+    },
+    {
+        "id": 1,
+        "title" : "How do you get your fav food",
+        "smalltitls": "see how you fav food is being fetched from the internet",
+        "image": "image1"
+    },
+    {
+        "id": 2,
+        "title": "How your data is being stored",
+        "smalltitls": "see how the backend is built up",
+        "image": "image2"
+    }
+]

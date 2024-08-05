@@ -204,7 +204,7 @@ function restaurants() {
 
                         <div className='flex flex-col space-y-2'>
                             <label>Address:</label>
-                            <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} className='border border-slate-200 w-52 p-1 focus:border-2 focus:bg-slate-100 focus:outline-none transition-all '/>
+                            <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} className='border border-slate-200 w-52 p-1 focus:border-2 focus:bg-slate-100 focus:outline-none transition-all ' />
                         </div>
                         <div className='flex flex-col space-y-2'>
                             <label>Order Status:</label>

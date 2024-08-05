@@ -3,15 +3,6 @@ import { createSlice } from "@reduxjs/toolkit";
 const signupSlice = createSlice({
     name: 'signup',
     initialState: {
-        formData: {
-            name: '',
-            email: '',
-            password: '',
-            confirmPassword: '',
-            city: '',
-            phoneNumber: '',
-            funFood: '',
-        },
         email: '',
         name: '',
         userId: '',

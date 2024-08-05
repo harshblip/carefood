@@ -23,6 +23,12 @@ body {
   background-repeat: no-repeat;
 }
 
+.bg1 {
+  background-image: url('/food.png');
+  background-size: cover;
+  background-position: center;
+}
+
 @keyframes slideOutUp {
   0% {
     opacity: 1;
