@@ -29,7 +29,7 @@ export default function LoginPage() {
                     isLoggedIn: true
                 }));
                 console.log(user.user.name);
-                router.push('/restaurants');
+                router.push('/resturants');
                 console.log('User logged in successfully');
             } else {
                 console.error('Error logging in user');

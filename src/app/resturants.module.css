@@ -17,3 +17,10 @@
     background-position: center;
     border-radius: 0.6rem;
 }
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill,
+            minmax(400px, 1fr));
+    grid-gap: 10px
+}

@@ -58,8 +58,8 @@ const Signup = () => {
         });
 
         if (response.status === 200) {
-          console.log("conso", response.data.user)
-          // dispatch(signupSuccess({ userId: response.data.user.id }));
+          console.log("conso", response.data.id)
+          dispatch(signupSuccess({ userId: response.data.id }));
           console.log('User signed up successfully');
         } else {
           console.error('Error response up user');
