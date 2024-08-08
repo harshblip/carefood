@@ -6,7 +6,7 @@ const locationSlice = createSlice({
         city: '',
         x: 0,
         y: 0,
-        restId: ''
+        restId: 0
     },
     reducers: {
         storeCity: (state, action) => {
