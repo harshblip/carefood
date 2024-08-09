@@ -65,14 +65,21 @@ export default function resturants() {
         })()
     }, [])
 
-    const arr = data.data ? data.data.cards : ''
-    arr.length > 0 ? arr.map((x, i) => i === 1 ? (x.card.card.gridElements ?
-        (
-            setData(x.card.card.gridElements.infoWithStyle.restaurants),
-            setData2(x.card.card.gridElements.infoWithStyle.restaurants),
-            setData3(x.card.card.gridElements.infoWithStyle.restaurants)
-        )
-        : '') : '') : ''
+    useEffect(() => {
+        if (data && data.data && data.data.cards) {
+            const arr = data.data.cards;
+            if (arr.length > 0) {
+                arr.forEach((x, i) => {
+                    if (i === 1 && x.card.card.gridElements) {
+                        const restaurants = x.card.card.gridElements.infoWithStyle.restaurants;
+                        setData(restaurants);
+                        setData2(restaurants);
+                        setData3(restaurants);
+                    }
+                });
+            }
+        }
+    }, [data]);
 
 
     function check(x) {
