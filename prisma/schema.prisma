@@ -37,7 +37,7 @@ model Order {
   id             String   @id @default(auto()) @map("_id") @db.ObjectId
   items          Item[]
   orderTime      DateTime
-  restaurantName String
+  restaurantName String   @unique
   address        String
   orderStatus    String
   totalAmt       Int
@@ -57,8 +57,8 @@ model Item {
 }
 
 model Tokens {
-  id             String   @id @default(auto()) @map("_id") @db.ObjectId
-  email          String   @unique
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  email String @unique
 }
 
 model Ngopapers {

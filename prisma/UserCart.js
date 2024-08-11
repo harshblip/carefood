@@ -1,6 +1,7 @@
 import prisma from "./prisma";
 
 export const createOrder = async (items, address, orderStatus, restaurantName, userEmail, orderTime, totalAmt) => {
+
     await prisma.order.create({
         data: {
             items: { createMany: { data: items } },

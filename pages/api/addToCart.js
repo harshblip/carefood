@@ -8,13 +8,13 @@ export default async function handler(req, res) {
             address,
             orderStatus,
             restaurantName,
-            userEmail,
+            email,
             orderTime,
             totalAmt
         } = req.body;
         try {
             await authMiddleware(req, res);
-            await createOrder(items, address, orderStatus, restaurantName, userEmail, orderTime, totalAmt);
+            await createOrder(items, address, orderStatus, restaurantName, email, orderTime, totalAmt);
             res.status(201).json('Items added to cart successfully');
         } catch (error) {
             console.error('Error adding items to cart:', error);
