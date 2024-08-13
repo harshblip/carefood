@@ -5,9 +5,9 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import DefaultLayout from '../layout/default'
 import Image from 'next/image'
-import { Raleway, Kanit, Comfortaa } from 'next/font/google';
+import { Raleway, Kanit, Comfortaa, Lexend } from 'next/font/google';
 import styles from '../src/app/Landingpage.module.css'
-import { Map, Keyboard, Instagram, Twitter, Facebook, Mail } from 'lucide-react';
+import { Map, Keyboard, Instagram, Twitter, Facebook, Mail, ArrowUpRight } from 'lucide-react';
 import text from '../dumbdata.json'
 import { storeCity, storeCoord } from '../slices/locationSlice'
 import { useDispatch } from 'react-redux'
@@ -19,6 +19,11 @@ const railway = Raleway({
 })
 
 const kanit = Kanit({
+    weight: ['200', '300'],
+    subsets: ['latin']
+})
+
+const lexend = Lexend({
     weight: ['200', '300'],
     subsets: ['latin']
 })
@@ -134,7 +139,7 @@ export default function Landingpage() {
 
     return (
         <div>
-            <div className={`${railway.className} bg h-[100vh] w-[110vw] sm:w-[100vw] flex flex-col`}>
+            <div className={`${railway.className} bg h-[100vh] w-[130vw] sm:w-[100vw] flex flex-col`}>
                 <DefaultLayout />
                 <div className='mr-6 ml-6'>
 
@@ -211,7 +216,7 @@ export default function Landingpage() {
                 </div>
             </div>
             <div className={`${kanit.className} font-bold sm:flex sm:flex-row flex flex-col`}>
-                <div className='bg-[#cefdcc] w-[110vw] sm:w-1/2'>
+                <div className='bg-[#cefdcc] w-[130vw] sm:w-1/2'>
                     <div className='ml-8 sm:ml-24'>
                         <div className={`p-12 sm:p-12 flex flex-col`}>
                             <p className='text-5xl text-[#063519]'> Who we are and <br /> What we do </p>
@@ -220,7 +225,7 @@ export default function Landingpage() {
                         <div>
                             <div className='p-8 sm:p-12 -mt-12 sm:mb-0 mb-12'>
                                 <div>
-                                    {text.map((x, i) => <div
+                                    {text.map((x, i) => i <= 2 ? <div
                                         className={`flex flex-col p-4 ${click3[i] === 1 ? `bg-[#cefdcc] text-[#2d5c3c]` : `bg-[#80c17e8f] text-white`}   rounded-md hover:bg-[#cefdcc] hover:text-[#2d5c3c] transition-all hover:cursor-pointer mt-6 justify-center`}
                                         onClick={() => (setIndex(x.id), clickfun(i))}
                                     >
@@ -239,13 +244,13 @@ export default function Landingpage() {
                                                 <p className='font-medium text-sm'> {x.smalltitls} </p>
                                             </div>
                                         </div>
-                                    </div>)}
+                                    </div> : '')}
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div className={`${styles.bg} w-[110vw] sm:p-0 sm:w-1/2`}>
+                <div className={`${styles.bg} w-[130vw] sm:p-0 sm:w-1/2`}>
                     <div className={`${styles.imageclass} p-6 mt-4 sm:p-12 text-4xl sm:-mt-2 sm:ml-20`}>
                         <Image
                             src={text[index].image}
@@ -257,27 +262,73 @@ export default function Landingpage() {
                     </div>
                 </div>
             </div>
-            <div>
-                <div>
-                    <div className='flex p-12'>
-                        <div className={`h-10 w-10 ${styles.pattern} mt-8`}>
-
-                        </div>
-                        <div>
-                            <p className={`${railway.className} text-5xl`}> COMMENTS </p>
-                        </div>
-                        <div className={`h-10 w-10 ${styles.pattern} -mt-8`}>
-
+            <div className='w-[130vw] sm:w-[100vw]'>
+                <div className='mt-20 ml-16 sm:ml-0 sm:mt-0 flex flex-col sm:flex sm:flex-row'>
+                    <div className='sm:mr-0 -ml-10 p-4 sm:p-10'>
+                        <div className='sm:p-6'>
+                            <Image
+                                src='/forest.png'
+                                height={0}
+                                width={650}
+                                className='rounded-xl'
+                            />
                         </div>
                     </div>
-                    <div>
-
+                    <div className='mt-8'>
+                        {
+                            text.map((x, i) => i >= 3 ? <div className='flex flex-col'>
+                                <div className='bg-[#f5f5f5] hover:bg-[#729071] mt-4 w-[26rem] sm:w-[24rem] rounded-md transition-all'>
+                                    <div className={` hover:text-white flex flex-col p-4  ${lexend.className} hover:cursor-pointer mr-12 ]`}>
+                                        <p className='font-normal leading-5 text-sm'> "{x.description}" </p>
+                                        <div className='flex space-x-10 mt-6'>
+                                            <div>
+                                                <Image
+                                                    src={x.dp}
+                                                    height={0}
+                                                    width={30}
+                                                    className='absolute rounded-xl mr-12'
+                                                />
+                                            </div>
+                                            <div className='flex flex-col -mt-1 mb-4'>
+                                                <p className='font-medium text-sm'> {x.name} </p>
+                                                <p className='font-thin text-xs'> {x.position} </p>
+                                            </div>
+                                            <div className='absolute'>
+                                                <ArrowUpRight
+                                                    className='ml-[19.5rem] sm:ml-[17.6rem] mt-3 w-14 h-14 rounded-full p-3 border-[0.6rem] border-white'
+                                                />
+                                            </div>
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> : '')
+                        }
                     </div>
                 </div>
 
             </div>
-            <div className='w-[110vw] sm:w-[100vw]'>
-                <div className='flex space-x-6 justify-around p-12'>
+            <div className='w-[130vw] sm:w-[100vw] p-8 absolute mt-40'>
+                        <div className='flex justify-around mr-4 ml-4'>
+                            <Image 
+                                src='/plant.png'
+                                height={0}
+                                width={120}
+                            />
+                            <Image 
+                                src='/flour.png'
+                                height={0}
+                                width={250}
+                            />
+                            <Image 
+                                src='/plant.png'
+                                height={0}
+                                width={120}
+                            />
+                        </div>
+            </div>
+            <div className='w-[130vw] sm:w-[100vw] p-8 mt-12'>
+                <div className='flex space-x-6 justify-around sm:p-12'>
                     <div className='flex flex-col space-y-4'>
                         <p className={`tracking-normal text-[#2d5c3c] text-2xl font-bold ${comfortaa.className}`}> carefood</p>
                         <div className='flex flex-col'>
@@ -298,7 +349,7 @@ export default function Landingpage() {
                             <p> Careers </p>
                         </div>
                     </div>
-                    <div className={`${kanit.className} hidden sm:visible flex flex-col`}>
+                    <div className={`${kanit.className} hidden sm:visible sm:flex flex-col`}>
                         <p className='text-xl'> Assistance </p>
                         <div className='space-y-4 mt-2'>
                             <p> Terms and Conditions </p>

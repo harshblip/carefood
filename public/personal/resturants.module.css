@@ -1,0 +1,28 @@
+.btngroup {
+    color: #343434;
+    margin-top: 2rem;
+}
+
+.site-header {
+    width: 100%;
+}
+
+.logo {
+    font-weight: 900;
+}
+
+.bg {
+    background-image: url('/balloons.jpg');
+    background-size: cover;
+    background-position: center;
+    border-radius: 0.6rem;
+    
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill,
+            minmax(400px, 1fr));
+    grid-gap: 10px;
+    z-index: 10;
+}

@@ -19,5 +19,26 @@
         "title": "How your data is being stored",
         "smalltitls": "see how the backend is built up",
         "image": "/backend.png"
+    },
+    {
+        "id" : 3,
+        "dp": "/p1.jpg",
+        "description": "This was a website which helped me get my food in place. the api calling and accurate restaurants near is just so good.",
+        "name": "Mark Ramirez",
+        "position": "Founder at GivememyMoney Corp."
+    },
+    {
+        "id": 4,
+        "dp": "/p2.jpg",
+        "description": "Man this website was just out of the world so new to see. there are many similar like this but this one is just crazy good.",
+        "name": "Thomas Gala",
+        "position": "Sr. Developer at LOL.xd"
+    },
+    {
+        "id": 5,
+        "dp": "/p3.jpg",
+        "description": "Yo, get this man on board whoever's hiring. this guy got crazy good skills. i am already got a ticket to go meet him",
+        "name": "Mark Gala",
+        "position": "CTO at PaperRex"
     }
 ]

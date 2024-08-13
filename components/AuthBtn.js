@@ -54,7 +54,7 @@ const AuthBtn = () => {
             <div className="auth-btn mt-2 space-x-4">
                 {
                     userName ?
-                        <div className="flex space-x-4"> <p> Hey, {userName} </p>
+                        <div className="flex space-x-4 text-[#2d5c3c]"> <p> Hey, {userName} </p>
                             <TooltipProvider>
                                 <Tooltip>
                                     <TooltipTrigger asChild>

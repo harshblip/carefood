@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { useSelector } from "react-redux"
-import { Comfortaa, Kanit } from 'next/font/google';
+import { Comfortaa, Kanit, Anton } from 'next/font/google';
 import styles from '../src/app/resturants.module.css'
 import AuthBtn from "../components/AuthBtn";
 import { useEffect, useState } from "react";
@@ -14,7 +14,7 @@ import { storeRestId } from "../slices/locationSlice";
 
 const kanit = Kanit({
     subsets: ['latin'],
-    weight: ['200']
+    weight: ['300', '500', '600']
 })
 
 const comfortaa = Comfortaa({
@@ -22,6 +22,11 @@ const comfortaa = Comfortaa({
     display: 'swap',
     weight: ['300']
 });
+
+const anton = Anton({
+    weight: ['400'],
+    subsets: ['latin']
+})
 
 export default function resturants() {
 
@@ -163,9 +168,12 @@ export default function resturants() {
     // console.log(data2.length > 0 ? data2.filter(x => x.info.isOpen === true) : '')
 
     return (
-        <header className={comfortaa.className}>
+        <header className={`${comfortaa.className} bg-[#b4c6b6] h-[100vh]`}>
+            <div className="absolute z-0 my-[14rem] focus:blur select-none">
+                <p className={`${anton.className} text-[12rem] text-[#c7d6cb] `}> RESTAURANTS </p>
+            </div>
             <figure className="flex flex-col ml-24">
-                <div className="flex justify-between p-8 ml mr-24 ">
+                <div className="flex justify-between p-8 ml mr-24 z-10">
                     <div className={styles.logo}>
                         <a href={`/`} className="text-xl">
                             <span className="tracking-normal text-[#2d5c3c] text-2xl">
@@ -181,14 +189,14 @@ export default function resturants() {
                         }
                     </div>
                 </div>
-                <div className={`ml-8 mr-32 ${styles.bg}`}>
+                <div className={`ml-8 mr-32 ${styles.bg} z-10`}>
                     <div className={` w-full p-2 h-32 rounded-md ${styles.bg}`}>
                         <div className="p-4">
                             <p className="text-white font-extrabold text-4xl"> Hey {city} </p>
                         </div>
                     </div>
                 </div>
-                <div className={`flex space-x-4 mt-8 ml-8 ${kanit.className}`}>
+                <div className={`flex space-x-4 mt-8 ml-8 ${kanit.className} z-10`}>
                     <div>
                         <ComboboxDemo />
                     </div>
@@ -206,7 +214,7 @@ export default function resturants() {
                             onClick={() => check('veg')}
                             checked={veg}
                         />
-                        <Label htmlFor="airplane-mode" className={`mt-1 ${kanit.className}`}>Veg</Label>
+                        <Label htmlFor="airplane-mode" className={`mt-1 ${kanit.className} text-white font-bold`}>Veg</Label>
                     </div>
                     <div className="flex space-x-2">
                         <Switch
@@ -214,13 +222,13 @@ export default function resturants() {
                             onClick={() => check('nonveg')}
                             checked={nonveg}
                         />
-                        <Label htmlFor="airplane-mode" className={`mt-1 ${kanit.className}`}>Non-veg</Label>
+                        <Label htmlFor="airplane-mode" className={`mt-1 ${kanit.className} text-white font-bold`}>Non-veg</Label>
                     </div>
                 </div>
-                <div className="flex align-middle mt-10">
-                    <hr className="border border-gray-400 w-1/2 ml-8" />
-                    <p className={`tracking-widest text-xs ${kanit.className} -mt-2 ml-2 mr-2`}> RESTAURANTS </p>
-                    <hr className="border border-gray-400 w-1/2 mr-32" />
+                <div className="flex align-middle mt-10 z-10">
+                    <hr className="border-2 border-white w-1/2 ml-8 rounded-sm" />
+                    <p className={`tracking-widest text-sm ${kanit.className} -mt-2 ml-2 mr-2 text-white font-light`}> RESTAURANTS </p>
+                    <hr className="border-2 border-white w-1/2 mr-32 rounded-sm" />
                 </div>
                 <div className={styles.grid}>
                     {
@@ -232,10 +240,10 @@ export default function resturants() {
                                 <div className="flex justify-around">
                                     <p className="text-sm"> {x.info.name} </p>
                                     <p className="text-sm"> {x.info.id} </p>
-                                    <p> {x.info.veg ? <p className="text-green-400 font-bold"> green </p> : <p className="text-red-400 font-bold"> red </p>} </p>
+                                    <p> {x.info.veg ? <p className="text-green-400 font-bold "> green </p> : <p className="text-red-400 font-bold"> red </p>} </p>
                                 </div>
                             </div>
-                        </div>) : <div className="flex flex-col justify-center ml-[2rem]">
+                        </div>) : <div className="flex flex-col justify-center ml-[2rem] text-white">
                             <p className={`mt-4 ${kanit.className}`}> refresh page restaurant </p>
                         </div>
                     }
