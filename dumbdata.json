@@ -1,42 +1,42 @@
 [
     {
         "id": 0,
-        "dp": "/pear.png",
+        "dp": "/food/pear.png",
         "title": "How do we do it",
         "smalltitls": "lol no we. this a project by me.",
-        "image": "/carefood.png"
+        "image": "/personal/carefood.png"
     },
     {
         "id": 1,
-        "dp": "/corn.png",
+        "dp": "/food/corn.png",
         "title" : "How do you get your fav food",
         "smalltitls": "see how you fav food is being fetched from the internet",
-        "image": "/frontend.png"
+        "image": "/personal/frontend.png"
     },
     {
         "id": 2,
-        "dp": "/watamelon.png",
+        "dp": "/food/watamelon.png",
         "title": "How your data is being stored",
         "smalltitls": "see how the backend is built up",
-        "image": "/backend.png"
+        "image": "/personal/backend.png"
     },
     {
         "id" : 3,
-        "dp": "/p1.jpg",
+        "dp": "/personal/p1.jpg",
         "description": "This was a website which helped me get my food in place. the api calling and accurate restaurants near is just so good.",
         "name": "Mark Ramirez",
         "position": "Founder at GivememyMoney Corp."
     },
     {
         "id": 4,
-        "dp": "/p2.jpg",
+        "dp": "/personal/p2.jpg",
         "description": "Man this website was just out of the world so new to see. there are many similar like this but this one is just crazy good.",
         "name": "Thomas Gala",
         "position": "Sr. Developer at LOL.xd"
     },
     {
         "id": 5,
-        "dp": "/p3.jpg",
+        "dp": "/personal/p3.jpg",
         "description": "Yo, get this man on board whoever's hiring. this guy got crazy good skills. i am already got a ticket to go meet him",
         "name": "Mark Gala",
         "position": "CTO at PaperRex"

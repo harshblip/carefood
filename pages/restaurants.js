@@ -266,6 +266,7 @@ function restaurants() {
                     <button onClick={handleSubmi}>post</button>
                 </div>
             </div>
+            
         </div>
     )
 }

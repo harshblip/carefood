@@ -3,6 +3,7 @@ import { useSelector } from "react-redux"
 import { Comfortaa, Kanit, Anton } from 'next/font/google';
 import styles from '../src/app/resturants.module.css'
 import AuthBtn from "../components/AuthBtn";
+import Card from "../components/Card";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Label } from "@/components/ui/label";
@@ -11,6 +12,7 @@ import { ComboboxDemo } from "../components/combubox";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
 import { storeRestId } from "../slices/locationSlice";
+import Footer from "../components/Footer";
 
 const kanit = Kanit({
     subsets: ['latin'],
@@ -50,12 +52,12 @@ export default function resturants() {
     // data for real fetched data
 
     useEffect(() => {
+        console.log("api called")
         const restus = JSON.parse(localStorage.getItem('restus'));
         const citi = localStorage.getItem('city');
         ((restus === null && x > 0 && y > 0) || citi !== city ? async () => {
             const response = await axios.get(`${process.env.NEXT_PUBLIC_SWIGGY_API}?lat=${y}&lng=${x}&page_type=DESKTOP_WEB_LISTING`);
 
-            console.log("api called")
 
             if (response.status === 200) {
                 setData(response.data);
@@ -168,87 +170,96 @@ export default function resturants() {
     // console.log(data2.length > 0 ? data2.filter(x => x.info.isOpen === true) : '')
 
     return (
-        <header className={`${comfortaa.className} bg-[#b4c6b6] h-[100vh]`}>
-            <div className="absolute z-0 my-[14rem] focus:blur select-none">
-                <p className={`${anton.className} text-[12rem] text-[#c7d6cb] `}> RESTAURANTS </p>
-            </div>
-            <figure className="flex flex-col ml-24">
-                <div className="flex justify-between p-8 ml mr-24 z-10">
-                    <div className={styles.logo}>
-                        <a href={`/`} className="text-xl">
-                            <span className="tracking-normal text-[#2d5c3c] text-2xl">
-                                carefood
-                            </span>
-                        </a>
+        <>
+            <header className={`${comfortaa.className} w-[130vw] h-full sm:w-full bg-[#b4c6b6] `}>
+                <div className="flex fixed z-0 my-[20rem] sm:my-[14rem] focus:blur select-none">
+                    <p className={`${anton.className} text-7xl sm:text-[12rem] text-[#d3d9d5] `}> RESTAURANTS </p>
+                </div>
+                <figure className="flex flex-col sm:ml-24">
+                    <div className="flex justify-between sm:mt-0 mt-12 p-8 ml sm:mr-24 z-10">
+                        <div className={styles.logo}>
+                            <a href={`/`} className="text-xl">
+                                <span className="tracking-normal text-[#2d5c3c] text-4xl sm:text-2xl">
+                                    carefood
+                                </span>
+                            </a>
+                        </div>
+                        <div className={`${styles.logo} hidden md:flex space-x-4 md:mr-0`}>
+                            <AuthBtn />
+                            {
+                                userName ? <></> : <button className={`${styles.logo} bg-[#216f3f] p-2 rounded-md text-white h-9 w-20  text-xs`}>Signup</button>
+                            }
+                        </div>
                     </div>
-
-                    <div className={`${styles.logo} hidden md:flex space-x-4 md:mr-0`}>
-                        <AuthBtn />
+                    <div className={`ml-8 mr-6 sm:mr-32 ${styles.bg} z-10`}>
+                        <div className={` w-full p-2 h-24 sm:h-32 rounded-md ${styles.bg}`}>
+                            <div className="sm:p-4">
+                                <p className="text-white font-extrabold text-2xl sm:text-4xl"> Hey {city} </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div className={`flex space-x-4 mt-8 ml-4 sm:ml-8 ${kanit.className} z-10`}>
+                        <div className="sm:flex hidden">
+                            <ComboboxDemo />
+                        </div>
+                        <button
+                            className={`border border-gray-300 p-3 rounded-full h-10 w-16 text-xs hover:bg-green-300 ${rating ? `bg-white` : `bg-green-300 text-white font-semibold border-none`} transition-all hover:text-white hover:border-none -mt-2`}
+                            onClick={() => handleRating()}
+                        > 4.0+ </button>
+                        <button
+                            className={`border border-gray-300 p-3 rounded-full h-10 w-16 text-xs hover:bg-green-300 ${open ? `bg-white` : `bg-green-300 text-white font-semibold border-none`} transition-all hover:text-white hover:border-none -mt-2`}
+                            onClick={() => handleOpen()}
+                        > open </button>
+                        <div className={`flex space-x-2`}>
+                            <Switch
+                                id="veg"
+                                onClick={() => check('veg')}
+                                checked={veg}
+                            />
+                            <Label htmlFor="airplane-mode" className={`mt-1 ${kanit.className} text-white font-bold`}>Veg</Label>
+                        </div>
+                        <div className="flex space-x-2">
+                            <Switch
+                                id="non-veg"
+                                onClick={() => check('nonveg')}
+                                checked={nonveg}
+                            />
+                            <Label htmlFor="airplane-mode" className={`mt-1 ${kanit.className} text-white font-bold`}>Non-veg</Label>
+                        </div>
+                    </div>
+                    <div className="flex align-middle mt-10 z-10">
+                        <hr className="border-2 border-white w-1/2 ml-8 rounded-sm" />
+                        <p className={`tracking-widest text-sm ${kanit.className} -mt-2 ml-2 mr-2 text-white font-light`}> RESTAURANTS </p>
+                        <hr className="border-2 border-white w-1/2 mr-10 sm:mr-32 rounded-sm" />
+                    </div>
+                    <div className={`${styles.grid} z-10`}>
                         {
-                            userName ? <></> : <button className={`${styles.logo} bg-[#216f3f] p-2 rounded-md text-white h-9 w-20  text-xs`}>Signup</button>
+                            data2.length > 0 ? data2.map(x => <div>
+                                <div
+                                    className={`p-2 -ml-16 sm:ml-24 hover:cursor-pointer`}
+                                    onClick={() => navi(x.info.id)}
+                                >
+                                    <Card
+                                        id={x.info.name}
+                                        name={x.info.name}
+                                        areaName={x.info.areaName}
+                                        locality={x.info.locality}
+                                        costforTwo={x.info.costForTwo}
+                                        cuisine={x.info.cuisines}
+                                        totalRating={x.info.avgRatingString}
+                                        totalRatings={x.info.totalRatingsString}
+                                        discount={x.info.aggregatedDiscountInfoV3}
+                                        veg={x.info.veg}
+                                    />
+                                </div>
+                            </div>) : <div className="flex flex-col justify-center ml-[2rem] text-white absolute">
+                                <p className={`mt-4 ${kanit.className}`}> refresh page restaurant </p>
+                            </div>
                         }
                     </div>
-                </div>
-                <div className={`ml-8 mr-32 ${styles.bg} z-10`}>
-                    <div className={` w-full p-2 h-32 rounded-md ${styles.bg}`}>
-                        <div className="p-4">
-                            <p className="text-white font-extrabold text-4xl"> Hey {city} </p>
-                        </div>
-                    </div>
-                </div>
-                <div className={`flex space-x-4 mt-8 ml-8 ${kanit.className} z-10`}>
-                    <div>
-                        <ComboboxDemo />
-                    </div>
-                    <button
-                        className={`border border-gray-300 p-3 rounded-full h-10 w-16 text-xs hover:bg-green-300 ${rating ? `bg-white` : `bg-green-300 text-white font-semibold border-none`} transition-all hover:text-white hover:border-none -mt-2`}
-                        onClick={() => handleRating()}
-                    > 4.0+ </button>
-                    <button
-                        className={`border border-gray-300 p-3 rounded-full h-10 w-16 text-xs hover:bg-green-300 ${open ? `bg-white` : `bg-green-300 text-white font-semibold border-none`} transition-all hover:text-white hover:border-none -mt-2`}
-                        onClick={() => handleOpen()}
-                    > open </button>
-                    <div className={`flex space-x-2`}>
-                        <Switch
-                            id="veg"
-                            onClick={() => check('veg')}
-                            checked={veg}
-                        />
-                        <Label htmlFor="airplane-mode" className={`mt-1 ${kanit.className} text-white font-bold`}>Veg</Label>
-                    </div>
-                    <div className="flex space-x-2">
-                        <Switch
-                            id="non-veg"
-                            onClick={() => check('nonveg')}
-                            checked={nonveg}
-                        />
-                        <Label htmlFor="airplane-mode" className={`mt-1 ${kanit.className} text-white font-bold`}>Non-veg</Label>
-                    </div>
-                </div>
-                <div className="flex align-middle mt-10 z-10">
-                    <hr className="border-2 border-white w-1/2 ml-8 rounded-sm" />
-                    <p className={`tracking-widest text-sm ${kanit.className} -mt-2 ml-2 mr-2 text-white font-light`}> RESTAURANTS </p>
-                    <hr className="border-2 border-white w-1/2 mr-32 rounded-sm" />
-                </div>
-                <div className={styles.grid}>
-                    {
-                        data2.length > 0 ? data2.map(x => <div>
-                            <div
-                                className={`p-2 border w-1/2 ml-24 ${kanit.className} hover:cursor-pointer`}
-                                onClick={() => navi(x.info.id)}
-                            >
-                                <div className="flex justify-around">
-                                    <p className="text-sm"> {x.info.name} </p>
-                                    <p className="text-sm"> {x.info.id} </p>
-                                    <p> {x.info.veg ? <p className="text-green-400 font-bold "> green </p> : <p className="text-red-400 font-bold"> red </p>} </p>
-                                </div>
-                            </div>
-                        </div>) : <div className="flex flex-col justify-center ml-[2rem] text-white">
-                            <p className={`mt-4 ${kanit.className}`}> refresh page restaurant </p>
-                        </div>
-                    }
-                </div>
-            </figure>
-        </header>
+                </figure>
+            </header>
+            <Footer />
+        </>
     )
 }

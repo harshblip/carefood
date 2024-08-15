@@ -19,6 +19,7 @@ export default function menu() {
     const [data2, setData2] = useState([]);
     const [count, setCount] = useState([]);
     const [mycart, setMyCart] = useState([]);
+    const [menu, setMenu] = useState([]);
     const [name, setName] = useState('');
     const [address, setAddress] = useState('')
     const [length, setLength] = useState(0);
@@ -29,6 +30,7 @@ export default function menu() {
     useEffect(() => {
         (
             async () => {
+                console.log("hi")
                 const response = await axios.get(`${process.env.NEXT_PUBLIC_SWIGGY_MENU}&lat=${y}&lng=${x}&&submitAction=ENTER&restaurantId=${restId}`)
 
                 if (response.status === 200) {
@@ -42,7 +44,7 @@ export default function menu() {
     useEffect(() => {
         if (data && data.cards) {
             console.log(data.cards);
-            const menu = data.cards[4].groupedCard.cardGroupMap.REGULAR.cards;
+            setMenu(data.cards[4].groupedCard.cardGroupMap.REGULAR.cards)
             setName(data.cards[2].card.card.info.name)
             setAddress(data.cards[2].card.card.info.areaName)
 
@@ -52,32 +54,33 @@ export default function menu() {
     }, [data]);
 
     useEffect(() => {
-        if (length) {
-            setCount(Array(length).fill(0));
-        }
+        // if (length) {
+        //     setCount(Array(length).fill(0));
+        // }
     }, [length]);
 
 
     function cart(i, x, name, price) {
-        const newCount = [...count];
-        x === 'add' ? newCount[i] = count[i] + 1 : newCount[i] = count[i] - 1;
-        setCount(newCount);
-        console.log("count", count)
+        const newCount = [...arrae];
+        x === 'add' ? newCount[i] = arrae[i] + 1 : newCount[i] = Math.max(0, arrae[i] - 1);
+        // setCount(newCount);
+        console.log(newCount)
         const obj = {
             name: name,
             price: price,
-            quantity: x === 'add' ? count[i] + 1 : count[i] + 1
+            quantity: x === 'add' ? arrae[i] + 1 : arrae[i] + 1
         }
         const n = mycart.find(x => x.name === name)
         if (n) {
             const a = [...mycart];
-            a.map(y => y.name === name ? x === 'add' ? y.quantity = y.quantity + 1 : y.quantity = y.quantity - 1 : '')
+            a.map(y => y.name === name ? x === 'add' ? y.quantity = y.quantity + 1 : y.quantity = Math.max(0, y.quantity - 1) : '')
             console.log("editcart", a);
         } else {
             setMyCart([...mycart, obj])
         }
     }
 
+    // console.log("arrae", count)
 
     async function addCart() {
         var sum = 0;
@@ -101,7 +104,7 @@ export default function menu() {
                 })
             if (response.status === 200) {
                 console.log("cart added to user ", userEmail)
-            }else {
+            } else {
                 console.log("lol response status wrong bro")
             }
         } catch (err) {
@@ -111,23 +114,64 @@ export default function menu() {
 
     console.log(mycart, total)
 
+    var title = ""
+    var arrae = []
+
     return (
         <div className={`${kanit.className}`}>
             {
-                data2 ? data2.map((x, i) => <div className="flex flex-col">
-                    <div className="flex space-x-4">
-                        <p> {x.title}, {x.dish.info.price / 100} </p>
-                        <div className="flex space-x-2">
-                            <Minus onClick={() => cart(i, 'minus', x.title, x.dish.info.price / 100)}
-                                className="hover:cursor-pointer"
-                            />
-                            <p> {count[i]} </p>
-                            <Plus onClick={() => cart(i, 'add', x.title, x.dish.info.price / 100)}
-                                className="hover:cursor-pointer"
-                            />
-                        </div>
-                    </div>
-                </div>) : ''
+                menu.length > 0 ? menu.map((x, i) => <div>
+                    {
+                        x.card.card.carousel ? x.card.card.carousel.map((y, j) => <div className="flex flex-col">
+                            {
+                                (x.card.card.title !== title ? <p className="font-bold mt-2"> {title = x.card.card.title} </p> : '',
+                                    arrae = Array(x.card.card.carousel.length).fill(0),
+                                    console.log(arrae)
+                                )
+                            }
+                            <div className="flex">
+                                <p className="mt-2"> {y.title} </p>
+                                <p className="ml-2 mt-2 mr-2"> {y.dish.info.price / 100} </p>
+                                <div className="flex space-x-2">
+                                    <Minus onClick={() => cart(j, 'minus', y.title, y.dish.info.price / 100)}
+                                        className="hover:cursor-pointer"
+                                    />
+                                    <p> {count[j]} </p>
+                                    <Plus onClick={() => cart(j, 'add', y.title, y.dish.info.price / 100)}
+                                        className="hover:cursor-pointer"
+                                    />
+                                </div>
+                            </div>
+                        </div>) : ''
+                    }
+                </div>) : 'menu length zero brdr'
+            }
+            {
+                menu.length > 0 ? menu.map((x, i) => <div>
+                    {
+                        x.card.card.itemCards ? x.card.card.itemCards.map((y, j) => <div className="flex flex-col">
+                            {x.card.card.title !== title ?
+                                <p className="font-bold mt-2"> {title = x.card.card.title} </p> : ''
+                            }
+                            <div className="flex space-x-2 mt-4">
+                                <p className="mt-2"> {y.card.info.name} </p>
+                                {/* <p className="ml-2 font-bold"> {x.card.card.title} </p> */}
+                            </div>
+                        </div>) : ''
+                    }
+                </div>) : 'menu length zero brdr'
+            }
+            {
+                menu.length > 0 ? menu.map(x => <div>
+                    {
+                        x.card.card.categories ? x.card.card.categories.map(y => y.itemCards ? y.itemCards.map(z => <div className="flex space-x-4 mt-2">
+                            {
+                                z.card.info.category !== title ? <p className="font-bold"> {title = z.card.info.category} </p> : ''
+                            }
+                            <p> {z.card.info.name} </p>
+                        </div>) : '') : ''
+                    }
+                </div>) : 'menu length zero brdr'
             }
             <button
                 className="bg-transparent p-2 w-24 border rounded-md"

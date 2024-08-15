@@ -13,7 +13,7 @@ module.exports = {
       center: true,
       padding: "2rem",
       screens: {
-        'sm': '0px',
+        'sm': '500px',
         // => @media (min-width: 640px) { ... }
         'lg': '1024px',
       },

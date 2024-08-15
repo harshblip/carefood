@@ -51,7 +51,7 @@ const AuthBtn = () => {
     }
     if (status === "unauthenticated") {
         return (
-            <div className="auth-btn mt-2 space-x-4">
+            <div className="auth-btn mt-2 ">
                 {
                     userName ?
                         <div className="flex space-x-4 text-[#2d5c3c]"> <p> Hey, {userName} </p>
