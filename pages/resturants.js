@@ -1,8 +1,6 @@
-import Image from "next/image";
 import { useSelector } from "react-redux"
 import { Comfortaa, Kanit, Anton } from 'next/font/google';
 import styles from '../src/app/resturants.module.css'
-import AuthBtn from "../components/AuthBtn";
 import Card from "../components/Card";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -13,6 +11,7 @@ import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
 import { storeRestId } from "../slices/locationSlice";
 import Footer from "../components/Footer";
+import Header from "../components/Header";
 
 const kanit = Kanit({
     subsets: ['latin'],
@@ -35,8 +34,7 @@ export default function resturants() {
     const dispatch = useDispatch();
     const router = useRouter();
 
-    const city = useSelector(state => state.location.city)
-    const userName = useSelector(state => state.signup.name)
+    const city = useSelector(state => state.location.city)  
     const x = useSelector(state => state.location.x);
     const y = useSelector(state => state.location.y);
     const [data, setData] = useState([])
@@ -176,25 +174,11 @@ export default function resturants() {
                     <p className={`${anton.className} text-7xl sm:text-[12rem] text-[#d3d9d5] `}> RESTAURANTS </p>
                 </div>
                 <figure className="flex flex-col sm:ml-24">
-                    <div className="flex justify-between sm:mt-0 mt-12 p-8 ml sm:mr-24 z-10">
-                        <div className={styles.logo}>
-                            <a href={`/`} className="text-xl">
-                                <span className="tracking-normal text-[#2d5c3c] text-4xl sm:text-2xl">
-                                    carefood
-                                </span>
-                            </a>
-                        </div>
-                        <div className={`${styles.logo} hidden md:flex space-x-4 md:mr-0`}>
-                            <AuthBtn />
-                            {
-                                userName ? <></> : <button className={`${styles.logo} bg-[#216f3f] p-2 rounded-md text-white h-9 w-20  text-xs`}>Signup</button>
-                            }
-                        </div>
-                    </div>
+                    <Header />
                     <div className={`ml-8 mr-6 sm:mr-32 ${styles.bg} z-10`}>
                         <div className={` w-full p-2 h-24 sm:h-32 rounded-md ${styles.bg}`}>
                             <div className="sm:p-4">
-                                <p className="text-white font-extrabold text-2xl sm:text-4xl"> Hey {city} </p>
+                                <p className={`text-white font-bold text-2xl sm:text-4xl `}> Hey {city} </p>
                             </div>
                         </div>
                     </div>

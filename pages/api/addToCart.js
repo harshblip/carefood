@@ -21,9 +21,9 @@ export default async function handler(req, res) {
             res.status(500).json({ error: 'Internal Server Error' });
         }
     } else if (req.method === 'GET') {
-        const { userEemail } = req.query;
+        const { userEmail } = req.query;
         try {
-            const orders = await getOrders(userEemail); // Fetch all orders from the database
+            const orders = await getOrders(userEmail); // Fetch all orders from the database
             res.status(200).json({ orders });
         } catch (error) {
             console.error('Error fetching orders:', error);

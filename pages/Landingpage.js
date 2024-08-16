@@ -111,7 +111,7 @@ export default function Landingpage() {
                 setClick2(true)
             } else {
                 localStorage.removeItem('restus')
-                router.push('/resturants')
+                router.push('/cart')
             }
         } else {
             setWarning(false);

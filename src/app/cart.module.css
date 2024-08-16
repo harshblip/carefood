@@ -1,0 +1,6 @@
+.bg {
+    background-image: url('/food/cartu.png');
+    background-size: cover;
+    background-position: center;
+    border-radius: 0.6rem;
+}

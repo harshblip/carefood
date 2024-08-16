@@ -29,7 +29,7 @@ export default function Footer() {
                         width={250}
                     />
                     <Image
-                        src='/plant.png'
+                        src='/plants/plant.png'
                         height={0}
                         width={120}
                     />

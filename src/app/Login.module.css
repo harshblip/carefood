@@ -1,0 +1,12 @@
+.bg {
+    position: fixed;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    width: 200px;   
+    height: 200px;
+    border-radius: 50% 22% 40% 80%;
+    filter: blur(80px);
+    background: radial-gradient(circle at 50% 50%, rgb(0, 229, 149), rgba(255, 255, 255, 0.877));
+    opacity: 20;
+}

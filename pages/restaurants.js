@@ -96,7 +96,7 @@ function restaurants() {
             )
         );
     };
-
+    console.log(userEemail)
     useEffect(() => {
         const fetchCartItems = async () => {
             try {
@@ -251,6 +251,9 @@ function restaurants() {
                                                         </label>
                                                         <label>
                                                             x{item.quantity}
+                                                        </label>
+                                                        <label>
+                                                            {item.price}
                                                         </label>
                                                     </li>
                                                 ))}

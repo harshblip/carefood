@@ -62,3 +62,7 @@ body {
 .slide-in-up {
   animation: slideInUp 0.2s forwards;
 }
+
+.heavy-weight { 
+  font-weight: 900;
+}
