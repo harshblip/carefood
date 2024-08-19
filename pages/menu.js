@@ -16,17 +16,20 @@ export default function menu() {
     const x = useSelector(state => state.location.x);
     const y = useSelector(state => state.location.y);
     const [data, setData] = useState([]);
-    const [data2, setData2] = useState([]);
     const [count, setCount] = useState([]);
     const [mycart, setMyCart] = useState([]);
     const [menu, setMenu] = useState([]);
     const [name, setName] = useState('');
     const [address, setAddress] = useState('')
-    const [length, setLength] = useState(0);
     const [total, setTotal] = useState(0);
 
     console.log(restId, x, y);
 
+    useEffect(() => {
+        setCount(Array(200).fill(0));
+    }, [])
+
+    let p = 0, q1 = 0, q2 = 0;
     useEffect(() => {
         (
             async () => {
@@ -39,6 +42,7 @@ export default function menu() {
                 }
             }
         )()
+        setCount(Array(200).fill(0));
     }, [])
 
     useEffect(() => {
@@ -47,28 +51,28 @@ export default function menu() {
             setMenu(data.cards[4].groupedCard.cardGroupMap.REGULAR.cards)
             setName(data.cards[2].card.card.info.name)
             setAddress(data.cards[2].card.card.info.areaName)
-
-            menu.length > 0 ? menu.map((x, i) => i === 1 ? x.card.card.carousel ? (setLength(x.card.card.carousel.length), setData2(x.card.card.carousel)) : '' : '') : ''
             // console.log(bio)
         }
+        menu.length > 0 ? menu.forEach(x => {
+            if (x.card.card.carousel) {
+                console.log(x.card.card.carousel.length)
+            }
+        }) : ''
+        menu.length > 0 ? menu.forEach(x => {
+            if (x.card.card.itemCards) {
+                console.log(x.card.card.itemCards.length)
+            }
+        }) : ''
     }, [data]);
 
-    useEffect(() => {
-        // if (length) {
-        //     setCount(Array(length).fill(0));
-        // }
-    }, [length]);
-
-
     function cart(i, x, name, price) {
-        const newCount = [...arrae];
-        x === 'add' ? newCount[i] = arrae[i] + 1 : newCount[i] = Math.max(0, arrae[i] - 1);
-        // setCount(newCount);
-        console.log(newCount)
+        const newCount = [...count];
+        x === 'add' ? newCount[i] = count[i] + 1 : newCount[i] = Math.max(0, count[i] - 1);
+        setCount(newCount);
         const obj = {
             name: name,
             price: price,
-            quantity: x === 'add' ? arrae[i] + 1 : arrae[i] + 1
+            quantity: x === 'add' ? count[i] + 1 : count[i] + 1
         }
         const n = mycart.find(x => x.name === name)
         if (n) {
@@ -80,7 +84,7 @@ export default function menu() {
         }
     }
 
-    // console.log("arrae", count)
+    console.log("setCount", count)
 
     async function addCart() {
         var sum = 0;
@@ -115,60 +119,97 @@ export default function menu() {
     console.log(mycart, total)
 
     var title = ""
-    var arrae = []
+    var q = 0;
 
     return (
         <div className={`${kanit.className}`}>
             {
-                menu.length > 0 ? menu.map((x, i) => <div>
+                menu.length > 0 ? menu.map((x, i) => <div key={i}>
                     {
-                        x.card.card.carousel ? x.card.card.carousel.map((y, j) => <div className="flex flex-col">
-                            {
-                                (x.card.card.title !== title ? <p className="font-bold mt-2"> {title = x.card.card.title} </p> : '',
-                                    arrae = Array(x.card.card.carousel.length).fill(0),
-                                    console.log(arrae)
-                                )
-                            }
-                            <div className="flex">
-                                <p className="mt-2"> {y.title} </p>
-                                <p className="ml-2 mt-2 mr-2"> {y.dish.info.price / 100} </p>
-                                <div className="flex space-x-2">
-                                    <Minus onClick={() => cart(j, 'minus', y.title, y.dish.info.price / 100)}
-                                        className="hover:cursor-pointer"
-                                    />
-                                    <p> {count[j]} </p>
-                                    <Plus onClick={() => cart(j, 'add', y.title, y.dish.info.price / 100)}
-                                        className="hover:cursor-pointer"
-                                    />
-                                </div>
-                            </div>
-                        </div>) : ''
+                        x.card.card.carousel ? x.card.card.carousel.map((y, j) => {
+                            q = q + 1
+                            return (
+                                <div className="flex flex-col">
+                                    {
+                                        (x.card.card.title !== title ? <p className="font-bold mt-2"> {title = x.card.card.title} </p> : ''
+                                        )
+                                    }
+                                    <div className="flex">
+                                        <p className="mt-2"> {y.title} </p>
+                                        <p className="ml-2 mt-2 mr-2"> {y.dish.info.price / 100} </p>
+                                        <div className="flex space-x-2">
+                                            <Minus onClick={() => cart(j, 'minus', y.title, y.dish.info.price / 100)}
+                                                className="hover:cursor-pointer"
+                                            />
+                                            <p> {count[p + j]} </p>
+                                            <Plus onClick={() => cart(j, 'add', y.title, y.dish.info.price / 100)}
+                                                className="hover:cursor-pointer"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>)
+                        }
+                        ) : ''
                     }
                 </div>) : 'menu length zero brdr'
             }
             {
-                menu.length > 0 ? menu.map((x, i) => <div>
-                    {
-                        x.card.card.itemCards ? x.card.card.itemCards.map((y, j) => <div className="flex flex-col">
-                            {x.card.card.title !== title ?
-                                <p className="font-bold mt-2"> {title = x.card.card.title} </p> : ''
-                            }
-                            <div className="flex space-x-2 mt-4">
-                                <p className="mt-2"> {y.card.info.name} </p>
-                                {/* <p className="ml-2 font-bold"> {x.card.card.title} </p> */}
-                            </div>
-                        </div>) : ''
-                    }
-                </div>) : 'menu length zero brdr'
+                p = q
+            }
+            {
+                // console.log("q1", p)
+            }
+            {
+                menu.length > 0 ? menu.map((x, i) => {
+                    p = q + 1
+                    return (
+                        x.card.card.itemCards ? x.card.card.itemCards.map((y, j) => {
+                            q = q + 1
+                            var ok = j+p;
+                            return (
+                                <div className="flex flex-col">
+                                    {(x.card.card.title !== title ?
+                                        <p className="font-bold mt-2"> {title = x.card.card.title} </p> : ''
+                                    )}
+                                    <div className="flex space-x-2 mt-4">
+                                        <p className="mt-2"> {y.card.info.name} </p>
+                                        <Minus onClick={() => cart(ok, 'minus', y.card.info.name, y.card.info.price / 100)}
+                                            className="hover:cursor-pointer"
+                                        />
+                                        <p> {count[p + j]} </p>
+                                        <Plus onClick={() => cart(ok, 'add', y.card.info.name, y.card.info.price / 100)}
+                                            className="hover:cursor-pointer"
+                                        />
+                                        {/* <p className="ml-2 font-bold"> {x.card.card.title} </p> */}
+                                    </div>
+                                </div>
+                            )
+                        }) : ''
+                    )
+                }) : ''
+            }
+            {
+                p = q
             }
             {
                 menu.length > 0 ? menu.map(x => <div>
                     {
-                        x.card.card.categories ? x.card.card.categories.map(y => y.itemCards ? y.itemCards.map(z => <div className="flex space-x-4 mt-2">
+                        x.card.card.categories ? x.card.card.categories.map(y => y.itemCards ? y.itemCards.map((z, i) => <div className="flex space-x-4 mt-2">
                             {
-                                z.card.info.category !== title ? <p className="font-bold"> {title = z.card.info.category} </p> : ''
+                                (z.card.info.category !== title ?
+                                    <p className="font-bold"> {title = z.card.info.category} </p> : ''
+                                )
                             }
-                            <p> {z.card.info.name} </p>
+                            <div className="space-x-2">
+                                <p> {z.card.info.name} </p>
+                                <Minus onClick={() => cart(i + p, 'minus', z.card.info.name, z.card.info.price / 100)}
+                                    className="hover:cursor-pointer"
+                                />
+                                <p> {count[p + i]} daddy </p>
+                                <Plus onClick={() => cart(i + p, 'add', z.card.info.name, z.card.info.price / 100)}
+                                    className="hover:cursor-pointer"
+                                />
+                            </div>
                         </div>) : '') : ''
                     }
                 </div>) : 'menu length zero brdr'

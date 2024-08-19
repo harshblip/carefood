@@ -17,11 +17,9 @@ export default function Header() {
         <>
             <div className={`${comfortaa.className} flex justify-between sm:mt-0 mt-12 p-8 ml sm:mr-24 z-10`}>
                 <div className="heavy-weight">
-                    <a href={`/`} className="text-xl">
-                        <span className="tracking-normal text-[#2d5c3c] text-4xl sm:text-2xl">
-                            carefood
-                        </span>
-                    </a>
+                    <p className={`tracking-normal text-[#2d5c3c] text-4xl sm:text-2xl`}>
+                        carefood
+                    </p>
                 </div>
                 <div className={`heavy-weight hidden md:flex space-x-4 md:mr-0`}>
                     <AuthBtn />

@@ -49,12 +49,24 @@ export default function Cart() {
 
     console.log(data);
 
+    function adjustItem(duta, i, x, food) {
+        const f = duta.orders[i].items;
+        const r = [...f];
+        // if(x === 'add'){
+        //     r.name === food 
+        // }else {
+        //     r.quantity = r.quantity - 1;
+        // }
+        r.forEach(y => y.name === food ? x === 'add' ? y.quantity = y.quantity + 1 : y.quantity = y.quantity - 1 : '')
+        console.log(duta);
+    }
+
     return (
         <div className="w-[130vw] h-full sm:w-full bg-[#b4c6b6]">
             <div className="flex flex-col sm:ml-24">
                 <Header />
                 <div className={`${styles.bg} ${comfortaa.className} text-white ml-8 sm:ml-0 font-bold text-4xl h-32 sm:mr-32 mr-12 `}>
-                    <p className="sm:p-8 p-5"> Your cart bro </p>
+                    <p className={`sm:p-8 p-5`}> Your cart bro </p>
                 </div>
                 <div className="flex align-middle mt-10 z-10">
                     <hr className="border border-white w-1/2 ml-2 rounded-sm" />
@@ -74,11 +86,13 @@ export default function Cart() {
                                             <div className="flex space-x-2 border border-gray-300 rounded-md text-green-500 font-bold">
                                                 <Minus
                                                     className="w-6  hover:bg-green-300 hover:text-white hover:cursor-pointer text-lg transition-all p-[0.4rem] rounded-md hover:border hover:border-white"
+                                                    onClick={() => adjustItem(data, i, 'minus', y.name)}
                                                 />
                                                 <p> {y.quantity} </p>
                                                 <Plus
                                                     className="w-6 hover:bg-green-300 hover:text-white transition-all p-[0.4rem] hover:cursor-pointer rounded-md
                                                     hover:border hover:border-white"
+                                                    onClick={() => adjustItem(data, i, 'add', y.name)}
                                                 />
                                             </div>
                                             <div className="h-4 border-r-2  mt-[5px] ml-2">

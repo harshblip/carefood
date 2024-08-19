@@ -12,6 +12,16 @@ body {
   font-variation-settings: 'wdth' 115;
 }
 
+div::selection {
+  color: white;
+  background-color: rgb(73, 185, 131);
+}
+
+div>p::selection {
+  color: white;
+  background-color: rgb(73, 185, 131);
+}
+
 .wrapper {
   padding: 2rem;
   justify-content: space-evenly;
@@ -63,6 +73,6 @@ body {
   animation: slideInUp 0.2s forwards;
 }
 
-.heavy-weight { 
+.heavy-weight {
   font-weight: 900;
 }
