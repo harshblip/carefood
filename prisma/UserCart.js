@@ -25,9 +25,30 @@ export const getOrders = async (userEmail) => {
     return orders;
 };
 
-export const deleteOrder = async (orderId) => {
-    await prisma.order.delete({
-        where: { id: orderId },
+export const deleteOrder = async (id, id2) => {
+    await prisma.item.delete({
+        where: {
+            id: id2
+        }
     });
 };
 
+export const updateOrder = async (id, id2, newQ) => {
+    await prisma.order.update({
+        where: {
+            id: id
+        },
+        data: {
+            items: {
+                update: {
+                    where: {
+                        id: id2
+                    },
+                    data: {
+                        quantity: newQ
+                    }
+                }
+            }
+        }
+    })
+}

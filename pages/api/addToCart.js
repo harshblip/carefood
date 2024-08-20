@@ -1,4 +1,4 @@
-import { createOrder, getOrders, deleteOrder } from "../../prisma/UserCart";
+import { createOrder, getOrders, deleteOrder, updateOrder } from "../../prisma/UserCart";
 import authMiddleware from "./middleware";
 
 export default async function handler(req, res) {
@@ -30,16 +30,25 @@ export default async function handler(req, res) {
             res.status(500).json({ error: 'Internal Server Error' });
         }
     } else if (req.method === 'DELETE') {
-        const { orderId } = req.query;
+        const { id, id2, thing } = req.query;
         try {
-            await deleteOrder(orderId); // Delete the order by ID
+            if (thing === 'item') {
+                await deleteOrder(id, id2); // Delete the order by ID
+            }
             res.status(200).json({ message: 'Order deleted successfully' });
         } catch (error) {
             console.error('Error deleting order:', error);
             res.status(500).json({ error: 'Internal Server Error' });
         }
-    }
-    else {
+    } else if (req.method === 'PUT') {
+        const { id, id2, newQ } = req.body
+        try {
+            await updateOrder(id, id2, newQ);
+            res.status(200).json({ message: `Order with id ${id} updated with ${newQ}` })
+        } catch (err) {
+            console.log("caught errr", err)
+        }
+    } else {
         res.setHeader('Allow', ['POST']);
         res.status(405).end(`Method ${req.method} Not Allowed`);
     }
