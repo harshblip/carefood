@@ -1,18 +1,47 @@
 import prisma from "./prisma";
 
-export const createOrder = async (items, address, orderStatus, restaurantName, userEmail, orderTime, totalAmt) => {
+export const createOrder = async (items, address, orderStatus, restaurantName, userEmail, orderTime, price, restId) => {
 
-    await prisma.order.create({
-        data: {
-            items: { createMany: { data: items } },
-            address,
-            orderStatus,
-            restaurantName,
-            user: { connect: { email: userEmail } },
-            orderTime,
-            totalAmt
+    const findOrder = await prisma.order.findFirst({
+        where: {
+            userEmail: userEmail,
+            restaurantName: restaurantName
         },
-    });
+        include: {
+            items: true
+        }
+    })
+
+    if (findOrder) {
+        await prisma.order.update({
+            where: {
+                id: findOrder.id
+            },
+            data: {
+                items: {
+                    createMany: {
+                        data: items,
+                    }
+                },
+                totalAmt: {
+                    increment: price
+                }
+            }
+        })
+    } else {
+        await prisma.order.create({
+            data: {
+                items: { createMany: { data: items } },
+                address,
+                orderStatus,
+                restaurantName,
+                user: { connect: { email: userEmail } },
+                orderTime,
+                totalAmt: price,
+                restId
+            },
+        });
+    }
 }
 
 export const getOrders = async (userEmail) => {
@@ -25,7 +54,7 @@ export const getOrders = async (userEmail) => {
     return orders;
 };
 
-export const deleteOrder = async (id, id2) => {
+export const deleteOrder = async (id2) => {
     await prisma.item.delete({
         where: {
             id: id2
@@ -48,6 +77,32 @@ export const updateOrder = async (id, id2, newQ) => {
                         quantity: newQ
                     }
                 }
+            }
+        }
+    })
+}
+
+export const updateOrderonDelete = async(id, price) => {
+    await prisma.order.update({
+        where:{
+            id: id
+        },
+        data: {
+            totalAmt: {
+                decrement: price
+            }
+        }
+    })
+}
+
+export const updateOrderonInc = async(id, price) => {
+    await prisma.order.update({
+        where:{
+            id: id
+        },
+        data: {
+            totalAmt: {
+                increment: price
             }
         }
     })

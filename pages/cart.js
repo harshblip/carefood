@@ -5,6 +5,9 @@ import { Comfortaa, Kanit, Manrope } from "next/font/google";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { BadgeIndianRupee, Minus, OctagonX, Pin, Plus, PlusCircle } from "lucide-react";
+import { useDispatch } from "react-redux";
+import { storeRestId } from "../slices/locationSlice";
+import { useRouter } from "next/router";
 
 const comfortaa = Comfortaa({
     subsets: ['latin'],
@@ -23,6 +26,8 @@ const manrop = Manrope({
 })
 
 export default function Cart() {
+    const dispatch = useDispatch();
+    const router = useRouter()
 
     const userEmail = useSelector(state => state.signup.email)
     const [data, setData] = useState([])
@@ -46,9 +51,11 @@ export default function Cart() {
                 }
             }
         )()
-    }, [])
+    }, [data])
 
     console.log(data);
+
+    // data.orders ?  : ''
 
     async function deleteOrdur(id, id2, thing) {
         try {
@@ -67,15 +74,10 @@ export default function Cart() {
     }
 
     var foodd = "";
-    async function adjustItem(j, data, x, food, q, i, thing) {
+    async function adjustItem(j, data, x, food, q, i, thing, price) {
         const f = data.orders[i].items
         setClick(Array(data.length).fill(0));
         const r = [...f];
-        // if(x === 'add'){
-        //     r.name === food 
-        // }else {
-        //     r.quantity = r.quantity - 1;
-        // }
         if (click === 0 || foodd != food) {
             if (x === 'minus') {
                 const newClick = [...click];
@@ -107,7 +109,7 @@ export default function Cart() {
         if (newQ === 0) {
             try {
                 const response = await axios.delete('/api/addToCart', {
-                    params: { id, id2, thing }
+                    params: { id, id2, thing, price }
                 })
 
                 if (response.status === 200) {
@@ -118,12 +120,22 @@ export default function Cart() {
             } catch (err) {
                 console.log("errrr", err)
             }
-            data.orders ? data.orders.map((x, i) => data.orders[i].items.filter(y => y.id === id2)) : ''
-        } else {
-
             try {
                 const response = await axios.put('/api/addToCart', {
-                    id, id2, newQ
+                    id, price, x
+                })
+                if (response.status === 200) {
+                    console.log("request successfully called");
+                } else {
+                    console.log("error aagyis", response.status)
+                }
+            } catch (err) {
+                console.log("errrr", err)
+            }
+        } else {
+            try {
+                const response = await axios.put('/api/addToCart', {
+                    id, id2, newQ, price, x
                 })
                 if (response.status === 200) {
                     console.log("updated quantity in the backend")
@@ -134,6 +146,14 @@ export default function Cart() {
                 console.log("catch block", err)
             }
         }
+    }
+
+    function gotoRestu(x) {
+        console.log("x", x)
+        dispatch(storeRestId({
+            id: x
+        }))
+        router.push('/menu')
     }
 
     console.log(data);
@@ -164,7 +184,7 @@ export default function Cart() {
                                                 <div className="flex space-x-2 border border-gray-300 rounded-md text-green-500 font-bold">
                                                     <Minus
                                                         className="w-6  hover:bg-green-300 hover:text-white hover:cursor-pointer text-lg transition-all p-[0.4rem] rounded-md hover:border hover:border-white"
-                                                        onClick={() => adjustItem(j, data, 'minus', y.name, y.quantity, i, 'item')}
+                                                        onClick={() => adjustItem(j, data, 'minus', y.name, y.quantity, i, 'item', Math.round(y.price))}
                                                     />
                                                     {
                                                         !click[j] ? <p> {y.quantity} </p> : <p> {click[j]}  </p>
@@ -172,7 +192,7 @@ export default function Cart() {
                                                     <Plus
                                                         className="w-6 hover:bg-green-300 hover:text-white transition-all p-[0.4rem] hover:cursor-pointer rounded-md
                                                     hover:border hover:border-white"
-                                                        onClick={() => adjustItem(j, data, 'add', y.name, y.quantity, i, 'item')}
+                                                        onClick={() => adjustItem(j, data, 'add', y.name, y.quantity, i, 'item', Math.round(y.price))}
                                                     />
                                                 </div>
                                                 <div className="h-4 border-r-2  mt-[5px] ml-2">
@@ -192,7 +212,9 @@ export default function Cart() {
                                         <hr
                                             className="w-full border-dashed border-2"
                                         />
-                                        <div className="flex space-x-2 ml-1 p-1 mt-2">
+                                        <div className="flex space-x-2 ml-1 p-1 mt-2 hover:cursor-pointer"
+                                            onClick={() => gotoRestu(x.restId)}
+                                        >
                                             <PlusCircle
                                                 className="w-4 text-gray-400"
                                             />
@@ -203,21 +225,25 @@ export default function Cart() {
                                         className="w-full border-dashed border-2 mt-2"
                                     />
                                     <div className="flex flex-col">
-                                        <div className="flex justify-between text-[#8ac4a7] font-semibold text-end mt-4">
-                                            <div className="flex space-x-2 text-sm text-start">
-                                                <div className="flex flex-col space-y-2">
-                                                    <div className="flex">
-                                                        <BadgeIndianRupee className="w-5 text-green-400" />
-                                                        <p className="text-2xl -mt-1 ml-2"> {x.totalAmt} </p>
+                                        <div className="flex justify-between text-[#8ac4a7] font-semibold mt-4">
+                                            <div className="flex flex-col justify-between w-full">
+                                                <div>
+                                                    <div className="flex space-y-2 justify-between w-full">
+                                                        <div className="flex mt-2">
+                                                            <BadgeIndianRupee className="w-5 text-green-400" />
+                                                            <p className="text-2xl -mt-1 ml-2"> {x.totalAmt} </p>
+                                                        </div>
+                                                        <div>
+                                                            <p className="text-4xl -mt-2"> {x.restaurantName} </p>
+                                                        </div>
                                                     </div>
-                                                    <p className="text-[#8ac4a7] font-semibold opacity-40 text-start"> {x.orderTime} </p>
                                                 </div>
-                                            </div>
-                                            <div className="flex flex-col space-x-2 justify-end">
-                                                <p className="text-4xl"> {x.restaurantName} </p>
-                                                <div className="flex">
-                                                    <p className="text-[0.7rem] mt-0"> {x.address} </p>
-                                                    <Pin className="w-4 text-emerald-500" />
+                                                <div className="flex space-x-2 justify-between">
+                                                    <p className="text-[#8ac4a7] font-semibold opacity-40 text-start"> {x.orderTime} </p>
+                                                    <div className="flex">
+                                                        <p className="text-[0.7rem] mt-0"> {x.address} </p>
+                                                        <Pin className="w-4 text-emerald-500" />
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

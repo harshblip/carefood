@@ -41,6 +41,7 @@ model Order {
   address        String
   orderStatus    String
   totalAmt       Int
+  restId         String
   userEmail      String
   user           User     @relation(fields: [userEmail], references: [email])
 

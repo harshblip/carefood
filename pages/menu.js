@@ -85,11 +85,12 @@ export default function menu() {
     }
 
     console.log("setCart", mycart)
-
+    
     async function addCart() {
         var sum = 0;
         mycart.map(x => { sum = sum + x.quantity * x.price })
         console.log("sum", sum)
+        console.log("id", restId)
         const currentTime = new Date();
         try {
             const response = await axios.post('/api/addToCart', {
@@ -100,6 +101,7 @@ export default function menu() {
                 orderStatus: 'unpaid',
                 totalAmt: sum,
                 email: userEmail,
+                restId: restId
             },
                 {
                     headers: {

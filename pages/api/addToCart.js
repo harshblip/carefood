@@ -1,4 +1,4 @@
-import { createOrder, getOrders, deleteOrder, updateOrder } from "../../prisma/UserCart";
+import { createOrder, getOrders, deleteOrder, updateOrder, updateOrderonDelete, updateOrderonInc } from "../../prisma/UserCart";
 import authMiddleware from "./middleware";
 
 export default async function handler(req, res) {
@@ -10,11 +10,13 @@ export default async function handler(req, res) {
             restaurantName,
             email,
             orderTime,
-            totalAmt
+            totalAmt,
+            restId
         } = req.body;
         try {
+            console.log("restiddd", restId)
             await authMiddleware(req, res);
-            await createOrder(items, address, orderStatus, restaurantName, email, orderTime, totalAmt);
+            await createOrder(items, address, orderStatus, restaurantName, email, orderTime, totalAmt, restId);
             res.status(201).json('Items added to cart successfully');
         } catch (error) {
             console.error('Error adding items to cart:', error);
@@ -30,20 +32,26 @@ export default async function handler(req, res) {
             res.status(500).json({ error: 'Internal Server Error' });
         }
     } else if (req.method === 'DELETE') {
-        const { id, id2, thing } = req.query;
+        const { id, id2, thing, price } = req.query;
         try {
             if (thing === 'item') {
-                await deleteOrder(id, id2); // Delete the order by ID
+                await deleteOrder(id2);
             }
+            await updateOrderonDelete(id, price)
             res.status(200).json({ message: 'Order deleted successfully' });
         } catch (error) {
             console.error('Error deleting order:', error);
             res.status(500).json({ error: 'Internal Server Error' });
         }
     } else if (req.method === 'PUT') {
-        const { id, id2, newQ } = req.body
+        const { id, id2, newQ, price, x } = req.body
         try {
-            await updateOrder(id, id2, newQ);
+            if (x === 'minus') {
+                await updateOrderonDelete(id, price);
+            } else {
+                await updateOrderonInc(id, price);
+            }
+            await updateOrder(id, id2, newQ, price);
             res.status(200).json({ message: `Order with id ${id} updated with ${newQ}` })
         } catch (err) {
             console.log("caught errr", err)
