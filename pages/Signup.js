@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import { signupSuccess } from '../slices/signupSlice';
 import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
+import { Anek_Latin } from 'next/font/google';
+import styles from '../src/app/Signup.module.css'
 import axios from 'axios';
 import {
   Command,
@@ -10,6 +12,11 @@ import {
   CommandItem,
   CommandList,
 } from "../src/components/ui/command"
+
+const anek = Anek_Latin({
+  weight: ['300', '500', '700'],
+  subsets: ['latin']
+})
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -26,7 +33,7 @@ const Signup = () => {
 
   const handleChange = async (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-    if (e.target.name === 'city') { 
+    if (e.target.name === 'city') {
       try {
         const response = await axios.get(`${process.env.NEXT_PUBLIC_MAPBOX_URL}/suggest?q=${e.target.value}&language=en&session_token=${process.env.NEXT_PUBLIC_MAPBOX_SESSION_SECRET}&access_token=${process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}`)
 
@@ -70,98 +77,108 @@ const Signup = () => {
     }
   };
 
-
-  const jao = () => {
-    router.push('/Ngoregister');
-  }
-
   return (
-    <form onSubmit={handleSubmit} className='flex flex-col space-y-4 w-[24rem]'>
-      <input
-        name="name"
-        placeholder="Name"
-        onChange={handleChange}
-        className='p-2 border  rounded-md transition-all'
-      />
-      <input
-        name="email"
-        placeholder="Email"
-        onChange={handleChange}
-        className='p-2 border  rounded-md transition-all'
-      />
-      <input
-        name="password"
-        type="password"
-        placeholder="Password"
-        onChange={handleChange}
-        className='p-2 border rounded-md transition-all'
-      />
-      {
-        check ? <input
-          name="confirmPassword"
-          type="password"
-          placeholder="Confirm Password"
-          onChange={handleChange}
-          className='p-2 border  rounded-md transition-all'
-        /> :
-          <div className='flex flex-col'>
-            <input
-              name="confirmPassword"
-              type="password"
-              placeholder="Confirm Password"
-              onChange={handleChange}
-              className='p-2 border border-red rounded-md transition-all'
-            />
-            <p className='text-xs text-red-500'>the passwords don't match sir</p>
+    <div className={`h-[100vh] ${anek.className} flex`}>
+      <div className={`${styles.bg} sm:w-1/2 h-full`}>
+        <div className='flex flex-col'>
+          <div className='mt-20 sm:mt-12 ml-12 text-5xl text-gray-500'>
+            <p> Hello! Joining Us ? </p>
           </div>
-      }
-      <div className='flex flex-col'>
-        <input
-          name="city"
-          placeholder="City"
-          onChange={handleChange}
-          className='p-2 border  rounded-md transition-all'
-        />
-        <Command className="rounded-lg border shadow-md">
-          <CommandList>
-            {
-              cities.length > 0 ? (
-                <CommandGroup heading="Showing matching cities">
-                  {
-                    cities.map((x, i) => {
-                      return (
-                        <CommandItem>
-                          {x.name}, {x.place_formatted}
-                        </CommandItem>
+          <div className={`ml-16`}>
+            <form onSubmit={handleSubmit} className={` flex flex-col space-y-4 w-[18rem] mt-10`}>
+              <input
+                name="name"
+                placeholder="name"
+                onChange={handleChange}
+                className='p-2 outline rounded-md transition-all bg-transparent backdrop-blur-md placeholder:text-black/60 h-10 shadow-md text-gray-600'
+              />
+              <input
+                name="email"
+                placeholder="email"
+                onChange={handleChange}
+                className='p-2  rounded-md transition-all bg-transparent backdrop-blur-md placeholder:text-black/60 h-10 shadow-md text-gray-600'
+              />
+              <input
+                name="password"
+                type="password"
+                placeholder="password"
+                onChange={handleChange}
+                className='p-2 rounded-md transition-all bg-transparent backdrop-blur-md placeholder:text-black/60 h-10 shadow-md text-gray-600'
+              />
+              {
+                check ? <input
+                  name="confirmPassword"
+                  type="password"
+                  placeholder="confirm password"
+                  onChange={handleChange}
+                  className='p-2 rounded-md transition-all bg-transparent backdrop-blur-md placeholder:text-black/60 h-10 shadow-md text-gray-600'
+                /> :
+                  <div className='flex flex-col'>
+                    <input
+                      name="confirmPassword"
+                      type="password"
+                      placeholder="confirm password"
+                      onChange={handleChange}
+                      className='p-2-red rounded-md transition-all bg-transparent backdrop-blur-md placeholder:text-black/60 h-10 shadow-md text-gray-600'
+                    />
+                    <p className='text-xs text-red-500'>the passwords don't match sir</p>
+                  </div>
+              }
+              <div className='flex flex-col'>
+                <input
+                  name="city"
+                  placeholder="city"
+                  onChange={handleChange}
+                  className='p-2  rounded-md transition-all bg-transparent backdrop-blur-md placeholder:text-black/60 h-10 shadow-md text-gray-600'
+                />
+                <Command className="rounded-lg border shadow-md transition-all ease-in bg-transparent backdrop-blur-md">
+                  <CommandList>
+                    {
+                      cities.length > 0 ? (
+                        <CommandGroup heading="Showing matching cities">
+                          {
+                            cities.map((x, i) => {
+                              return (
+                                <CommandItem>
+                                  {x.name}, {x.place_formatted}
+                                </CommandItem>
+                              )
+                            })
+                          }
+                        </CommandGroup>
                       )
-                    })
-                  }
-                </CommandGroup>
-              )
-                : <p>lol</p>
-            }
-          </CommandList>
-        </Command>
+                        : ''
+                    }
+                  </CommandList>
+                </Command>
+              </div>
+              <input
+                name="phoneNumber"
+                placeholder="phone number"
+                onChange={handleChange}
+                className='p-2 rounded-md transition-all bg-transparent backdrop-blur-md placeholder:text-black/60 h-10 shadow-md text-gray-600'
+              />
+              <input
+                name="funFood"
+                placeholder="Which food/fruit would describe you the best?"
+                onChange={handleChange}
+                className='p-2 rounded-md transition-all bg-transparent backdrop-blur-md placeholder:text-black/60 h-10 shadow-md text-gray-600'
+              />
+              <div className=''>
+                <button
+                  type="submit"
+                  className='mt-4 w-full p-2 shadow-md font-medium'
+                > <p> Sign Up </p> </button>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
-      <input
-        name="phoneNumber"
-        placeholder="Phone Number"
-        onChange={handleChange}
-        className='p-2 border  rounded-md transition-all'
-      />
-      <input
-        name="funFood"
-        placeholder="Which food/fruit would describe you the best?"
-        onChange={handleChange}
-        className='p-2 border  rounded-md transition-all'
-      />
-      <button type="submit"> Sign Up </button>
-      <button
-        onClick={jao}
-        className='border-2 p-2 hover:rounded-lg transition-all'>
-        register an ngo
-      </button>
-    </form>
+      <div className={`${styles.bg1} sm:flex hidden w-1/2 p-4`}>
+
+      </div>
+    </div>
+
   );
 };
 

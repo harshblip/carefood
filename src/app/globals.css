@@ -2,6 +2,10 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+* {
+  animation: easeInOut 1s ease-in-out;
+}
+
 html,
 body {
   width: 100%;
@@ -20,6 +24,11 @@ div::selection {
 div>p::selection {
   color: white;
   background-color: rgb(73, 185, 131);
+}
+
+input {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
 }
 
 .wrapper {
@@ -65,6 +74,18 @@ div>p::selection {
   }
 }
 
+@keyframes easeInOut {
+  0% {
+    opacity: 0;
+    transform: translateY(-2px);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .slide-out-up {
   animation: slideOutUp 0.2s forwards;
 }
@@ -75,4 +96,9 @@ div>p::selection {
 
 .heavy-weight {
   font-weight: 900;
+}
+
+input::placeholder {
+  font-weight: 300;
+  font-size: small;
 }

@@ -17,12 +17,13 @@ const anek = Anek_Latin({
 export default function LoginPage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [Error, setError] = useState('')
     const router = useRouter();
     const dispatch = useDispatch();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // console.log(email, password);
+        console.log(email, password);
         try {
             const response = await axios.post('/api/login', {
                 email,
@@ -44,29 +45,56 @@ export default function LoginPage() {
                 console.error('Error logging in user');
             }
         } catch (error) {
+            setError(user.status)
             console.error('Error:', error);
         }
     };
 
 
     return (
-        <div className={`bg-black h-[100vh]`}>
+        <div className={`bg-black h-[100vh] ${anek.className}`}>
             <div className={`${styles.bg}`}></div>
             <div className='flex'>
-                <div className='text-white w-1/2'>
-                    <form onSubmit={handleSubmit} className='flex flex-col space-y-4'>
+                <div className='text-white w-full sm:w-1/2 mt-16 sm:mt-0 sm:p-8 flex flex-col'>
+                    <div className='text-5xl mt-8 ml-12'>
+                        Welcome Back!
+                    </div>
+                    <form onSubmit={handleSubmit} className='flex flex-col space-y-4 h-full p-14'>
                         <label>
-                            <p> Email: </p>
-                            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+                            <p className='text-lg'> Email: </p>
+                            <input
+                                type="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)} required
+                                className='mt-2 h-8 w-[16rem] sm:w-[18rem] rounded-md p-2 text-black text-sm font-medium outline-none'
+                            />
                         </label>
                         <label>
-                            <p> Password: </p>
-                            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+                            <p className='mt-6 text-lg'> Password: </p>
+                            <input
+                                type="password"
+                                value={password}
+                                onChange={(e) => (setPassword(e.target.value), setError(''))} required
+                                className='mt-2 h-8 w-[16rem] sm:w-[18rem] rounded-md p-2 text-black text-sm font-medium outline-none'
+                            />
                         </label>
-                        <button type="submit">Login</button>
+                        <div className=' sm:relative'>
+                            <p className='text-sm underline'> Don't have an account ? </p>
+                        </div>
+                        <button
+                            type="submit"
+                            className='sm:w-1/2 w-44 border p-2 rounded-md'
+                        >{
+                                Error ? <p className='text-sm'> {Error} : <Image
+                                    src='/personal/mike.png'
+                                    height={0}
+                                    width={40}
+                                    alt='mike'
+                                /></p> : <p> Login </p>
+                            }</button>
                     </form>
                 </div>
-                <div className={`bg-[#42B37C] ${anek.className} text-white rounded-lg flex flex-col h-[33rem] w-[28rem] ml-32 mt-12 p-8`}>
+                <div className={`bg-[#42B37C] ${anek.className} text-white rounded-lg flex-col h-[33rem] w-[28rem] ml-32 mt-12 p-8 hidden sm:flex`}>
                     <div className=''>
                         <p className='text-3xl font-medium'> What our <br /> foodies have to say. <br /> “ </p>
                     </div>
@@ -85,8 +113,8 @@ export default function LoginPage() {
                             <div className='flex'>
                                 <p className='font-bold'> Get your favourite food discovered <br /> right now! </p>
                                 <Sparkle
-                                height={60}
-                                width={60}
+                                    height={60}
+                                    width={60}
                                     className='ml-[19.5rem] text-4xl border-8 border-[#42B37C] -mt-6 rounded-full p-1 absolute'
                                 />
                             </div>

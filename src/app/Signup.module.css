@@ -1,0 +1,13 @@
+.bg {
+    background-image: url('/personal/leftbg.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.bg1 {
+    background-image: url('/personal/bgright.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
