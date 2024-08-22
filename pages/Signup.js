@@ -6,12 +6,6 @@ import { useRouter } from 'next/router';
 import { Anek_Latin } from 'next/font/google';
 import styles from '../src/app/Signup.module.css'
 import axios from 'axios';
-import {
-  Command,
-  CommandGroup,
-  CommandItem,
-  CommandList,
-} from "../src/components/ui/command"
 
 const anek = Anek_Latin({
   weight: ['300', '500', '700'],
@@ -28,11 +22,30 @@ const Signup = () => {
     phoneNumber: '',
     funFood: '',
   });
-  const [check, setCheck] = useState(true);
+  const [check, setCheck] = useState(false);
+  const [city, setCity] = useState('')
+  const [phun, setPhun] = useState('');
   const [cities, setCities] = useState([]);
+  const [click, setClick] = useState(false);
 
   const handleChange = async (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    if (e.target.name === 'city') {
+      setCity(e.target.value)
+    }
+
+    if (e.target.name === 'phoneNumber') {
+      setPhun(e.target.value)
+    }
+
+    if (e.target.name === 'city') {
+      if (formData.password !== formData.confirmPassword) {
+        setCheck(true);
+      } else {
+        setCheck(false);
+      }
+    }
+
     if (e.target.name === 'city') {
       try {
         const response = await axios.get(`${process.env.NEXT_PUBLIC_MAPBOX_URL}/suggest?q=${e.target.value}&language=en&session_token=${process.env.NEXT_PUBLIC_MAPBOX_SESSION_SECRET}&access_token=${process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}`)
@@ -57,7 +70,7 @@ const Signup = () => {
     e.preventDefault();
     console.log(formData)
     if (formData.confirmPassword != formData.password) {
-      setCheck(false);
+      // setCheck(false);
     } else {
       try {
         const response = await axios.post('/api/signup', formData, {
@@ -79,9 +92,9 @@ const Signup = () => {
 
   return (
     <div className={`h-[100vh] ${anek.className} flex`}>
-      <div className={`${styles.bg} sm:w-1/2 h-full`}>
+      <div className={`${styles.bg} w-full sm:w-1/2 h-full`}>
         <div className='flex flex-col'>
-          <div className='mt-20 sm:mt-12 ml-12 text-5xl text-gray-500'>
+          <div className='mt-12 sm:mt-12 ml-12 text-4xl sm:text-5xl text-gray-500'>
             <p> Hello! Joining Us ? </p>
           </div>
           <div className={`ml-16`}>
@@ -90,84 +103,86 @@ const Signup = () => {
                 name="name"
                 placeholder="name"
                 onChange={handleChange}
-                className='p-2 outline rounded-md transition-all bg-transparent backdrop-blur-md placeholder:text-black/60 h-10 shadow-md text-gray-600'
+                className='p-2 outline rounded-md transition-all bg-transparent backdrop-blur-md placeholder:text-black/60 h-10 shadow-md text-gray-600 text-sm'
               />
               <input
                 name="email"
                 placeholder="email"
                 onChange={handleChange}
-                className='p-2  rounded-md transition-all bg-transparent backdrop-blur-md placeholder:text-black/60 h-10 shadow-md text-gray-600'
+                className='p-2  rounded-md transition-all bg-transparent backdrop-blur-md placeholder:text-black/60 h-10 shadow-md text-gray-600 text-sm'
               />
               <input
                 name="password"
                 type="password"
                 placeholder="password"
                 onChange={handleChange}
-                className='p-2 rounded-md transition-all bg-transparent backdrop-blur-md placeholder:text-black/60 h-10 shadow-md text-gray-600'
+                className='p-2 rounded-md transition-all bg-transparent backdrop-blur-md placeholder:text-black/60 h-10 shadow-md text-gray-600 text-sm'
               />
-              {
-                check ? <input
+              <div className='flex flex-col'>
+                <input
                   name="confirmPassword"
                   type="password"
                   placeholder="confirm password"
                   onChange={handleChange}
-                  className='p-2 rounded-md transition-all bg-transparent backdrop-blur-md placeholder:text-black/60 h-10 shadow-md text-gray-600'
-                /> :
-                  <div className='flex flex-col'>
-                    <input
-                      name="confirmPassword"
-                      type="password"
-                      placeholder="confirm password"
-                      onChange={handleChange}
-                      className='p-2-red rounded-md transition-all bg-transparent backdrop-blur-md placeholder:text-black/60 h-10 shadow-md text-gray-600'
-                    />
-                    <p className='text-xs text-red-500'>the passwords don't match sir</p>
-                  </div>
-              }
+                  className='p-2 rounded-md transition-all bg-transparent backdrop-blur-md placeholder:text-black/60 h-10 shadow-md text-gray-600 text-sm'
+                />
+                {
+                  check ? <p className='text-xs text-red-400 font-medium mt-1'> bro those passwords don't match </p> : ''
+                }
+              </div>
               <div className='flex flex-col'>
                 <input
                   name="city"
                   placeholder="city"
                   onChange={handleChange}
-                  className='p-2  rounded-md transition-all bg-transparent backdrop-blur-md placeholder:text-black/60 h-10 shadow-md text-gray-600'
+                  className='p-2  rounded-md transition-all bg-transparent backdrop-blur-md placeholder:text-black/60 h-10 shadow-md text-gray-600 text-sm'
+                  value={city ? city : ''}
                 />
-                <Command className="rounded-lg border shadow-md transition-all ease-in bg-transparent backdrop-blur-md">
-                  <CommandList>
-                    {
-                      cities.length > 0 ? (
-                        <CommandGroup heading="Showing matching cities">
+                {
+                  cities.length > 0 && click === false ? (
+                    <div className="rounded-lg border shadow-md transition-all ease-in bg-transparent backdrop-blur-md text-sm p-2">
+                      <div>
+                        <div>
                           {
-                            cities.map((x, i) => {
+                            cities.map(x => {
                               return (
-                                <CommandItem>
+                                <div
+                                  className="hover:cursor-pointer bg-white/25 hover:bg-transparent p-1 rounded-md mt-1"
+                                  onClick={() => (setCity(x.name), setClick(true))}
+                                >
                                   {x.name}, {x.place_formatted}
-                                </CommandItem>
+                                </div>
                               )
                             })
                           }
-                        </CommandGroup>
-                      )
-                        : ''
-                    }
-                  </CommandList>
-                </Command>
+                        </div>
+                      </div>
+                    </div>
+                  )
+                    : ''
+                }
               </div>
-              <input
-                name="phoneNumber"
-                placeholder="phone number"
-                onChange={handleChange}
-                className='p-2 rounded-md transition-all bg-transparent backdrop-blur-md placeholder:text-black/60 h-10 shadow-md text-gray-600'
-              />
+              <div className='flex flex-col'>
+                <input
+                  name="phoneNumber"
+                  placeholder="phone number"
+                  onChange={handleChange}
+                  className='p-2 rounded-md transition-all bg-transparent backdrop-blur-md placeholder:text-black/60 h-10 shadow-md text-gray-600 text-sm'
+                />
+                {
+                  phun.length > 11 ? <p className='text-xs text-red-400 font-medium mt-1'> bro this isn't a valid phone number </p> : ''
+                }
+              </div>
               <input
                 name="funFood"
                 placeholder="Which food/fruit would describe you the best?"
                 onChange={handleChange}
-                className='p-2 rounded-md transition-all bg-transparent backdrop-blur-md placeholder:text-black/60 h-10 shadow-md text-gray-600'
+                className='p-2 rounded-md transition-all bg-transparent backdrop-blur-md placeholder:text-black/60 h-10 shadow-md text-gray-600 text-sm'
               />
               <div className=''>
                 <button
                   type="submit"
-                  className='mt-4 w-full p-2 shadow-md font-medium'
+                  className={`${phun.length > 11 || check === true ? `bg-gray-400 disabled:bg-gray-400` : ''} mt-4 w-full p-2 shadow-md font-medium`}
                 > <p> Sign Up </p> </button>
               </div>
             </form>

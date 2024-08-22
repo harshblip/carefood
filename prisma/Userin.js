@@ -21,17 +21,15 @@ export const loginUser = async (email, password) => {
     });
 
     if (!user) {
-        const status = 'User not found'
+        const status = 'You are not in the database'
         return { status }
-        // throw new Error('User not found');
     }
 
     const isValidPassword = await bcrypt.compare(password, user.password);
     // console.log(user, isValidPassword);
     if (!isValidPassword) {
-        const status = 'Invalid password'
+        const status = 'Password incorrect'
         return { status }
-        // throw new Error('Invalid password');
     }
 
     // Generate Access token

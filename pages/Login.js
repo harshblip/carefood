@@ -32,20 +32,23 @@ export default function LoginPage() {
 
             if (response.status === 200) {
                 const user = response.data; // Access response data
-                dispatch(loginSuccess({
-                    email: user.user.email,
-                    name: user.user.name,
-                    accessToken: user.accessToken,
-                    isLoggedIn: true
-                }));
-                console.log(user.user.name);
-                router.push('/resturants');
-                console.log('User logged in successfully');
+                if (user.status) {
+                    setError(user.status)
+                } else {
+                    dispatch(loginSuccess({
+                        email: user.user.email,
+                        name: user.user.name,
+                        accessToken: user.accessToken,
+                        isLoggedIn: true
+                    }));
+                    console.log(user.user.name);
+                    router.push('/Landingpage');
+                    console.log('User logged in successfully');
+                }
             } else {
                 console.error('Error logging in user');
             }
         } catch (error) {
-            setError(user.status)
             console.error('Error:', error);
         }
     };
@@ -83,14 +86,15 @@ export default function LoginPage() {
                         </div>
                         <button
                             type="submit"
-                            className='sm:w-1/2 w-44 border p-2 rounded-md'
+                            className='sm:w-1/2 w-44 border p-2 rounded-md flex justify-center items-center'
                         >{
-                                Error ? <p className='text-sm'> {Error} : <Image
+                                Error ? <div className='flex'> <p className='text-sm mt-4 mr-4'> {Error}</p> <Image
                                     src='/personal/mike.png'
                                     height={0}
-                                    width={40}
+                                    width={80}
                                     alt='mike'
-                                /></p> : <p> Login </p>
+                                    className='rounded-md'
+                                /></div> : <p> Login </p>
                             }</button>
                     </form>
                 </div>
