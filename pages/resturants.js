@@ -56,7 +56,6 @@ export default function resturants() {
         ((restus === null && x > 0 && y > 0) || citi !== city ? async () => {
             const response = await axios.get(`${process.env.NEXT_PUBLIC_SWIGGY_API}?lat=${y}&lng=${x}&page_type=DESKTOP_WEB_LISTING`);
 
-
             if (response.status === 200) {
                 setData(response.data);
                 localStorage.setItem('restus', JSON.stringify(response.data));
@@ -162,6 +161,7 @@ export default function resturants() {
         dispatch(storeRestId({
             id: x
         }))
+        localStorage.removeItem('menu');
         router.push('/menu')
     }
 
