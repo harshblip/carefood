@@ -12,10 +12,25 @@ export const getUserByID = async (id) => {
     return user;
 };
 
+export const getUserByEmail = async (email) => {
+    const user = await prisma.user.findUnique({
+        where: {
+            email: email
+        },
+    });
+    return user;
+};
+
 // CREATE
 export const createUser = async (name, email, password, city, phoneNumber, funFood) => {
     // Hashing the password before storing it
     const hashedPassword = await bcrypt.hash(password, 10);
+
+    const userr = getUserByEmail(email);
+    if (userr) {
+        const status = "User already exists"
+        return status
+    }
 
     const newUser = await prisma.user.create({
         data: {
