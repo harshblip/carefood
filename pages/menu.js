@@ -50,7 +50,7 @@ export default function menu() {
 
     let p = 0
     useEffect(() => {
-        const menu = JSON.parse(localStorage.getItem('menu'));
+        const menu = JSON.parse(localStorage.getItem('menu')) || null;
         (
             menu === null ? async () => {
                 console.log("hi")
@@ -107,14 +107,21 @@ export default function menu() {
         const n = mycart.find(x => x.name === name)
         if (n) {
             const a = [...mycart];
-            setBillTotal(prevTotal => prevTotal+price);
+            if (x === 'add') {
+                setBillTotal(prevTotal => prevTotal + price);
+            } else {
+                setBillTotal(prevTotal => prevTotal - price);
+            }
             a.map(y => y.name === name ? x === 'add' ? y.quantity = y.quantity + 1 : y.quantity = Math.max(0, y.quantity - 1) : '')
-            a.map(y => y.quantity === 0 ? a.filter(r => r.quantity !== 0) : '')
-            console.log("editcart", a);
         } else {
-            setBillTotal(prevTotal => prevTotal+price);
+            setBillTotal(prevTotal => prevTotal + price);
             setMyCart([...mycart, obj])
         }
+        const m = mycart.filter(x => x.quantity !== 0)
+        setMyCart(prevCart => {
+            return prevCart.filter(x => x.quantity !== 0);
+        })
+        console.log("editcart", m);
     }
 
     console.log("setCart", mycart)
@@ -363,7 +370,7 @@ export default function menu() {
                                                                     </div>
                                                                     <div className="text-xs text-white font-medium absolute bottom-0 mb-6 ml-16 border w-[5.5rem] rounded-md">
                                                                         <div className="flex space-x-3 ml-3 items-center">
-                                                                            <Minus onClick={() => cart(ok, 'minus', y.card.info.name, y.card.info.price / 100)}
+                                                                            <Minus onClick={() => cart(ok, 'minus', y.card.info.name, y.card.info.price ? y.card.info.price / 100 : y.card.info.defaultPrice / 100)}
                                                                                 className="hover:cursor-pointer w-4"
                                                                             />
                                                                             <p className="text-sm text-white font-semibold"> {count[p + j]} </p>
@@ -466,7 +473,10 @@ export default function menu() {
             }
 
             {
-                mycart.length ? <button className={`w-[20rem] fixed bottom-0 right-[35%] rounded-md bg-emerald-500 flex p-1 justify-between ${styles.slideup} `}> <p className="text-white font-semibold text-sm p-2"> Add to cart </p> <p className="text-white font-semibold text-sm p-2"> {billTotal} </p> </button> : ''
+                mycart.length ? <button
+                    className={`w-1/2 sm:w-[20rem] h-14 sm:h-0 fixed bottom-0 right-[25%] sm:right-[35%] mb-2 rounded-md bg-emerald-500 flex p-1 justify-between ${styles.slideup} `}
+                    onClick={() => addCart()}
+                > <p className="text-white font-semibold text-lg sm:text-sm p-2"> Add to cart </p> <p className="text-white font-semibold text-lg sm:text-sm p-2"> {billTotal} </p> </button> : ''
             }
             {/* <p className="mt-4 font-bold"> {name}, {address} </p> */}
         </div>
