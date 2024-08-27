@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/carousel"
 import Header from "../components/Header";
 import styles from '../src/app/menu.module.css'
+import { useRouter } from "next/router";
 
 const kanit = Kanit({
     subsets: ['latin'],
@@ -44,15 +45,14 @@ export default function menu() {
 
     console.log(restId, x, y);
 
-    useEffect(() => {
-        setCount(Array(200).fill(0));
-    }, [])
-
+    var getMenu = [];
     let p = 0
     useEffect(() => {
-        const menu = JSON.parse(localStorage.getItem('menu')) || null;
+        if (JSON.parse(localStorage.getItem('menu'))) {
+            getMenu = JSON.parse(localStorage.getItem('menu'));
+        }
         (
-            menu === null ? async () => {
+            getMenu.length === 0 ? async () => {
                 console.log("hi")
                 const response = await axios.get(`${process.env.NEXT_PUBLIC_SWIGGY_MENU}&lat=${y}&lng=${x}&&submitAction=ENTER&restaurantId=${restId}`)
 
@@ -62,7 +62,8 @@ export default function menu() {
                     localStorage.setItem('menu', JSON.stringify(response.data.data))
                 }
             } : () => {
-                setData(menu);
+                console.log("hello")
+                setData(getMenu);
             }
         )()
         setCount(Array(400).fill(0));
@@ -83,16 +84,6 @@ export default function menu() {
             setOffers(data.cards[3].card.card.gridElements.infoWithStyle.offers)
             // console.log(bio)
         }
-        menu.length > 0 ? menu.forEach(x => {
-            if (x.card.card.carousel) {
-                console.log(x.card.card.carousel.length)
-            }
-        }) : ''
-        menu.length > 0 ? menu.forEach(x => {
-            if (x.card.card.itemCards) {
-                console.log(x.card.card.itemCards.length)
-            }
-        }) : ''
     }, [data]);
 
     function cart(i, x, name, price) {
@@ -126,7 +117,12 @@ export default function menu() {
 
     console.log("setCart", mycart)
 
+    const router = useRouter();
+
     async function addCart() {
+        if (!userEmail) {
+            router.push('/login')
+        }
         var sum = 0;
         mycart.map(x => { sum = sum + x.quantity * x.price })
         console.log("sum", sum)

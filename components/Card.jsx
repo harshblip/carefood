@@ -23,9 +23,8 @@ export default function Card({ id, name, areaName, locality, costforTwo, cuisine
     const imgs = ["/buildings/b1.png", "/buildings/b2.png", "/buildings/b3.png", "/buildings/b4.png", "/buildings/b4.png", "/buildings/b5.png", "/buildings/b6.png", "/buildings/b7.png", "/buildings/b8.png"]
 
     const random = Math.round(Math.random() * 8);
-    console.log(random)
     return (
-        <div className={`${varela.className} bg-white p-2 rounded-lg w-[21rem] h-[8rem] flex space-x-1`}>
+        <div key={id} className={`${varela.className} bg-white p-2 rounded-lg w-[21rem] h-[8rem] flex space-x-1`}>
             <div className="h-[7rem] w-[7rem] mt-2 flex flex-col justify-around">
                 <Image
                     src={imgs[random]}

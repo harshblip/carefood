@@ -132,7 +132,7 @@ export default function Landingpage() {
 
 
     return (
-        <div>
+        <div className='lmlemlem'>
             <div className={`${railway.className} bg h-[100vh] w-[130vw] sm:w-[100vw] flex flex-col`}>
                 <DefaultLayout />
                 <div className='mr-6 ml-6'>

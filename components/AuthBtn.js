@@ -15,6 +15,7 @@ const AuthBtn = () => {
     const router = useRouter();
     const dispatch = useDispatch();
     const userName = useSelector(state => state.signup.name)
+    const userEmail = useSelector(state => state.signup.email)
     console.log(userName);
 
     const handleLogout = async () => {
@@ -58,11 +59,12 @@ const AuthBtn = () => {
                             <TooltipProvider>
                                 <Tooltip>
                                     <TooltipTrigger asChild>
-                                        <button variant="outline" className="-mt-1"> <LogOut /> </button>
+                                        <button
+                                            variant="outline"
+                                            className="-mt-1"
+                                            onClick={() => handleLogout()}
+                                        > <LogOut /> </button>
                                     </TooltipTrigger>
-                                    <TooltipContent className="border border-black mt- p-1 text-xs mr-8 rounded-md transition-all">
-                                        <button>signout</button>
-                                    </TooltipContent>
                                 </Tooltip>
                             </TooltipProvider>
 

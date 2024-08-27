@@ -16,6 +16,12 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover"
+import { Kanit } from "next/font/google"
+
+const kanit = Kanit({
+    subsets: ['latin'],
+    weight: ['300', '500', '600']
+})
 
 const frameworks = [
     {
@@ -28,7 +34,7 @@ const frameworks = [
     },
 ]
 
-export function ComboboxDemo() {
+export function ComboboxDemo({ setPreference }) {
     const [open, setOpen] = React.useState(false)
     const [value, setValue] = React.useState("")
 
@@ -39,14 +45,14 @@ export function ComboboxDemo() {
                     variant="outline"
                     role="combobox"
                     aria-expanded={open}
-                    className="w-[120px] justify-between border-2  border-white -mt-2 text-white font-extrabold"
+                    className="w-[120px] justify-between border-2 border-white -mt-2 text-white font-extrabold"
                 >
                     {value
-                        ? frameworks.find((framework) => framework.value === value)?.label
+                        ? (frameworks.find((framework) => framework.value === value)?.label)
                         : "Sort"}
                 </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-[200px] p-0">
+            <PopoverContent className={`w-[200px] p-0 ml-20 text-white ${kanit.className}`}>
                 <Command>
                     <CommandList>
                         <CommandGroup>
@@ -55,10 +61,12 @@ export function ComboboxDemo() {
                                     key={framework.value}
                                     value={framework.value}
                                     onSelect={(currentValue) => {
+                                        setPreference(framework.value)
                                         setValue(currentValue === value ? "" : currentValue)
                                         setOpen(false)
                                     }}
-                                    className="hover:cursor-pointer bg-gray-200"
+                                    onClick={() => setPreference(framework.value)}
+                                    className="hover:cursor-pointer"
                                 >
                                     <Check
                                         className={cn(

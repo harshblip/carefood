@@ -34,7 +34,7 @@ export default function resturants() {
     const dispatch = useDispatch();
     const router = useRouter();
 
-    const city = useSelector(state => state.location.city)  
+    const city = useSelector(state => state.location.city)
     const x = useSelector(state => state.location.x);
     const y = useSelector(state => state.location.y);
     const [data, setData] = useState([])
@@ -44,6 +44,7 @@ export default function resturants() {
     const [nonveg, setNonveg] = useState(false);
     const [rating, setRating] = useState(true);
     const [open, setOpen] = useState(true);
+    const [preference, setPreference] = useState('')
     console.log(x, y)
     // data2 final
     // data3 for experiment
@@ -85,6 +86,36 @@ export default function resturants() {
         }
     }, [data]);
 
+    useEffect(() => {
+        const newArr = [...data2];
+        if (preference === 'rating') {
+            newArr.sort((a, b) => {
+                var n1 = a.info.avgRatingString;
+                var n2 = parseFloat(n1);
+                var m1 = b.info.avgRatingString
+                var m2 = parseFloat(m1);
+
+                if (n2 < m2) return 1;
+                if (n2 > m2) return -1;
+
+                return 0
+            });
+        } else if (preference === 'cost for two') {
+            newArr.sort((a, b) => {
+                var n1 = a.info.costForTwo;
+                var n2 = parseInt(n1.substr(1, 4));
+                var m1 = b.info.costForTwo;
+                var m2 = parseInt(m1.substr(1, 4));
+
+                if (n2 > m2) return 1;
+                if (n2 < m2) return -1;
+
+                return 0
+            });
+        }
+        setData2(newArr)
+        console.log(preference)
+    }, [preference])
 
     function check(x) {
         if (x === 'veg') {
@@ -183,8 +214,12 @@ export default function resturants() {
                         </div>
                     </div>
                     <div className={`flex space-x-4 mt-8 ml-4 sm:ml-8 ${kanit.className} z-10`}>
-                        <div className="sm:flex hidden">
-                            <ComboboxDemo />
+                        <div
+                            className="sm:flex hidden transition-none"
+                        >
+                            <ComboboxDemo
+                                setPreference={setPreference}
+                            />
                         </div>
                         <button
                             className={`border border-gray-300 p-3 rounded-full h-10 w-16 text-xs hover:bg-green-300 ${rating ? `bg-white` : `bg-green-300 text-white font-semibold border-none`} transition-all hover:text-white hover:border-none -mt-2`}

@@ -77,12 +77,10 @@ input {
 @keyframes easeInOut {
   0% {
     opacity: 0;
-    transform: translateY(-2px);
   }
 
   50% {
     opacity: 1;
-    transform: translateY(0);
   }
 }
 
