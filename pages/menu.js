@@ -122,36 +122,38 @@ export default function menu() {
     async function addCart() {
         if (!userEmail) {
             router.push('/login')
-        }
-        var sum = 0;
-        mycart.map(x => { sum = sum + x.quantity * x.price })
-        console.log("sum", sum)
-        console.log("id", restId)
-        const currentTime = new Date();
-        try {
-            const response = await axios.post('/api/addToCart', {
-                items: mycart,
-                orderTime: currentTime,
-                restaurantName: name,
-                address: address,
-                orderStatus: 'unpaid',
-                totalAmt: sum,
-                email: userEmail,
-                restId: restId
-            },
-                {
-                    headers: {
-                        'Authorization': `Bearer ${accessToken}`
+        } else {
+            var sum = 0;
+            mycart.map(x => { sum = sum + x.quantity * x.price })
+            console.log("sum", sum)
+            console.log("id", restId)
+            const currentTime = new Date();
+            try {
+                const response = await axios.post('/api/addToCart', {
+                    items: mycart,
+                    orderTime: currentTime,
+                    restaurantName: name,
+                    address: address,
+                    orderStatus: 'unpaid',
+                    totalAmt: sum,
+                    email: userEmail,
+                    restId: restId
+                },
+                    {
+                        headers: {
+                            'Authorization': `Bearer ${accessToken}`
+                        }
                     }
+                )
+                if (response.status === 200) {
+                    console.log("cart added to user ", userEmail)
+                } else {
+                    console.log("lol response status wrong bro")
                 }
-            )
-            if (response.status === 200) {
-                console.log("cart added to user ", userEmail)
-            } else {
-                console.log("lol response status wrong bro")
+            } catch (err) {
+                console.log("error response ", err)
             }
-        } catch (err) {
-            console.log("error response ", err)
+            router.push('/cart')
         }
     }
 
@@ -276,15 +278,14 @@ export default function menu() {
                                                     <CarouselItem key={j} className="basis-1/4 sm:basis-1/3 sm:w-32 mt-12 mr-24 rounded-md">
                                                         <div>
                                                             <Card className="hover:bg-transparent hover:text-white hover:cursor-pointer transition-all text-white w-[12rem] h-[13rem] ">
-                                                                <CardContent className="flex flex-col text-start p-4">
-                                                                    <Image
-                                                                        src={CDN_URL + y.dish.info.imageId}
-                                                                        height={0}
-                                                                        width={80}
-                                                                        alt='item-image'
-                                                                        className="ml-8 rounded-md"
-                                                                    />
-                                                                    <p className="text-sm font-semibold mt-2"> {y.title} </p>
+                                                                <CardContent className="flex flex-col justify-center text-start p-4">
+                                                                    <div className="flex flex-col items-center">
+                                                                        <img
+                                                                            src={CDN_URL + y.dish.info.imageId}
+                                                                            className="w-24 h-24 object-cover rounded-md"
+                                                                        />
+                                                                        <p className="text-sm font-semibold mt-2"> {y.title} </p>
+                                                                    </div>
                                                                     <div className="flex items-center absolute bottom-0 -ml-2">
                                                                         <BadgeIndianRupee
                                                                             className="w-4 text-white -mt-6 mr-1"
@@ -292,15 +293,15 @@ export default function menu() {
                                                                         <p className="mb-6 mr-2 text-base"> {Math.round(y.dish.info.price / 100)} </p>
                                                                     </div>
                                                                     {
-                                                                        count[p + j] > 0 ? <div className="flex space-x-2 text-xs text-green-500 font-medium absolute bottom-0 mb-5 ml-14">
+                                                                        count[p + j] > 0 ? <div className="text-xs text-white font-medium absolute bottom-0 mb-6 ml-16 border w-[5.5rem] rounded-md"><div className="flex space-x-3 ml-3 items-center">
                                                                             <Minus onClick={() => cart(j, 'minus', y.title, y.dish.info.price / 100)}
-                                                                                className="hover:cursor-pointer"
+                                                                                className="hover:cursor-pointer w-4"
                                                                             />
-                                                                            <p> {count[p + j]} </p>
+                                                                            <p className="text-sm text-white font-semibold"> {count[p + j]} </p>
                                                                             <Plus onClick={() => cart(j, 'add', y.title, y.dish.info.price / 100)}
-                                                                                className="hover:cursor-pointer"
+                                                                                className="hover:cursor-pointer w-4"
                                                                             />
-                                                                        </div> : <button
+                                                                        </div></div> : <button
                                                                             className="rounded-md bg-white text-gray-600 absolute bottom-0 mb-5 ml-14 font-medium w-24 text-xs"
                                                                             onClick={() => cart(j, 'add', y.title, y.dish.info.price / 100)}
                                                                         > <p className="p-2"> Add to cart </p> </button>
@@ -350,31 +351,36 @@ export default function menu() {
                                                         <div>
                                                             <Card className="hover:bg-transparent hover:text-white hover:cursor-pointer transition-all text-white w-[12rem] h-[13rem] ">
                                                                 <CardContent className="flex flex-col text-start p-4">
-                                                                    <Image
-                                                                        src={CDN_URL + y.card.info.imageId}
-                                                                        height={0}
-                                                                        width={80}
-                                                                        alt='item-image'
-                                                                        className="ml-8 rounded-md"
-                                                                    />
-                                                                    <p className="text-sm font-medium mt-2"> {y.card.info.name} </p>
+                                                                    <div className="flex flex-col items-center">
+                                                                        <img
+                                                                            src={CDN_URL + y.card.info.imageId}
+                                                                            className="w-24 h-24 object-cover rounded-md"
+                                                                        />
+                                                                        <p className="text-sm font-semibold mt-2"> {y.card.info.name} </p>
+                                                                    </div>
                                                                     <div className="flex items-center absolute bottom-0 -ml-2">
                                                                         <BadgeIndianRupee
                                                                             className="w-4 text-white -mt-6 mr-1"
                                                                         />
                                                                         <p className="mb-6 mr-2 text-base"> {y.card.info.price ? Math.round(y.card.info.price / 100) : Math.round(y.card.info.defaultPrice / 100)} </p>
                                                                     </div>
-                                                                    <div className="text-xs text-white font-medium absolute bottom-0 mb-6 ml-16 border w-[5.5rem] rounded-md">
-                                                                        <div className="flex space-x-3 ml-3 items-center">
-                                                                            <Minus onClick={() => cart(ok, 'minus', y.card.info.name, y.card.info.price ? y.card.info.price / 100 : y.card.info.defaultPrice / 100)}
-                                                                                className="hover:cursor-pointer w-4"
-                                                                            />
-                                                                            <p className="text-sm text-white font-semibold"> {count[p + j]} </p>
-                                                                            <Plus onClick={() => cart(ok, 'add', y.card.info.name, y.card.info.price ? y.card.info.price / 100 : y.card.info.defaultPrice / 100)}
-                                                                                className="hover:cursor-pointer w-4"
-                                                                            />
-                                                                        </div>
-                                                                    </div>
+                                                                    {
+                                                                        count[p + j] > 0 ?
+                                                                            <div className="text-xs text-white font-medium absolute bottom-0 mb-6 ml-16 border w-[5.5rem] rounded-md">
+                                                                                <div className="flex space-x-3 ml-3 items-center">
+                                                                                    <Minus onClick={() => cart(ok, 'minus', y.card.info.name, y.card.info.price ? y.card.info.price / 100 : y.card.info.defaultPrice / 100)}
+                                                                                        className="hover:cursor-pointer w-4"
+                                                                                    />
+                                                                                    <p className="text-sm text-white font-semibold"> {count[p + j]} </p>
+                                                                                    <Plus onClick={() => cart(ok, 'add', y.card.info.name, y.card.info.price ? y.card.info.price / 100 : y.card.info.defaultPrice / 100)}
+                                                                                        className="hover:cursor-pointer w-4"
+                                                                                    />
+                                                                                </div>
+                                                                            </div> : <button
+                                                                                className="rounded-md bg-white text-gray-600 absolute bottom-0 mb-5 ml-14 font-medium w-24 text-xs"
+                                                                                onClick={() => cart(j, 'add', y.title, y.dish.info.price / 100)}
+                                                                            > <p className="p-2"> Add to cart </p> </button>
+                                                                    }
                                                                 </CardContent>
                                                             </Card>
                                                         </div>
@@ -424,14 +430,13 @@ export default function menu() {
                                                             <div>
                                                                 <Card className="hover:bg-transparent hover:text-white hover:cursor-pointer transition-all text-white w-[12rem] h-[13rem] ">
                                                                     <CardContent className="flex flex-col text-start p-4">
-                                                                        <Image
-                                                                            src={CDN_URL + z.card.info.imageId}
-                                                                            height={0}
-                                                                            width={80}
-                                                                            alt='item-image'
-                                                                            className="ml-8 rounded-md"
-                                                                        />
-                                                                        <p className="text-sm font-medium mt-2"> {z.card.info.name} </p>
+                                                                        <div className="flex flex-col items-center">
+                                                                            <img
+                                                                                src={CDN_URL + z.card.info.imageId}
+                                                                                className="w-24 h-24 object-cover rounded-md"
+                                                                            />
+                                                                            <p className="text-sm font-semibold mt-2"> {z.card.info.name} </p>
+                                                                        </div>
                                                                         <div className="flex items-center absolute bottom-0 -ml-2">
                                                                             <BadgeIndianRupee
                                                                                 className="w-4 text-white -mt-6 mr-1"
@@ -439,15 +444,15 @@ export default function menu() {
                                                                             <p className="mb-6 mr-2 text-base"> {z.card.info.price ? Math.round(z.card.info.price / 100) : Math.round(z.card.info.defaultPrice / 100)} </p>
                                                                         </div>
                                                                         {
-                                                                            count[p + i] > 0 ? <div className="flex space-x-2 text-xs text-green-500 font-medium">
+                                                                            count[p + i] > 0 ? <div className="text-xs text-white font-medium absolute bottom-0 mb-6 ml-16 border w-[5.5rem] rounded-md"><div className="flex space-x-3 ml-3 items-center">
                                                                                 <Minus onClick={() => cart(ok, 'minus', z.card.info.name, z.card.info.price / 100)}
-                                                                                    className="hover:cursor-pointer"
+                                                                                    className="hover:cursor-pointer w-4"
                                                                                 />
                                                                                 <p> {count[p + i]} </p>
                                                                                 <Plus onClick={() => cart(ok, 'add', z.card.info.name, z.card.info.price ? z.card.info.price / 100 : z.card.info.defaultPrice / 100)}
-                                                                                    className="hover:cursor-pointer"
+                                                                                    className="hover:cursor-pointer w-4"
                                                                                 />
-                                                                            </div> : <button
+                                                                            </div></div> : <button
                                                                                 className="rounded-md bg-white text-gray-600 absolute bottom-0 mb-5 ml-14 font-medium w-24 text-xs"
                                                                                 onClick={() => cart(ok, 'add', z.card.info.name, z.card.info.price ? z.card.info.price / 100 : z.card.info.defaultPrice / 100)}
                                                                             > <p className="p-2"> Add to cart </p> </button>
@@ -470,7 +475,7 @@ export default function menu() {
 
             {
                 mycart.length ? <button
-                    className={`w-1/2 sm:w-[20rem] h-14 sm:h-0 fixed bottom-0 right-[25%] sm:right-[35%] mb-2 rounded-md bg-emerald-500 flex p-1 justify-between ${styles.slideup} `}
+                    className={`w-1/2 sm:w-[20rem] h-14 sm:h-11 fixed bottom-0 right-[25%] sm:right-[35%] mb-2 rounded-md bg-emerald-500 flex p-1 justify-between ${styles.slideup} `}
                     onClick={() => addCart()}
                 > <p className="text-white font-semibold text-lg sm:text-sm p-2"> Add to cart </p> <p className="text-white font-semibold text-lg sm:text-sm p-2"> {billTotal} </p> </button> : ''
             }

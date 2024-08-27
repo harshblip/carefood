@@ -54,16 +54,17 @@ export default function Cart() {
                 }
             )()
         }
-    }, [data])
+    }, [])
 
     console.log(data);
 
     // data.orders ?  : ''
 
-    async function deleteOrdur(id, id2, thing) {
+    async function deleteOrdur(id, id2, thing, price, quant) {
+        console.log(quant, price)
         try {
             const response = await axios.delete('/api/addToCart', {
-                params: { id, id2, thing }
+                params: { id, id2, thing, price, quant }
             })
 
             if (response.status === 200) {
@@ -153,6 +154,7 @@ export default function Cart() {
 
     function gotoRestu(x) {
         console.log("x", x)
+        localStorage.removeItem('menu')
         dispatch(storeRestId({
             id: x
         }))
@@ -175,16 +177,18 @@ export default function Cart() {
                 </div>
                 <div className="flex sm:flex-row flex-col">
                     <div className="border-gray-400 rounded-md mt-6">
-                        <div className="p-4 flex flex-col bg-[#efefef] rounded-md w-[15rem] float-start">
+                        <div className="p-4 flex flex-col bg-[#efefef] rounded-md w-[15rem] float-start hover:cursor-pointer">
                             <p className="font-bold text-gray-600 text-sm"> restaurants </p>
-                            {/* <hr className="border border-gray-400 mt-1 rounded-sm" /> */}
                             {
                                 data.orders ? data.orders.map((x, i) => <div className="bg-white rounded-md mt-4">
                                     <div className={`${manrop.className} p-2 text-gray-600 font-semibold flex justify-between `}>
-                                        <p className="text-xs mt-1"> {x.restaurantName} </p>
-                                        <div 
-                                        className=" bg-red-400 rounded-full h-6 w-6 flex justify-center hover:cursor-pointer"
-                                        onClick={() => }
+                                        <div>
+                                            <p className="text-xs mt-1"> {x.restaurantName} </p>
+                                        </div>
+
+                                        <div
+                                            className=" bg-red-400 rounded-full h-6 w-6 flex justify-center hover:cursor-pointer"
+                                            onClick={() => deleteOrdur(x.id, x.id, 'cart')}
                                         >
                                             <CircleMinus
                                                 className="text-white w-3"
@@ -195,10 +199,10 @@ export default function Cart() {
                             }
                         </div>
                     </div>
-                    <div className={`${manrop.className} -ml-16 w-full flex flex-col mt-6 font-normal mb-32 space-y-4`}>
+                    <div className={`${manrop.className} -ml-6 w-full flex flex-col mt-6 font-normal mb-32 space-y-4`}>
                         {
                             data.orders ? data.orders.map((x, i) => <div key={i}>
-                                <div className=" rounded-md w-[28rem] ml-8 sm:ml-[14rem] sm:w-1/2 bg-[#f8f9fa]">
+                                <div className=" rounded-md w-[28rem] ml-8 sm:ml-[10rem] sm:w-1/2 bg-[#f8f9fa]">
                                     <div className="p-8 text-sm">
                                         {
                                             data.orders[i].items.map((y, j) => <div className="w-full bg-white rounded-md flex justify-between p-4">
@@ -224,7 +228,7 @@ export default function Cart() {
                                                     </div>
                                                     <OctagonX
                                                         className="w-5 text-red-400 hover:cursor-pointer"
-                                                        onClick={() => deleteOrdur(x.id, y.id, 'item')}
+                                                        onClick={() => deleteOrdur(x.id, y.id, 'item', Math.round(y.price), y.quantity)}
                                                     />
                                                     <div className="h-4 border-r-2  mt-[5px] ml-2">
                                                     </div>

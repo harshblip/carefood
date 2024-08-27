@@ -54,12 +54,22 @@ export const getOrders = async (userEmail) => {
     return orders;
 };
 
-export const deleteOrder = async (id2) => {
+export const deleteOrder = async (id, id2, price, quant) => {
     await prisma.item.delete({
         where: {
             id: id2
         }
     });
+    await prisma.order.update({
+        where: {
+            id: id
+        },
+        data: {
+            totalAmt: {
+                decrement: quant*price
+            }
+        }
+    })
 };
 
 export const updateOrder = async (id, id2, newQ) => {
@@ -82,9 +92,9 @@ export const updateOrder = async (id, id2, newQ) => {
     })
 }
 
-export const updateOrderonDelete = async(id, price) => {
+export const updateOrderonDelete = async (id, price) => {
     await prisma.order.update({
-        where:{
+        where: {
             id: id
         },
         data: {
@@ -95,15 +105,28 @@ export const updateOrderonDelete = async(id, price) => {
     })
 }
 
-export const updateOrderonInc = async(id, price) => {
+export const updateOrderonInc = async (id, price) => {
     await prisma.order.update({
-        where:{
+        where: {
             id: id
         },
         data: {
             totalAmt: {
                 increment: price
             }
+        }
+    })
+}
+
+export const deleteCart = async (id) => {
+    await prisma.item.deleteMany({
+        where: {
+            orderId: id
+        }
+    })
+    await prisma.order.delete({
+        where: {
+            id: id
         }
     })
 }

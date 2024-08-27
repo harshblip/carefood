@@ -1,4 +1,4 @@
-import { createOrder, getOrders, deleteOrder, updateOrder, updateOrderonDelete, updateOrderonInc } from "../../prisma/UserCart";
+import { createOrder, getOrders, deleteOrder, updateOrder, updateOrderonDelete, updateOrderonInc, deleteCart } from "../../prisma/UserCart";
 import authMiddleware from "./middleware";
 
 export default async function handler(req, res) {
@@ -32,12 +32,15 @@ export default async function handler(req, res) {
             res.status(500).json({ error: 'Internal Server Error' });
         }
     } else if (req.method === 'DELETE') {
-        const { id, id2, thing, price } = req.query;
+        const { id, id2, thing, price, quant } = req.query;
         try {
             if (thing === 'item') {
-                await deleteOrder(id2);
+                await deleteOrder(id, id2, price, quant);
+                // await updateOrderonDelete(id, price)
+            }else if(thing === 'cart'){
+                await deleteCart(id);
             }
-            await updateOrderonDelete(id, price)
+            console.log("came here")
             res.status(200).json({ message: 'Order deleted successfully' });
         } catch (error) {
             console.error('Error deleting order:', error);
