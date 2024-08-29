@@ -3,13 +3,6 @@ import { Provider } from "react-redux";
 import { SessionProvider } from "next-auth/react";
 import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor } from "../store";
-import { Comfortaa, Bodoni_Moda } from 'next/font/google';
-
-    const poppins = Comfortaa({
-        subsets: ['latin'],
-        display: 'swap',
-        weight: ['300', '600', '700']
-    });
 
 export const metadata = {
     title: "Create Next App",

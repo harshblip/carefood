@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Header from "../components/Header";
 import styles from '../src/app/cart.module.css'
-import { Comfortaa, Kanit, Manrope } from "next/font/google";
+import { Comfortaa, Kanit, Manrope, Anton } from "next/font/google";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { BadgeIndianRupee, CircleMinus, Minus, OctagonX, Pin, Plus, PlusCircle } from "lucide-react";
@@ -22,6 +22,11 @@ const kanit = Kanit({
 
 const manrop = Manrope({
     weight: ['400', '600'],
+    subsets: ['latin']
+})
+
+const anton = Anton({
+    weight: ['400'],
     subsets: ['latin']
 })
 
@@ -165,9 +170,12 @@ export default function Cart() {
 
     return (
         <div className="w-[130vw] h-full sm:w-full bg-[#b4c6b6]">
-            <div className="flex flex-col sm:ml-24">
+            <div className="flex flex-col sm:ml-24 z-10">
                 <Header />
-                <div className={`${styles.bg} ${comfortaa.className} text-white ml-8 sm:ml-0 font-bold text-4xl h-32 sm:mr-32 mr-12 `}>
+                <div className="flex fixed z-0 my-[20rem] sm:my-[14rem] focus:blur select-none">
+                    <p className={`${anton.className} text-7xl sm:text-[12rem] text-[#d3d9d5] `}> CART</p>
+                </div>
+                <div className={`${styles.bg} ${comfortaa.className} text-white ml-8 sm:ml-0 font-bold text-4xl h-32 sm:mr-32 mr-12 z-10`}>
                     <p className={`sm:p-8 p-5`}> Your cart bro </p>
                 </div>
                 <div className="flex align-middle mt-10 z-10">
@@ -175,7 +183,7 @@ export default function Cart() {
                     <p className={`tracking-widest text-sm ${kanit.className} -mt-2 ml-2 mr-2 text-white font-light`}> CART </p>
                     <hr className="border border-white w-1/2 mr-10 sm:mr-32 rounded-sm" />
                 </div>
-                <div className="flex sm:flex-row flex-col">
+                <div className="flex sm:flex-row flex-col z-10">
                     <div className="border-gray-400 rounded-md mt-6">
                         <div className="p-4 flex flex-col bg-[#efefef] rounded-md w-[15rem] float-start hover:cursor-pointer">
                             <p className="font-bold text-gray-600 text-sm"> restaurants </p>

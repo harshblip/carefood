@@ -124,7 +124,6 @@ export default function resturants() {
                 if (nonveg === true) {
                     setNonveg(prevState => !prevState);
                     const new2 = data3.filter(x => x.info.veg === true)
-                    console.log("here ??")
                     setData2(new2);
                     setData3(data);
                 } else {
@@ -142,8 +141,6 @@ export default function resturants() {
             console.log(veg, nonveg)
             if (nonveg === false) {
                 if (veg === true) {
-                    console.log(data2)
-                    console.log("came almost")
                     setVeg(prevState => !prevState);
                     const new2 = data3.filter(x => x.info.veg !== true)
                     setData2(new2);
@@ -200,6 +197,7 @@ export default function resturants() {
 
     return (
         <>
+        
             <header className={`${comfortaa.className} w-[130vw] h-full sm:w-full bg-[#b4c6b6] `}>
                 <div className="flex fixed z-0 my-[20rem] sm:my-[14rem] focus:blur select-none">
                     <p className={`${anton.className} text-7xl sm:text-[12rem] text-[#d3d9d5] `}> RESTAURANTS </p>

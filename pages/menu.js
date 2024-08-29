@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux"
-import { Kanit } from 'next/font/google';
+import { Kanit, Anton } from 'next/font/google';
 import { BadgeIndianRupee, Bike, Minus, Plus, Star, Utensils } from "lucide-react";
 import Image from "next/image";
 import { CDN_URL } from "../utils/constants";
@@ -17,6 +17,11 @@ import Header from "../components/Header";
 import styles from '../src/app/menu.module.css'
 import { useRouter } from "next/router";
 
+const anton = Anton({
+    weight: ['400'],
+    subsets: ['latin']
+})
+
 const kanit = Kanit({
     subsets: ['latin'],
     weight: ['200', '300', '400', '500', '600', '700']
@@ -31,16 +36,19 @@ export default function menu() {
     const [data, setData] = useState([]);
     const [count, setCount] = useState([]);
     const [mycart, setMyCart] = useState([]);
-    const [menu, setMenu] = useState([]);
-    const [cuisines, setCuisines] = useState([]);
-    const [offers, setOffers] = useState([])
-    const [name, setName] = useState('');
-    const [address, setAddress] = useState('')
-    const [rating, setRating] = useState('')
-    const [ratingnum, setRatingnum] = useState('')
-    const [costfor2, setCostfor2] = useState('')
-    const [timeTaken, setTimeTaken] = useState('')
-    const [message, setMessage] = useState('')
+    const [restaurant, setRestaurant] = useState({
+        menu: [],
+        name: '',
+        address: '',
+        rating: '',
+        ratingnum: '',
+        costfor2: '',
+        timeTaken: '',
+        message: '',
+        billTotal: '',
+        cuisines: [],
+        offers: []
+    })
     const [billTotal, setBillTotal] = useState(0);
 
     console.log(restId, x, y);
@@ -72,17 +80,22 @@ export default function menu() {
     useEffect(() => {
         if (data && data.cards) {
             console.log(data.cards);
-            setMenu(data.cards[4].groupedCard.cardGroupMap.REGULAR.cards)
-            setName(data.cards[2].card.card.info.name)
-            setAddress(data.cards[2].card.card.info.areaName)
-            setRatingnum(data.cards[2].card.card.info.totalRatingsString)
-            setRating(data.cards[2].card.card.info.avgRating)
-            setCostfor2(data.cards[2].card.card.info.costForTwoMessage)
-            setCuisines(data.cards[2].card.card.info.cuisines)
-            setTimeTaken(data.cards[2].card.card.info.sla.slaString)
-            setMessage(data.cards[2].card.card.info.feeDetails.message)
-            setOffers(data.cards[3].card.card.gridElements.infoWithStyle.offers)
-            // console.log(bio)
+            const menu = data.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards;
+            const info = data.cards[2]?.card?.card?.info
+            const offers = data.cards[3]?.card?.card?.gridElements?.infoWithStyle?.offers
+            setRestaurant(prevState => ({
+                ...prevState,
+                menu: menu,
+                name: info?.name,
+                address: info?.areaName,
+                ratingnum: info?.totalRatingsString,
+                rating: info?.avgRating,
+                costfor2: info?.costForTwoMessage,
+                cuisines: info?.cuisines,
+                timeTaken: info?.sla?.slaString,
+                message: info?.feeDetails?.message,
+                offers: offers
+            }))
         }
     }, [data]);
 
@@ -132,8 +145,8 @@ export default function menu() {
                 const response = await axios.post('/api/addToCart', {
                     items: mycart,
                     orderTime: currentTime,
-                    restaurantName: name,
-                    address: address,
+                    restaurantName: restaurant.name,
+                    address: restaurant.address,
                     orderStatus: 'unpaid',
                     totalAmt: sum,
                     email: userEmail,
@@ -165,9 +178,12 @@ export default function menu() {
     return (
         <div className={`${kanit.className} flex flex-col bg-[#b4c6b6] w-[160%] sm:w-full`}>
             <Header />
-            <div className="flex mt-8 sm:ml-32 ml-6">
+            <div className="flex fixed z-0 my-[20rem] sm:my-[14rem] focus:blur select-none">
+                <p className={`${anton.className} text-7xl sm:text-[12rem] text-[#d3d9d5] `}> MENU </p>
+            </div>
+            <div className="flex mt-8 sm:ml-32 ml-6 z-10">
                 <div className="p-2 flex flex-col space-y-2 text-white">
-                    <p className="text-2xl font-semibold"> {name} </p>
+                    <p className="text-2xl font-semibold"> {restaurant.name} </p>
                     <div className="bg-white text-gray-600 rounded-md shadow w-[26rem] sm:w-[28rem]">
                         <div className="p-4 flex flex-col">
                             <div className="flex">
@@ -176,15 +192,15 @@ export default function menu() {
                                         className="text-yellow-400 w-3"
                                         fill="#facc15"
                                     />
-                                    <p className="text-sm ml-2 font-semibold"> {rating} ({ratingnum}) </p>
+                                    <p className="text-sm ml-2 font-semibold"> {restaurant.rating} ({restaurant.ratingnum}) </p>
                                 </div>
                                 <div className="h-4 border-r-2  mt-[5px] ml-2">
                                 </div>
                                 <div>
-                                    <p className="text-sm ml-2 font-semibold"> {costfor2} </p>
+                                    <p className="text-sm ml-2 font-semibold"> {restaurant.costfor2} </p>
                                 </div>
                             </div>
-                            <p className="text-sm ml-2 font-semibold text-emerald-400 underline"> {cuisines[0]}, {cuisines[1]} </p>
+                            <p className="text-sm ml-2 font-semibold text-emerald-400 underline"> {restaurant.cuisines[0]}, {restaurant.cuisines[1]} </p>
                             <div className="flex mt-1">
                                 <svg width="20" height="100" className="mt-2">
                                     <circle cx="10" cy="10" r="5" fill="#adb5bd" />
@@ -194,19 +210,19 @@ export default function menu() {
                                 <div className="flex flex-col">
                                     <div className="flex font-medium text-sm">
                                         <p className="ml-2 mt-2"> Outlet </p>
-                                        <p className="ml-4 mt-2 font-light"> {address} </p>
+                                        <p className="ml-4 mt-2 font-light"> {restaurant.address} </p>
                                     </div>
                                     <div className="font-medium text-sm mt-2 ml-2">
-                                        <p> {timeTaken.toLocaleLowerCase()} </p>
+                                        <p> {restaurant.timeTaken.toLocaleLowerCase()} </p>
                                     </div>
                                 </div>
                             </div>
-                            {message ? <> <hr className="border border-gray-200 rounded-sm -mt-8 mb-3" />
+                            {restaurant.message ? <> <hr className="border border-gray-200 rounded-sm -mt-8 mb-3" />
                                 <div className="flex space-x-2 items-center">
                                     <Bike
                                         className="w-4 text-gray-600 ml-1"
                                     />
-                                    <p className="text-sm font-light"> {message} </p>
+                                    <p className="text-sm font-light"> {restaurant.message} </p>
                                 </div></> : ''}
                         </div>
                     </div>
@@ -221,7 +237,7 @@ export default function menu() {
                     >
                         <CarouselContent>
                             {
-                                offers ? offers.map((x, i) => (
+                                restaurant.offers ? restaurant.offers.map((x, i) => (
                                     <CarouselItem key={i} className="basis-1/2 sm:basis-1/3">
                                         <div className="p-1">
                                             <Card className="hover:bg-white hover:text-gray-600 hover:cursor-pointer transition-all">
@@ -257,7 +273,7 @@ export default function menu() {
 
 
                 {
-                    menu.length > 0 ? menu.map((x, i) => <div key={i}>
+                    restaurant.menu.length > 0 ? restaurant.menu.map((x, i) => <div key={i}>
                         <Carousel
                             opts={{
                                 align: "start"
@@ -327,7 +343,7 @@ export default function menu() {
                 </div>
                 <div className="sm:-mt-44 -mt-[16rem]">
                     {
-                        menu.length > 0 ? menu.map((x, i) => {
+                        restaurant.menu.length > 0 ? restaurant.menu.map((x, i) => {
                             p = q + 1
                             return <div>
                                 <Carousel
@@ -403,7 +419,7 @@ export default function menu() {
             </div>
 
             {
-                menu.length > 0 ? menu.map(x => <div>
+                restaurant.menu.length > 0 ? restaurant.menu.map(x => <div>
                     {
                         x.card.card.categories ? x.card.card.categories.map(y => {
                             p = q + 1
@@ -479,7 +495,6 @@ export default function menu() {
                     onClick={() => addCart()}
                 > <p className="text-white font-semibold text-lg sm:text-sm p-2"> Add to cart </p> <p className="text-white font-semibold text-lg sm:text-sm p-2"> {billTotal} </p> </button> : ''
             }
-            {/* <p className="mt-4 font-bold"> {name}, {address} </p> */}
         </div>
     )
 }
