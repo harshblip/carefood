@@ -8,6 +8,8 @@ import { BadgeIndianRupee, CircleMinus, Minus, OctagonX, Pin, Plus, PlusCircle }
 import { useDispatch } from "react-redux";
 import { storeRestId } from "../slices/locationSlice";
 import { useRouter } from "next/router";
+import Image from "next/image";
+import Link from "next/link";
 
 const comfortaa = Comfortaa({
     subsets: ['latin'],
@@ -183,114 +185,126 @@ export default function Cart() {
                     <p className={`tracking-widest text-sm ${kanit.className} -mt-2 ml-2 mr-2 text-white font-light`}> CART </p>
                     <hr className="border border-white w-1/2 mr-10 sm:mr-32 rounded-sm" />
                 </div>
-                <div className="flex sm:flex-row flex-col z-10">
-                    <div className="border-gray-400 rounded-md mt-6">
-                        <div className="p-4 flex flex-col bg-[#efefef] rounded-md w-[15rem] float-start hover:cursor-pointer">
-                            <p className="font-bold text-gray-600 text-sm"> restaurants </p>
-                            {
-                                data.orders ? data.orders.map((x, i) => <div className="bg-white rounded-md mt-4">
-                                    <div className={`${manrop.className} p-2 text-gray-600 font-semibold flex justify-between `}>
-                                        <div>
-                                            <p className="text-xs mt-1"> {x.restaurantName} </p>
-                                        </div>
+                {
+                    data.orders ? <div className="flex sm:flex-row flex-col z-10">
+                        <div className="border-gray-400 rounded-md mt-6">
+                            <div className="p-4 flex flex-col bg-[#efefef] rounded-md w-[15rem] float-start hover:cursor-pointer">
+                                <p className="font-bold text-gray-600 text-sm"> restaurants </p>
+                                {
+                                    data.orders ? data.orders.map((x, i) => <div className="bg-white rounded-md mt-4">
+                                        <div className={`${manrop.className} p-2 text-gray-600 font-semibold flex justify-between `}>
+                                            <div>
+                                                <p className="text-xs mt-1"> {x.restaurantName} </p>
+                                            </div>
 
-                                        <div
-                                            className=" bg-red-400 rounded-full h-6 w-6 flex justify-center hover:cursor-pointer"
-                                            onClick={() => deleteOrdur(x.id, x.id, 'cart')}
-                                        >
-                                            <CircleMinus
-                                                className="text-white w-3"
+                                            <div
+                                                className=" bg-red-400 rounded-full h-6 w-6 flex justify-center hover:cursor-pointer"
+                                                onClick={() => deleteOrdur(x.id, x.id, 'cart')}
+                                            >
+                                                <CircleMinus
+                                                    className="text-white w-3"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>) : ''
+                                }
+                            </div>
+                        </div>
+                        <div className={`${manrop.className} -ml-6 w-full flex flex-col mt-6 font-normal mb-32 space-y-4`}>
+                            {
+                                data.orders ? data.orders.map((x, i) => <div key={i}>
+                                    <div className=" rounded-md w-[28rem] ml-8 sm:ml-[10rem] sm:w-1/2 bg-[#f8f9fa]">
+                                        <div className="p-8 text-sm">
+                                            {
+                                                data.orders[i].items.map((y, j) => <div className="w-full bg-white rounded-md flex justify-between p-4">
+                                                    <div className="text-gray-600">
+                                                        {y.name}
+                                                    </div>
+                                                    <div className="flex space-x-4">
+                                                        <div className="flex space-x-2 border border-gray-300 rounded-md text-green-500 font-bold">
+                                                            <Minus
+                                                                className="w-6  hover:bg-green-300 hover:text-white hover:cursor-pointer text-lg transition-all p-[0.4rem] rounded-md hover:border hover:border-white"
+                                                                onClick={() => adjustItem(j, data, 'minus', y.name, y.quantity, i, 'item', Math.round(y.price))}
+                                                            />
+                                                            {
+                                                                !click[j] ? <p> {y.quantity} </p> : <p> {click[j]}  </p>
+                                                            }
+                                                            <Plus
+                                                                className="w-6 hover:bg-green-300 hover:text-white transition-all p-[0.4rem] hover:cursor-pointer rounded-md
+                                                        hover:border hover:border-white"
+                                                                onClick={() => adjustItem(j, data, 'add', y.name, y.quantity, i, 'item', Math.round(y.price))}
+                                                            />
+                                                        </div>
+                                                        <div className="h-4 border-r-2  mt-[5px] ml-2">
+                                                        </div>
+                                                        <OctagonX
+                                                            className="w-5 text-red-400 hover:cursor-pointer"
+                                                            onClick={() => deleteOrdur(x.id, y.id, 'item', Math.round(y.price), y.quantity)}
+                                                        />
+                                                        <div className="h-4 border-r-2  mt-[5px] ml-2">
+                                                        </div>
+                                                        <p> {Math.round(y.price)} </p>
+                                                    </div>
+                                                </div>
+                                                )
+                                            }
+                                            <div className="mt-4">
+                                                <hr
+                                                    className="w-full border-dashed border-2"
+                                                />
+                                                <div className="flex space-x-2 ml-1 p-1 mt-2 hover:cursor-pointer"
+                                                    onClick={() => gotoRestu(x.restId)}
+                                                >
+                                                    <PlusCircle
+                                                        className="w-4 text-gray-400"
+                                                    />
+                                                    <p className="text-gray-400 text-sm mt-[2px]"> Add more items </p>
+                                                </div>
+                                            </div>
+                                            <hr
+                                                className="w-full border-dashed border-2 mt-2"
                                             />
+                                            <div className="flex flex-col">
+                                                <div className="flex justify-between text-[#8ac4a7] font-semibold mt-4">
+                                                    <div className="flex flex-col justify-between w-full">
+                                                        <div>
+                                                            <div className="flex space-y-2 justify-between w-full">
+                                                                <div className="flex mt-2">
+                                                                    <BadgeIndianRupee className="w-5 text-green-400" />
+                                                                    <p className="text-2xl -mt-1 ml-2"> {x.totalAmt} </p>
+                                                                </div>
+                                                                <div>
+                                                                    <p className="text-4xl -mt-2"> {x.restaurantName} </p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div className="flex space-x-2 justify-between">
+                                                            <p className="text-[#8ac4a7] font-semibold opacity-40 text-start"> {x.orderTime} </p>
+                                                            <div className="flex">
+                                                                <p className="text-[0.7rem] mt-0"> {x.address} </p>
+                                                                <Pin className="w-4 text-emerald-500" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>) : ''
                             }
                         </div>
-                    </div>
-                    <div className={`${manrop.className} -ml-6 w-full flex flex-col mt-6 font-normal mb-32 space-y-4`}>
-                        {
-                            data.orders ? data.orders.map((x, i) => <div key={i}>
-                                <div className=" rounded-md w-[28rem] ml-8 sm:ml-[10rem] sm:w-1/2 bg-[#f8f9fa]">
-                                    <div className="p-8 text-sm">
-                                        {
-                                            data.orders[i].items.map((y, j) => <div className="w-full bg-white rounded-md flex justify-between p-4">
-                                                <div className="text-gray-600">
-                                                    {y.name}
-                                                </div>
-                                                <div className="flex space-x-4">
-                                                    <div className="flex space-x-2 border border-gray-300 rounded-md text-green-500 font-bold">
-                                                        <Minus
-                                                            className="w-6  hover:bg-green-300 hover:text-white hover:cursor-pointer text-lg transition-all p-[0.4rem] rounded-md hover:border hover:border-white"
-                                                            onClick={() => adjustItem(j, data, 'minus', y.name, y.quantity, i, 'item', Math.round(y.price))}
-                                                        />
-                                                        {
-                                                            !click[j] ? <p> {y.quantity} </p> : <p> {click[j]}  </p>
-                                                        }
-                                                        <Plus
-                                                            className="w-6 hover:bg-green-300 hover:text-white transition-all p-[0.4rem] hover:cursor-pointer rounded-md
-                                                        hover:border hover:border-white"
-                                                            onClick={() => adjustItem(j, data, 'add', y.name, y.quantity, i, 'item', Math.round(y.price))}
-                                                        />
-                                                    </div>
-                                                    <div className="h-4 border-r-2  mt-[5px] ml-2">
-                                                    </div>
-                                                    <OctagonX
-                                                        className="w-5 text-red-400 hover:cursor-pointer"
-                                                        onClick={() => deleteOrdur(x.id, y.id, 'item', Math.round(y.price), y.quantity)}
-                                                    />
-                                                    <div className="h-4 border-r-2  mt-[5px] ml-2">
-                                                    </div>
-                                                    <p> {Math.round(y.price)} </p>
-                                                </div>
-                                            </div>
-                                            )
-                                        }
-                                        <div className="mt-4">
-                                            <hr
-                                                className="w-full border-dashed border-2"
-                                            />
-                                            <div className="flex space-x-2 ml-1 p-1 mt-2 hover:cursor-pointer"
-                                                onClick={() => gotoRestu(x.restId)}
-                                            >
-                                                <PlusCircle
-                                                    className="w-4 text-gray-400"
-                                                />
-                                                <p className="text-gray-400 text-sm mt-[2px]"> Add more items </p>
-                                            </div>
-                                        </div>
-                                        <hr
-                                            className="w-full border-dashed border-2 mt-2"
-                                        />
-                                        <div className="flex flex-col">
-                                            <div className="flex justify-between text-[#8ac4a7] font-semibold mt-4">
-                                                <div className="flex flex-col justify-between w-full">
-                                                    <div>
-                                                        <div className="flex space-y-2 justify-between w-full">
-                                                            <div className="flex mt-2">
-                                                                <BadgeIndianRupee className="w-5 text-green-400" />
-                                                                <p className="text-2xl -mt-1 ml-2"> {x.totalAmt} </p>
-                                                            </div>
-                                                            <div>
-                                                                <p className="text-4xl -mt-2"> {x.restaurantName} </p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="flex space-x-2 justify-between">
-                                                        <p className="text-[#8ac4a7] font-semibold opacity-40 text-start"> {x.orderTime} </p>
-                                                        <div className="flex">
-                                                            <p className="text-[0.7rem] mt-0"> {x.address} </p>
-                                                            <Pin className="w-4 text-emerald-500" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>) : 'hi'
-                        }
-                    </div>
-                </div>
+                    </div> : <>
+                        <div className="z-10 -ml-20 sm:ml-32 mt-8 mb-16 flex sm:flex-row flex-col sm:space-x-4 space-y-4 items-center">
+                            <Image
+                                src='/personal/shiba.png'
+                                height={0}
+                                width={250}
+                                alt='nothing in the cart'
+                            />
+                            <p className={`${anton.className} text-2xl sm:text-4xl font-semibold text-[#f1faee]`}> <Link href='/menu' className="text-emerald-500 underline"> Go</Link> to menu page to add some items </p>
+                        </div>
+                    </>
+                }
             </div>
         </div>
     )

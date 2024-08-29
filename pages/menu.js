@@ -16,6 +16,7 @@ import {
 import Header from "../components/Header";
 import styles from '../src/app/menu.module.css'
 import { useRouter } from "next/router";
+import { useDispatch } from "react-redux";
 
 const anton = Anton({
     weight: ['400'],
@@ -121,6 +122,7 @@ export default function menu() {
             setBillTotal(prevTotal => prevTotal + price);
             setMyCart([...mycart, obj])
         }
+
         const m = mycart.filter(x => x.quantity !== 0)
         setMyCart(prevCart => {
             return prevCart.filter(x => x.quantity !== 0);
@@ -183,7 +185,7 @@ export default function menu() {
             </div>
             <div className="flex mt-8 sm:ml-32 ml-6 z-10">
                 <div className="p-2 flex flex-col space-y-2 text-white">
-                    <p className="text-2xl font-semibold"> {restaurant.name} </p>
+                    <p className="text-2xl font-semibold"> {restaurant.name || 'Pls Wait'} </p>
                     <div className="bg-white text-gray-600 rounded-md shadow w-[26rem] sm:w-[28rem]">
                         <div className="p-4 flex flex-col">
                             <div className="flex">
@@ -192,15 +194,15 @@ export default function menu() {
                                         className="text-yellow-400 w-3"
                                         fill="#facc15"
                                     />
-                                    <p className="text-sm ml-2 font-semibold"> {restaurant.rating} ({restaurant.ratingnum}) </p>
+                                    <p className="text-sm ml-2 font-semibold"> {restaurant.rating || '5.0'} ({restaurant.ratingnum || '1M+ ratings'}) </p>
                                 </div>
                                 <div className="h-4 border-r-2  mt-[5px] ml-2">
                                 </div>
                                 <div>
-                                    <p className="text-sm ml-2 font-semibold"> {restaurant.costfor2} </p>
+                                    <p className="text-sm ml-2 font-semibold"> {restaurant.costfor2 || 'pricessless'} </p>
                                 </div>
                             </div>
-                            <p className="text-sm ml-2 font-semibold text-emerald-400 underline"> {restaurant.cuisines[0]}, {restaurant.cuisines[1]} </p>
+                            <p className="text-sm ml-2 font-semibold text-emerald-400 underline"> {restaurant.cuisines[0]}, {restaurant.cuisines[1] || 'Dessert, Dinner'} </p>
                             <div className="flex mt-1">
                                 <svg width="20" height="100" className="mt-2">
                                     <circle cx="10" cy="10" r="5" fill="#adb5bd" />
@@ -210,10 +212,10 @@ export default function menu() {
                                 <div className="flex flex-col">
                                     <div className="flex font-medium text-sm">
                                         <p className="ml-2 mt-2"> Outlet </p>
-                                        <p className="ml-4 mt-2 font-light"> {restaurant.address} </p>
+                                        <p className="ml-4 mt-2 font-light"> {restaurant.address || 'Site C, Lotus'} </p>
                                     </div>
                                     <div className="font-medium text-sm mt-2 ml-2">
-                                        <p> {restaurant.timeTaken.toLocaleLowerCase()} </p>
+                                        <p> {restaurant.timeTaken.toLocaleLowerCase() || 'ready-to-eat'} </p>
                                     </div>
                                 </div>
                             </div>
@@ -222,7 +224,7 @@ export default function menu() {
                                     <Bike
                                         className="w-4 text-gray-600 ml-1"
                                     />
-                                    <p className="text-sm font-light"> {restaurant.message} </p>
+                                    <p className="text-sm font-light"> {restaurant.message || 'Im peak bronze 3 in Valorant'} </p>
                                 </div></> : ''}
                         </div>
                     </div>
@@ -334,7 +336,11 @@ export default function menu() {
                                 }
                             </CarouselContent>
                         </Carousel>
-                    </div>) : 'menu length zero brdr'
+                    </div>) : <>
+                        <div className="w-full flex justify-center flex-col">
+                            <p className="text-white font-semibold text-lg"> almost there, just a moment.... </p>
+                        </div>
+                    </>
                 }
                 <div className="hidden">
                     {
@@ -408,7 +414,11 @@ export default function menu() {
                                     </CarouselContent>
                                 </Carousel>
                             </div>
-                        }) : ''
+                        }) : <>
+                            <div className="w-full flex justify-center flex-col">
+                                <p className="text-white font-semibold text-lg"> almost there, just a moment.... </p>
+                            </div>
+                        </>
                     }
                 </div>
             </div>
@@ -486,7 +496,11 @@ export default function menu() {
                             )
                         }) : ''
                     }
-                </div>) : 'menu length zero brdr'
+                </div>) : <>
+                    <div className="w-full flex justify-center flex-col">
+                        <p className="text-white font-semibold text-lg"> almost there, just a moment.... </p>
+                    </div>
+                </>
             }
 
             {
