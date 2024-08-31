@@ -1,10 +1,8 @@
 <div align="center">
   
-![Circular Image](https://images.weserv.nl/?url=https://cdn.dribbble.com/userupload/4879954/file/original-4fd6edf2e6a875ca9f5bd8fdbae9b309.jpg?resize=1504x1128&vertical=center&h=200&w=250&fit=cover&mask=circle&maxage=7d)
+<img src="/public/personal/forgithub.png" alt="Circular Image" width="700" height="250">
 
 </div>
-
-<h1 align="center">Carefood</h1>
 <h3 align="center"> Your Go-To Food Delivery App with Heart  </h3>
 
 <p align="center">
