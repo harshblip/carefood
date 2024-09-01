@@ -107,3 +107,17 @@ npm run dev
 ```
 to run the app on ```localhost:3000```
 </p>
+
+### Images
+
+|      Home Page       |         Home Page      |
+| :---------------------: | :----------------------: |
+| <img src='/public/demo/home1.png'> | <img src='/public/demo/home2.png'> |
+
+|      Restaurants Page       |   Restaurants Page   |
+| :--------------------: | :---------------------: |
+| <img src='/public/demo/rest1.png'> | <img src='/public/demo/rest2.png'> |
+
+|      Cart Page       |   Cart Page   |
+| :--------------------: | :---------------------: |
+| <img src='/public/demo/cart1.png'> | <img src='/public/demo/cart2.png'> |
