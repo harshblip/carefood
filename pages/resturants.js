@@ -197,7 +197,7 @@ export default function resturants() {
 
     return (
         <>
-        
+
             <header className={`${comfortaa.className} w-[130vw] h-full sm:w-full bg-[#b4c6b6] `}>
                 <div className="flex fixed z-0 my-[20rem] sm:my-[14rem] focus:blur select-none">
                     <p className={`${anton.className} text-7xl sm:text-[12rem] text-[#d3d9d5] `}> RESTAURANTS </p>
@@ -276,7 +276,9 @@ export default function resturants() {
                     </div>
                 </figure>
             </header>
-            <Footer />
+            <div className="absolute bg-white z-50">
+                <Footer />
+            </div>
         </>
     )
 }

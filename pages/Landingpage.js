@@ -257,7 +257,7 @@ export default function Landingpage() {
                 </div>
             </div>
             <div className='w-[130vw] sm:w-[100vw]'>
-                <div className='mt-20 ml-16 sm:ml-0 sm:mt-0 flex flex-col sm:flex sm:flex-row'>
+                <div className='mt-20 ml-24 sm:ml-0 sm:mt-0 flex flex-col sm:flex sm:flex-row'>
                     <div className='sm:mr-0 -ml-10 p-4 sm:p-10'>
                         <div className='sm:p-6'>
                             <Image

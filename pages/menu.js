@@ -297,12 +297,14 @@ export default function menu() {
                                                         <div>
                                                             <Card className="hover:bg-transparent hover:text-white hover:cursor-pointer transition-all text-white w-[12rem] h-[13rem] ">
                                                                 <CardContent className="flex flex-col justify-center text-start p-4">
-                                                                    <div className="flex flex-col items-center">
+                                                                    <div className="flex flex-col items-center ">
                                                                         <img
                                                                             src={CDN_URL + y.dish.info.imageId}
                                                                             className="w-24 h-24 object-cover rounded-md"
                                                                         />
-                                                                        <p className="text-sm font-semibold mt-2"> {y.title} </p>
+                                                                        <div className="w-full truncate">
+                                                                            <p className="text-xs font-semibold mt-2"> {y.title} </p>
+                                                                        </div>
                                                                     </div>
                                                                     <div className="flex items-center absolute bottom-0 -ml-2">
                                                                         <BadgeIndianRupee
@@ -378,7 +380,9 @@ export default function menu() {
                                                                             src={CDN_URL + y.card.info.imageId}
                                                                             className="w-24 h-24 object-cover rounded-md"
                                                                         />
-                                                                        <p className="text-sm font-semibold mt-2"> {y.card.info.name} </p>
+                                                                        <div className="w-full overflow-hidden">
+                                                                            <p className={`text-sm font-semibold mt-2 ${styles.marquee}`}> {y.card.info.name} </p>
+                                                                        </div>
                                                                     </div>
                                                                     <div className="flex items-center absolute bottom-0 -ml-2">
                                                                         <BadgeIndianRupee
@@ -461,7 +465,9 @@ export default function menu() {
                                                                                 src={CDN_URL + z.card.info.imageId}
                                                                                 className="w-24 h-24 object-cover rounded-md"
                                                                             />
-                                                                            <p className="text-sm font-semibold mt-2"> {z.card.info.name} </p>
+                                                                            <div className="w-full truncate">
+                                                                                <p className="text-sm font-semibold mt-2"> {z.card.info.name} </p>
+                                                                            </div>
                                                                         </div>
                                                                         <div className="flex items-center absolute bottom-0 -ml-2">
                                                                             <BadgeIndianRupee
@@ -507,7 +513,7 @@ export default function menu() {
                 mycart.length ? <button
                     className={`w-1/2 sm:w-[20rem] h-14 sm:h-11 fixed bottom-0 right-[25%] sm:right-[35%] mb-2 rounded-md bg-emerald-500 flex p-1 justify-between ${styles.slideup} `}
                     onClick={() => addCart()}
-                > <p className="text-white font-semibold text-lg sm:text-sm p-2"> Add to cart </p> <p className="text-white font-semibold text-lg sm:text-sm p-2"> {billTotal} </p> </button> : ''
+                > <p className="text-white font-semibold text-lg sm:text-sm p-2"> Add to cart </p> <p className="text-white font-semibold text-lg sm:text-sm p-2"> ₹{billTotal} </p> </button> : ''
             }
         </div>
     )

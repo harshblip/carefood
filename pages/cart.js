@@ -61,7 +61,7 @@ export default function Cart() {
                 }
             )()
         }
-    }, [])
+    }, [data])
 
     console.log(data);
 
@@ -172,9 +172,9 @@ export default function Cart() {
 
     return (
         <div className="w-[130vw] h-full sm:w-full bg-[#b4c6b6]">
-            <div className="flex flex-col sm:ml-24 z-10">
+            <div className="flex flex-col ml-4 sm:ml-24 z-10">
                 <Header />
-                <div className="flex fixed z-0 my-[20rem] sm:my-[14rem] focus:blur select-none">
+                <div className="flex fixed -ml-4 sm:-ml-24 z-0 my-[20rem] sm:my-[14rem] focus:blur select-none">
                     <p className={`${anton.className} text-7xl sm:text-[12rem] text-[#d3d9d5] `}> CART</p>
                 </div>
                 <div className={`${styles.bg} ${comfortaa.className} text-white ml-8 sm:ml-0 font-bold text-4xl h-32 sm:mr-32 mr-12 z-10`}>
@@ -187,7 +187,7 @@ export default function Cart() {
                 </div>
                 {
                     data.orders ? <div className="flex sm:flex-row flex-col z-10">
-                        <div className="border-gray-400 rounded-md mt-6">
+                        <div className="border-gray-400 rounded-md mt-6 sm:ml-0 ml-2">
                             <div className="p-4 flex flex-col bg-[#efefef] rounded-md w-[15rem] float-start hover:cursor-pointer">
                                 <p className="font-bold text-gray-600 text-sm"> restaurants </p>
                                 {

@@ -89,7 +89,7 @@ export default function Card({ id, name, areaName, locality, costforTwo, cuisine
                         <p> V </p>
                         <p> E </p>
                         <p> G </p>
-                    </div> : <div className={`${anton.className} ml-44 justify-end absolute flex flex-col text-3xl text-red-500 opacity-50`}>
+                    </div> : <div className={`${anton.className} ml-44 justify-end absolute flex flex-col text-3xl text-red-300 opacity-60`}>
                         <p> V </p>
                         <p> E </p>
                         <p> G </p>

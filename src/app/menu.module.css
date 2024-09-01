@@ -17,3 +17,26 @@
 .slideup {
     animation: slideUp 0.2s ease-out;
 }
+
+.marquee {
+    display: inline-block;
+    /* Keeps the text in a single line */
+    white-space: nowrap;
+    /* Prevents the text from wrapping to the next line */
+    overflow: hidden;
+    /* Hides any text that exceeds the container width */
+    animation: scroll-text 10s linear infinite;
+    /* Defines the animation duration, type, and repeat */
+}
+
+@keyframes scroll-text {
+    0% {
+        transform: translateX(100%);
+        /* Starts the text off-screen to the right */
+    }
+
+    100% {
+        transform: translateX(-100%);
+        /* Ends the text off-screen to the left */
+    }
+}
