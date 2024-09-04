@@ -142,7 +142,8 @@ export default function menu() {
             mycart.map(x => { sum = sum + x.quantity * x.price })
             console.log("sum", sum)
             console.log("id", restId)
-            const currentTime = new Date();
+            const time = new Date();
+            const currentTime = time.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
             try {
                 const response = await axios.post('/api/addToCart', {
                     items: mycart,

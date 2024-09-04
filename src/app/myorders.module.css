@@ -1,0 +1,14 @@
+.bg {
+    background-image: url('/food/orders.png');
+    background-size: cover;
+    background-position: center;
+    border-radius: 0.6rem;
+}
+
+.cardbg {
+    background-image: url('/personal/paid.png');
+    background-size: contain;
+    background-position: center;
+    border-radius: 0.6rem;
+    background-repeat: no-repeat;
+}

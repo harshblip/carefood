@@ -10,3 +10,15 @@ export const updatePaymentStatus = async (restid) => {
         }
     })
 }
+
+export const getPaidOrders = async (email) => {
+    const orders = await prisma.order.findMany({
+        where: {
+            userEmail: email,
+            orderStatus: 'paid'
+        },
+        include: { items: true }
+    })
+
+    return orders
+}

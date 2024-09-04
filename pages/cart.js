@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import { BadgeIndianRupee, CircleMinus, Minus, OctagonX, Pin, Plus, PlusCircle } from "lucide-react";
 import { useDispatch } from "react-redux";
-import { storeRestId, storeAmount, storeOrderid } from "../slices/restaurantSlice";
+import { storeRestId, storeOrder } from "../slices/restaurantSlice";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
@@ -169,13 +169,16 @@ export default function Cart() {
     }
 
     function checkout(i) {
-        dispatch(storeAmount({
+        dispatch(storeOrder({
+            id: data.orders ? data.orders[i].id : 0,
             amm: data.orders ? data.orders[i].totalAmt : 0,
             name: data.orders ? data.orders[i].restaurantName : ''
         }))
-        dispatch(storeOrderid({
-            id: data.orders ? data.orders[i].id : 0
+        dispatch(storeRestId({
+            address: data.orders ? data.orders[i].address : ''
         }))
+
+        console.log(data.orders[i].address)
 
         router.push('/checkout')
     }

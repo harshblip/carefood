@@ -59,24 +59,27 @@ export default function payment() {
     }
 
     return (
-        <div className="flex flex-col justify-center p-2 rounded-md">
+        <div className="flex flex-col justify-center p-2 rounded-md bg-[#9eb8a2]">
             <div className="p-4">
-                <div>
-                    {clientSecret && <PaymentElement
-                        className="text-white"
-                    />}
-                    {
-                        errorMessage && <div> {errorMessage} </div>
-                    }
-                </div>
-                <div
-                    className="bg-[#70956b] rounded-md mt-2 flex justify-center hover:cursor-pointer"
-                    onClick={() => handleSubmit()}
-                >
-                    <p className={`${kanit.className} p-2 text-white text-semibold text-sm`}>
-                        {!loading ? 'Pay' : 'Processing...'}
-                    </p>
-                </div>
+                {
+                    loading === true ? <p className={`${kanit.className} p-2 text-white text-semibold text-sm`}>  loading... </p> : <> <div>
+                        {clientSecret && <PaymentElement
+                            className="text-white"
+                        />}
+                        {
+                            errorMessage && <div> {errorMessage} </div>
+                        }
+                    </div>
+                        <div
+                            className="bg-[#70956b] rounded-md mt-2 flex justify-center hover:cursor-pointer"
+                            onClick={() => handleSubmit()}
+                        >
+                            <p className={`${kanit.className} p-2 text-white text-semibold text-sm`}>
+                                {!loading ? 'Pay' : 'Processing...'}
+                            </p>
+                        </div> </>
+                }
+
             </div>
         </div>
     )

@@ -75,19 +75,4 @@ const AuthBtn = () => {
     );
 };
 
-{/* <div className="flex space-x-4 text-[#2d5c3c]"> <p> Hey, {userName} </p>
-    <TooltipProvider>
-        <Tooltip>
-            <TooltipTrigger asChild>
-                <button
-                    variant="outline"
-                    className="-mt-1"
-                    onClick={() => handleLogout()}
-                > <LogOut /> </button>
-            </TooltipTrigger>
-        </Tooltip>
-    </TooltipProvider>
-
-</div> */}
-
 export default AuthBtn;

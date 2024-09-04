@@ -6,27 +6,26 @@ const restaurantSlice = createSlice({
         restId: 0,
         amount: 0,
         restName: '',
-        orderId: 0
+        orderId: 0,
+        address: ''
     },
     reducers: {
         storeRestId: (state, action) => {
-            const { id } = action.payload;
+            const { id, address } = action.payload;
             state.restId = id;
+            state.address = address
         },
-        storeAmount: (state, action) => {
-            const { amm, name } = action.payload;
+        storeOrder: (state, action) => {
+            const { id, amm, name } = action.payload;
+            state.orderId = id
             state.amount = amm
             state.restName = name
-        },
-        storeOrderid: (state, action) => {
-            const { id } = action.payload;
-            state.orderId = id
         }
     }
 })
 
 export const {
-    storeRestId, storeAmount, storeOrderid
+    storeRestId, storeOrder
 } = restaurantSlice.actions
 
 export default restaurantSlice.reducer
