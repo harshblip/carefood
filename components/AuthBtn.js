@@ -1,17 +1,19 @@
-import { RefreshIcon } from "@heroicons/react/solid";
-import { useSession, signIn } from "next-auth/react";
 import { useRouter } from "next/router";
-import Image from "next/image";
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux';
 import { logout } from "../slices/signupSlice";
-import { LogOut } from "lucide-react";
 import axios from 'axios';
-import { TooltipProvider, TooltipTrigger, TooltipContent } from "@radix-ui/react-tooltip";
-import { Tooltip } from "@/components/ui/tooltip";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Button } from "@/components/ui/button";
+import { Comfortaa } from "next/font/google";
+
+const comfortaa = Comfortaa({
+    subsets: ['latin'],
+    display: 'swap',
+    weight: ['400', '700']
+});
 
 const AuthBtn = () => {
-    const { data: session, status } = useSession();
     const router = useRouter();
     const dispatch = useDispatch();
     const userName = useSelector(state => state.signup.name)
@@ -41,44 +43,51 @@ const AuthBtn = () => {
     const handleLoginClick = () => {
         router.push('/Login');
     };
-    if (status === "loading") {
-        return (
-            <div className="auth-btn">
-                <div className="auth-info">
-                    <RefreshIcon className="icon animate-spin" />
-                </div>
-            </div>
-        );
-    }
-    if (status === "unauthenticated") {
-        return (
-            <div className="auth-btn mt-2 ">
-                {
-                    userName ?
-                        <div className="flex space-x-4 text-[#2d5c3c]"> <p> Hey, {userName} </p>
-                            <TooltipProvider>
-                                <Tooltip>
-                                    <TooltipTrigger asChild>
-                                        <button
-                                            variant="outline"
-                                            className="-mt-1"
-                                            onClick={() => handleLogout()}
-                                        > <LogOut /> </button>
-                                    </TooltipTrigger>
-                                </Tooltip>
-                            </TooltipProvider>
 
-                        </div> : <button onClick={handleLoginClick} className="text-xs">Login</button>
-                }
-            </div>
-        );
-    }
-    // {
-    //     console.log(session.user.email)
-    // }
     return (
-        <div className="">
+
+        <div className="auth-btn mt-2 ">
+            {
+                userName ?
+                    <DropdownMenu>
+                        <DropdownMenuTrigger>
+                            <Button className="outline-none border-none">
+                                <p className={`${comfortaa.className} text-[#2d5c3c] font-bold text-lg`}> Hey, {userName} </p>
+                            </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent className='w-44 text-[#2d5c3c] font-normal text-sm'>
+                            <DropdownMenuLabel
+                                className="hover:cursor-pointer hover:bg-[#f8f9fa] rounded-sm"
+                                onClick={() => handleLogout()}
+                            >
+                                logout
+                            </DropdownMenuLabel>
+                            <DropdownMenuLabel
+                                className="hover:cursor-pointer hover:bg-[#f8f9fa] rounded-sm"
+                                onClick={() => router.push('/myorders')}
+                            >
+                                my orders
+                            </DropdownMenuLabel>
+                        </DropdownMenuContent>
+                    </DropdownMenu> : <button onClick={handleLoginClick} className="text-xs">Login</button>
+            }
         </div>
     );
 };
+
+{/* <div className="flex space-x-4 text-[#2d5c3c]"> <p> Hey, {userName} </p>
+    <TooltipProvider>
+        <Tooltip>
+            <TooltipTrigger asChild>
+                <button
+                    variant="outline"
+                    className="-mt-1"
+                    onClick={() => handleLogout()}
+                > <LogOut /> </button>
+            </TooltipTrigger>
+        </Tooltip>
+    </TooltipProvider>
+
+</div> */}
+
 export default AuthBtn;

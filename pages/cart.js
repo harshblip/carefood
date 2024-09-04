@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import { BadgeIndianRupee, CircleMinus, Minus, OctagonX, Pin, Plus, PlusCircle } from "lucide-react";
 import { useDispatch } from "react-redux";
-import { storeRestId } from "../slices/locationSlice";
+import { storeRestId, storeAmount, storeOrderid } from "../slices/restaurantSlice";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
@@ -61,7 +61,7 @@ export default function Cart() {
                 }
             )()
         }
-    }, [data])
+    }, [])
 
     console.log(data);
 
@@ -168,6 +168,18 @@ export default function Cart() {
         router.push('/menu')
     }
 
+    function checkout(i) {
+        dispatch(storeAmount({
+            amm: data.orders ? data.orders[i].totalAmt : 0,
+            name: data.orders ? data.orders[i].restaurantName : ''
+        }))
+        dispatch(storeOrderid({
+            id: data.orders ? data.orders[i].id : 0
+        }))
+
+        router.push('/checkout')
+    }
+
     console.log(data);
 
     return (
@@ -191,7 +203,7 @@ export default function Cart() {
                             <div className="p-4 flex flex-col bg-[#efefef] rounded-md w-[15rem] float-start hover:cursor-pointer">
                                 <p className="font-bold text-gray-600 text-sm"> restaurants </p>
                                 {
-                                    data.orders ? data.orders.map((x, i) => <div className="bg-white rounded-md mt-4">
+                                    data.orders ? data.orders.map((x, i) => <div className="bg-white rounded-md mt-4 flex flex-col">
                                         <div className={`${manrop.className} p-2 text-gray-600 font-semibold flex justify-between `}>
                                             <div>
                                                 <p className="text-xs mt-1"> {x.restaurantName} </p>
@@ -205,6 +217,12 @@ export default function Cart() {
                                                     className="text-white w-3"
                                                 />
                                             </div>
+                                        </div>
+                                        <div
+                                            className={`mt-2 mb-2 ml-2 rounded-md w-1/2 text-sm bg-emerald-300 text-white ${manrop.className}`}
+                                            onClick={() => checkout(i)}
+                                        >
+                                            <p className="p-1"> buy this shit </p>
                                         </div>
                                     </div>) : ''
                                 }
@@ -221,7 +239,7 @@ export default function Cart() {
                                                         {y.name}
                                                     </div>
                                                     <div className="flex space-x-4">
-                                                        <div className="flex space-x-2 border border-gray-300 rounded-md text-green-500 font-bold">
+                                                        <div className="flex space-x-2 border border-gray-300 rounded-md text-green-500 font-bold h-6">
                                                             <Minus
                                                                 className="w-6  hover:bg-green-300 hover:text-white hover:cursor-pointer text-lg transition-all p-[0.4rem] rounded-md hover:border hover:border-white"
                                                                 onClick={() => adjustItem(j, data, 'minus', y.name, y.quantity, i, 'item', Math.round(y.price))}

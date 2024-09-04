@@ -9,7 +9,7 @@ import { Switch } from "@/components/ui/switch";
 import { ComboboxDemo } from "../components/combubox";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
-import { storeRestId } from "../slices/locationSlice";
+import { storeRestId } from "../slices/restaurantSlice";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 

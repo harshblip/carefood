@@ -48,6 +48,7 @@ export const getOrders = async (userEmail) => {
     const orders = await prisma.order.findMany({
         where: {
             userEmail: userEmail,
+            orderStatus: 'unpaid'
         },
         include: { items: true },
     });

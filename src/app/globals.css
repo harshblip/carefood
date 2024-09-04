@@ -26,6 +26,11 @@ div>p::selection {
   background-color: rgb(73, 185, 131);
 }
 
+div>p>span::selection {
+  color: white;
+  background-color: rgb(73, 185, 131);
+}
+
 input {
   outline: 2px solid transparent;
   outline-offset: 2px;
