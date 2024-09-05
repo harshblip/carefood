@@ -7,7 +7,8 @@ const restaurantSlice = createSlice({
         amount: 0,
         restName: '',
         orderId: 0,
-        address: ''
+        address: '',
+        orders: []
     },
     reducers: {
         storeRestId: (state, action) => {
@@ -16,10 +17,11 @@ const restaurantSlice = createSlice({
             state.address = address
         },
         storeOrder: (state, action) => {
-            const { id, amm, name } = action.payload;
+            const { id, amm, name, orders } = action.payload;
             state.orderId = id
             state.amount = amm
             state.restName = name
+            state.orders = orders
         }
     }
 })

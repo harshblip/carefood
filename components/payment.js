@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 import { useStripe, useElements, PaymentElement } from "@stripe/react-stripe-js"
 import axios from "axios";
 import { useSelector } from "react-redux";
+import currencyConvert from "../utils/currencyConvert";
 
 const kanit = Kanit({
     subsets: ['latin'],
@@ -12,6 +13,7 @@ const kanit = Kanit({
 export default function payment() {
 
     const amount = useSelector(state => state.restaurants.amount)
+    // console.log("amm", amount)
     const accessToken = useSelector(state => state.signup.accessToken)
     const stripe = useStripe();
     const elements = useElements();
@@ -22,7 +24,7 @@ export default function payment() {
     useEffect(() => {
         (
             async () => {
-                await axios.post('/api/create-payment-intent', { amount }, {
+                await axios.post('/api/create-payment-intent', { amount: currencyConvert(amount) }, {
                     headers: {
                         Authorization: `Bearer ${accessToken}`
                     }
@@ -64,10 +66,10 @@ export default function payment() {
     }
 
     return (
-        <div className="flex flex-col justify-center p-2 rounded-md bg-[#9eb8a2]">
+        <div className="flex flex-col justify-center p-2 rounded-md bg-[#9eb8a2] h-[22rem]">
             <div className="p-4">
                 {
-                    !clientSecret || !elements || !stripe  ? <p className={`${kanit.className} p-2 text-white text-semibold text-sm`}>  loading... </p> : <> <div>
+                    !clientSecret || !elements || !stripe ? <p className={`${kanit.className} p-2 text-white text-semibold text-sm`}>  loading... </p> : <> <div>
                         {clientSecret && <PaymentElement
                             className="text-white"
                         />}
@@ -76,7 +78,7 @@ export default function payment() {
                         }
                     </div>
                         <div
-                            className="bg-[#70956b] rounded-md mt-2 flex justify-center hover:cursor-pointer"
+                            className="bg-[#70956b] rounded-md mt-8 flex justify-center hover:cursor-pointer"
                             onClick={() => handleSubmit()}
                         >
                             <p className={`${kanit.className} p-2 text-white text-semibold text-sm`}>

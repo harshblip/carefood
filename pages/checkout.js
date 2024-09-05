@@ -23,6 +23,8 @@ export default function checkout() {
     const orderId = useSelector(state => state.restaurants.orderId)
     const address = useSelector(state => state.restaurants.address)
     const userEmail = useSelector(state => state.signup.email)
+    const orders = useSelector(state => state.restaurants.orders)
+    console.log(orders)
     const [timer, setTimer] = useState(3);
 
     const router = useRouter();
@@ -37,15 +39,17 @@ export default function checkout() {
         }
     }
 
-    setTimeout(() => {
-        if (timer >= 0) {
-            setTimer(timer - 1)
-        }
-        if (timer === 0) {
-            router.push('/Landingpage')
-            // console.log("xD")
-        }
-    }, 1000)
+    function call() {
+        setTimeout(() => {
+            if (timer >= 0) {
+                setTimer(timer - 1)
+            }
+            if (timer === 0) {
+                router.push('/Landingpage')
+                // console.log("xD")
+            }
+        }, 1000)
+    }
 
     const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY);
 
@@ -56,7 +60,7 @@ export default function checkout() {
                     <p className={`${anton.className} text-start text-7xl sm:text-[12rem] text-[#d3d9d5] `}> PAY</p>
                 </div>
                     <div className="flex space-x-4 absolute top-32 left-[25%]">
-                        <div className="z-10 p-2 flex flex-col justify-between bg-[#f8f9fa] rounded-md w-[20rem]">
+                        <div className="z-10 p-2 flex flex-col justify-between bg-[#f8f9fa] rounded-md w-[20rem] h-[25rem]">
                             <div className={`p-4 ${manrop.className}`}>
                                 <div className="flex flex-col space-y-4">
                                     <div className="flex justify-between">
@@ -64,19 +68,29 @@ export default function checkout() {
                                         <p className="text-gray-600 font-bold text-3xl"> <span className="text-xs"> ₹ </span> {amount} <span className="text-xs -ml-1"> .00 </span> </p>
                                     </div>
                                 </div>
-
-                                <div className="flex mt-20">
-                                    <hr className="border border-gray-600 w-full ml-2 rounded-sm" />
-                                    <p className={`tracking-widest text-sm ${manrop.className} -mt-2 ml-2 mr-2 text-gray-600 font-light`}> to </p>
-                                    <hr className="border border-gray-600 w-full rounded-sm" />
+                                <div className="flex flex-col mt-10">
+                                    <hr
+                                        className="border-2 border-gray-300 border-dashed -mt-6"
+                                    />
+                                    <p className="mb-2 text-sm font-bold text-gray-500 mt-6"> your cart </p>
+                                    <div className={`h-28 w-full rounded-md shadow-md overflow-auto overflow-y-scroll no-scrollbar flex flex-col text-sm ${manrop.className} text-gray-500`}>
+                                        {
+                                            orders.map((x, i) => <div className="flex justify-between p-2 font-bold">
+                                                <div className="flex justify-between w-full text-xs">
+                                                    <p> {x.name} </p>
+                                                    <p> {x.quantity} </p>
+                                                </div>
+                                            </div>)
+                                        }
+                                    </div>
                                 </div>
-                                <p className={`text-gray-600 font-bold text-3xl mt-10`}> {name} </p>
+                                <p className={`text-gray-600 font-bold text-2xl mt-8`}> {name} </p>
                             </div>
-                            <div className={`flex flex-col ${manrop.className} space-y-2 p-4`}>
+                            <div className={`flex flex-col ${manrop.className} space-y-2 p-4 -mt-6`}>
                                 <hr
-                                    className="border-1 border-gray-300"
+                                    className="border-2 border-gray-300 border-dashed"
                                 />
-                                <p className="text-gray-600 font-medium text-sm"> {address} </p>
+                                <p className="text-gray-600 font-medium text-sm ml-[0.1rem]"> {address} </p>
                             </div>
                         </div>
                         <div className="p-2 rounded-md">
@@ -92,7 +106,7 @@ export default function checkout() {
                                 <Payment />
                             </Elements>
                         </div>
-                    </div></> : <div className={`w-full flex flex-col justify-center items-center ${kanit.className}`}>
+                    </div></> : <div className={`w-full flex flex-col justify-center items-center ${kanit.className} ${call()}`}>
                     <p> You are not authorized to access this page </p>
                     <p> redirecting you back to homepage in {timer} </p>
                 </div>

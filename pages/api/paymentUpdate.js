@@ -6,11 +6,10 @@ export default async function handler(req, res) {
         const { restid } = req.body;
         try {
             const { message } = await authMiddleware(req, res)
-            console.log(response.data)
             if (message === 'success') {
                 await updatePaymentStatus(restid);
+                res.status(200)
             }
-            res.status(200)
         } catch (err) {
             console.log("error in paymentUpdate", err)
             res.status(500)

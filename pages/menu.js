@@ -321,16 +321,16 @@ export default function menu() {
                                                                     </div>
                                                                     {
                                                                         count[p + j] > 0 ? <div className="text-xs text-white font-medium absolute bottom-0 mb-6 ml-16 border w-[5.5rem] rounded-md"><div className="flex space-x-3 ml-3 items-center">
-                                                                            <Minus onClick={() => cart(j, 'minus', y.title, y.dish.info.price / 100)}
+                                                                            <Minus onClick={() => cart(j, 'minus', y.title, y.dish.info.price ? Math.round(y.dish.info.price / 100) : Math.round(y.dish.info.defaultPrice / 100))}
                                                                                 className="hover:cursor-pointer w-4"
                                                                             />
                                                                             <p className="text-sm text-white font-semibold"> {count[p + j]} </p>
-                                                                            <Plus onClick={() => cart(j, 'add', y.title, y.dish.info.price / 100)}
+                                                                            <Plus onClick={() => cart(j, 'add', y.title, y.dish.info.price ? Math.round(y.dish.info.price / 100) : Math.round(y.dish.info.defaultPrice / 100))}
                                                                                 className="hover:cursor-pointer w-4"
                                                                             />
                                                                         </div></div> : <button
                                                                             className="rounded-md bg-white text-gray-600 absolute bottom-0 mb-5 ml-14 font-medium w-24 text-xs"
-                                                                            onClick={() => cart(j, 'add', y.title, y.dish.info.price / 100)}
+                                                                            onClick={() => cart(j, 'add', y.title, y.dish.info.price ? Math.round(y.dish.info.price / 100) : Math.round(y.dish.info.defaultPrice / 100))}
                                                                         > <p className="p-2"> 1 Add to cart </p> </button>
                                                                     }
                                                                 </CardContent>
@@ -410,13 +410,13 @@ export default function menu() {
                                                                                         className="hover:cursor-pointer w-4"
                                                                                     />
                                                                                     <p className="text-sm text-white font-semibold"> {count[p + j]} </p>
-                                                                                    <Plus onClick={() => cart(ok, 'add', y.card.info.name, y.card.info.price ? y.card.info.price / 100 : y.card.info.defaultPrice / 100)}
+                                                                                    <Plus onClick={() => cart(ok, 'add', y.card.info.name, y.card.info.price ? Math.round(y.card.info.price / 100) : Math.round(y.card.info.defaultPrice / 100))}
                                                                                         className="hover:cursor-pointer w-4"
                                                                                     />
                                                                                 </div>
                                                                             </div> : <button
                                                                                 className="rounded-md bg-white text-gray-600 absolute bottom-0 mb-5 ml-14 font-medium w-24 text-xs"
-                                                                                onClick={() => cart(ok, 'add', y.card.info.name, y.card.info.price / 100)}
+                                                                                onClick={() => cart(ok, 'add', y.card.info.name, y.card.info.price ? Math.round(y.card.info.price / 100) : Math.round(y.card.info.defaultPrice / 100))}
                                                                             > <p className="p-2"> 2 Add to cart </p> </button>
                                                                     }
                                                                 </CardContent>
@@ -494,16 +494,16 @@ export default function menu() {
                                                                         </div>
                                                                         {
                                                                             count[ok] > 0 ? <div className="text-xs text-white font-medium absolute bottom-0 mb-6 ml-16 border w-[5.5rem] rounded-md"><div className="flex space-x-3 ml-3 items-center">
-                                                                                <Minus onClick={() => cart(ok, 'minus', z.card.info.name, z.card.info.price / 100)}
+                                                                                <Minus onClick={() => cart(ok, 'minus', z.card.info.name, z.card.info.price ? Math.round(z.card.info.price / 100) : Math.round(z.card.info.defaultPrice / 100))}
                                                                                     className="hover:cursor-pointer w-4"
                                                                                 />
                                                                                 <p> {count[p + i]} </p>
-                                                                                <Plus onClick={() => cart(ok, 'add', z.card.info.name, z.card.info.price ? z.card.info.price / 100 : z.card.info.defaultPrice / 100)}
+                                                                                <Plus onClick={() => cart(ok, 'add', z.card.info.name, z.card.info.price ? Math.round(z.card.info.price / 100) : Math.round(z.card.info.defaultPrice / 100))}
                                                                                     className="hover:cursor-pointer w-4"
                                                                                 />
                                                                             </div></div> : <button
                                                                                 className="rounded-md bg-white text-gray-600 absolute bottom-0 mb-5 ml-14 font-medium w-24 text-xs"
-                                                                                onClick={() => cart(ok, 'add', z.card.info.name, z.card.info.price ? z.card.info.price / 100 : z.card.info.defaultPrice / 100)}
+                                                                                onClick={() => cart(ok, 'add', z.card.info.name, z.card.info.price ? Math.round(z.card.info.price / 100) : Math.round(z.card.info.defaultPrice / 100))}
                                                                             > <p className="p-2"> 3 Add to cart </p> </button>
                                                                         }
                                                                     </CardContent>

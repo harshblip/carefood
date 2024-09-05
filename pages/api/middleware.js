@@ -6,7 +6,7 @@ export default async function authMiddleware(req, res, next) {
     // Extract access token from headers
     if (!accessToken) {
         const message = 'Access token missing'
-        return message;
+        return { message };
     }
 
     try {

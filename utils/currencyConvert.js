@@ -1,3 +1,3 @@
-export default function currencyCovert(curr) {
-    return (curr * 100);
+export default function currencyConvert(curr) {
+    return Math.round(curr * 100);
 }

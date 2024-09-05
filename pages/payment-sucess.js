@@ -41,11 +41,11 @@ export default function PaymentSucess() {
         if (timer >= 0) {
             setTimer(timer - 1)
         }
-        if (timer === 0) {
-            router.push('/cart')
-            // console.log("xD")
-        }
     }, 1000)
+
+    if (timer === 0) {
+        router.push('/cart')
+    }
 
     return (
         <div className={`text-white text-semibold flex flex-col bg-[#b4c6b6] h-[100vh] justify-center items-center ${kanit.className}`}>

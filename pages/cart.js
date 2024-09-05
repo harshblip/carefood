@@ -68,7 +68,7 @@ export default function Cart() {
                 }
             )()
         }
-    }, [])
+    }, [data])
 
     console.log(data);
 
@@ -193,13 +193,14 @@ export default function Cart() {
         dispatch(storeOrder({
             id: data.orders ? data.orders[i].id : 0,
             amm: data.orders ? data.orders[i].totalAmt : 0,
-            name: data.orders ? data.orders[i].restaurantName : ''
+            name: data.orders ? data.orders[i].restaurantName : '',
+            orders: data.orders ? data.orders[i].items : ''
         }))
         dispatch(storeRestId({
             address: data.orders ? data.orders[i].address : ''
         }))
 
-        console.log(data.orders[i].address)
+        console.log(data.orders[i].totalAmt)
 
         router.push('/checkout')
     }
@@ -316,7 +317,7 @@ export default function Cart() {
                                                                     <p className="text-2xl -mt-1 ml-2"> {x.totalAmt} </p>
                                                                 </div>
                                                                 <div>
-                                                                    <p className="text-4xl -mt-2"> {x.restaurantName} </p>
+                                                                    <p className="text-right text-2xl -mt-2"> {x.restaurantName} </p>
                                                                 </div>
                                                             </div>
                                                         </div>

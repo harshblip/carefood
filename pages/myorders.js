@@ -6,6 +6,7 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import { BadgeIndianRupee, Pin } from "lucide-react";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 const anton = Anton({
     weight: ['400'],
@@ -66,7 +67,7 @@ export default function myorders() {
     }, [])
 
     return (
-        <div className="w-[130vw] h-[100vh] sm:w-full bg-[#b4c6b6]">
+        <div className="w-[130vw] h-full sm:w-full bg-[#b4c6b6]">
             <div className="flex flex-col ml-4 sm:ml-24 z-10">
                 <Header />
                 <div className="flex fixed -ml-4 sm:-ml-24 z-0 my-[20rem] sm:my-[14rem] focus:blur select-none">
@@ -80,10 +81,16 @@ export default function myorders() {
                     <p className={`tracking-widest text-sm ${kanit.className} -mt-2 ml-2 mr-2 text-white font-light`}> MY/ORDERS </p>
                     <hr className="border border-white w-1/2 mr-10 sm:mr-32 rounded-sm" />
                 </div>
-                <div className="z-10 ml-24 mt-6">
+                <div className="z-10 ml-24 mt-6 mb-8 flex flex-col space-y-8">
                     {
                         data.orders ? data.orders.map((x, i) => <div key={i}>
-                            <div className={` ${manrop.className} font-medium rounded-md w-[28rem] ml-8 sm:ml-[10rem] sm:w-1/2 bg-[#f8f9fa] ${styles.cardbg}`}>
+                            <div className={` ${manrop.className} font-medium rounded-md w-[28rem] ml-8 sm:ml-[10rem] sm:w-1/2 bg-[#f8f9fa]`}>
+                            <Image 
+                                src='/personal/paid.png'
+                                height={0}
+                                width={400}
+                                className="ml-16 mt-24 absolute opacity-40 object-contain"
+                            />
                                 <div className="p-8 text-sm">
                                     {
                                         data.orders[i].items.map((y, j) => <div className="w-full bg-white rounded-md flex justify-between p-4">
@@ -112,7 +119,7 @@ export default function myorders() {
                                                             <p className="text-2xl -mt-1 ml-2"> {x.totalAmt} </p>
                                                         </div>
                                                         <div>
-                                                            <p className="text-4xl -mt-2"> {x.restaurantName} </p>
+                                                            <p className="text-right text-2xl -mt-2"> {x.restaurantName} </p>
                                                         </div>
                                                     </div>
                                                 </div>
