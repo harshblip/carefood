@@ -4,7 +4,8 @@ import styles from '../src/app/myorders.module.css'
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
-import { BadgeIndianRupee, CircleMinus, Minus, OctagonX, Pin, Plus, PlusCircle } from "lucide-react";
+import { BadgeIndianRupee, Pin } from "lucide-react";
+import { useRouter } from "next/router";
 
 const anton = Anton({
     weight: ['400'],
@@ -30,24 +31,38 @@ const manrop = Manrope({
 export default function myorders() {
     const [data, setData] = useState([])
     const userEmail = useSelector(state => state.signup.email)
+    const accessToken = useSelector(state => state.signup.accessToken)
+    const router = useRouter();
 
     useEffect(() => {
-        (
-            async () => {
-                try {
-                    const response = await axios.get('/api/paymentUpdate', { userEmail })
-                    if (response.status === 200) {
-                        setData(response.data);
-                        // console.log(response.data)
-                        console.log("data aagya", response.status)
-                    } else {
-                        console.log("error in response myorders.js", response.data)
+        if (!userEmail) {
+            router.push('/Landingpage')
+        }
+        else {
+            (
+                async () => {
+                    try {
+                        const response = await axios.get('/api/paymentUpdate', {
+                            params: {
+                                userEmail: userEmail
+                            },
+                            headers: {
+                                Authorization: `Bearer ${accessToken}`
+                            }
+                        })
+                        if (response.status === 200) {
+                            setData(response.data);
+                            // console.log(response.data)
+                            console.log("data aagya", response.status)
+                        } else {
+                            console.log("error in response myorders.js", response.data)
+                        }
+                    } catch (err) {
+                        console.log("error in myorders api", err)
                     }
-                } catch (err) {
-                    console.log("error in myorders api", err)
                 }
-            }
-        )()
+            )()
+        }
     }, [])
 
     return (

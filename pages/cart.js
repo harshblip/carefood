@@ -37,6 +37,8 @@ export default function Cart() {
     const router = useRouter()
 
     const userEmail = useSelector(state => state.signup.email)
+    const accessToken = useSelector(state => state.signup.accessToken)
+
     console.log(userEmail)
     const [data, setData] = useState([])
     const [click, setClick] = useState([]);
@@ -47,7 +49,12 @@ export default function Cart() {
                 async () => {
                     try {
                         const response = await axios.get('/api/addToCart', {
-                            userEmail: userEmail
+                            params: {
+                                userEmail: userEmail
+                            },
+                            headers: {
+                                Authorization: `Bearer ${accessToken}`
+                            }
                         })
                         if (response.status === 200) {
                             setData(response.data);
@@ -71,7 +78,10 @@ export default function Cart() {
         console.log(quant, price)
         try {
             const response = await axios.delete('/api/addToCart', {
-                params: { id, id2, thing, price, quant }
+                params: { id, id2, thing, price, quant },
+                headers: {
+                    Authorization: `Bearer ${accessToken}`
+                }
             })
 
             if (response.status === 200) {
@@ -120,7 +130,10 @@ export default function Cart() {
         if (newQ === 0) {
             try {
                 const response = await axios.delete('/api/addToCart', {
-                    params: { id, id2, thing, price }
+                    params: { id, id2, thing, price },
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`
+                    }
                 })
 
                 if (response.status === 200) {
@@ -134,6 +147,10 @@ export default function Cart() {
             try {
                 const response = await axios.put('/api/addToCart', {
                     id, price, x
+                }, {
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`
+                    }
                 })
                 if (response.status === 200) {
                     console.log("request successfully called");
@@ -147,6 +164,10 @@ export default function Cart() {
             try {
                 const response = await axios.put('/api/addToCart', {
                     id, id2, newQ, price, x
+                }, {
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`
+                    }
                 })
                 if (response.status === 200) {
                     console.log("updated quantity in the backend")

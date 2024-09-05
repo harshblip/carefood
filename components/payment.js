@@ -12,6 +12,7 @@ const kanit = Kanit({
 export default function payment() {
 
     const amount = useSelector(state => state.restaurants.amount)
+    const accessToken = useSelector(state => state.signup.accessToken)
     const stripe = useStripe();
     const elements = useElements();
     const [errorMessage, setErrorMessage] = useState('');
@@ -21,7 +22,11 @@ export default function payment() {
     useEffect(() => {
         (
             async () => {
-                await axios.post('/api/create-payment-intent', { amount }).then(res => console.log(setClientSecret(res.data.clientSecret))).catch(err => console.log(err))
+                await axios.post('/api/create-payment-intent', { amount }, {
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`
+                    }
+                }).then(res => console.log(setClientSecret(res.data.clientSecret))).catch(err => console.log(err))
             }
         )()
 
@@ -62,7 +67,7 @@ export default function payment() {
         <div className="flex flex-col justify-center p-2 rounded-md bg-[#9eb8a2]">
             <div className="p-4">
                 {
-                    loading === true ? <p className={`${kanit.className} p-2 text-white text-semibold text-sm`}>  loading... </p> : <> <div>
+                    !clientSecret || !elements || !stripe  ? <p className={`${kanit.className} p-2 text-white text-semibold text-sm`}>  loading... </p> : <> <div>
                         {clientSecret && <PaymentElement
                             className="text-white"
                         />}

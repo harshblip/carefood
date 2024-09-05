@@ -2,10 +2,11 @@ import jwt from 'jsonwebtoken';
 import { verifyRefreshToken, signAccessToken } from '../../services/token';
 
 export default async function authMiddleware(req, res, next) {
-    const accessToken = req.headers.authorization?.split(' ')[1]; 
+    const accessToken = req.headers.authorization?.split(' ')[1];
     // Extract access token from headers
     if (!accessToken) {
-        return res.status(401).json({ error: 'Access token missing' });
+        const message = 'Access token missing'
+        return message;
     }
 
     try {
@@ -14,9 +15,9 @@ export default async function authMiddleware(req, res, next) {
         console.log("token is fresh")
         // Attach the user ID to the request object
         req.userId = decoded.userId;
-
+        const message = 'success'
         // Proceed with the request
-        return true;
+        return { message };
     } catch (error) {
         // refreshing the access token if it is expired
         if (error.name === 'TokenExpiredError') {
@@ -28,16 +29,18 @@ export default async function authMiddleware(req, res, next) {
                 // Update request headers with the new access token
                 req.headers.authorization = `Bearer ${newAccessToken}`;
                 console.log("access token refreshed")
-
-                return true;
+                const message = 'success'
+                return { message };
             } catch (refreshError) {
                 console.error('Error verifying refresh token:', refreshError);
-                return res.status(401).json({ error: 'Unauthorized' });
+                const message = 'Error verifying refresh token'
+                return { message };
             }
         }
 
         // Handle other token verification errors
         console.error('Error verifying access token:', error);
-        return res.status(401).json({ error: 'Unauthorized' });
+        const message = 'Error verifying access token'
+        return { message };
     }
 }

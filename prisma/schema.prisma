@@ -28,7 +28,7 @@ model User {
 model Order {
   id             String   @id @default(auto()) @map("_id") @db.ObjectId
   items          Item[]
-  orderTime      DateTime
+  orderTime      String
   restaurantName String   @unique
   address        String
   orderStatus    String

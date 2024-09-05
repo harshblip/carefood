@@ -31,7 +31,7 @@ const kanit = Kanit({
 export default function menu() {
     const accessToken = useSelector(state => state.signup.accessToken)
     const userEmail = useSelector(state => state.signup.email)
-    const restId = useSelector(state => state.location.restId)
+    const restId = useSelector(state => state.restaurants.restId)
     const x = useSelector(state => state.location.x);
     const y = useSelector(state => state.location.y);
     const [data, setData] = useState([]);
@@ -55,7 +55,6 @@ export default function menu() {
     console.log(restId, x, y);
 
     var getMenu = [];
-    let p = 0
     useEffect(() => {
         if (JSON.parse(localStorage.getItem('menu'))) {
             getMenu = JSON.parse(localStorage.getItem('menu'));
@@ -176,6 +175,7 @@ export default function menu() {
     // console.log(mycart, total)
 
     var title = ""
+    var p = 0
     var q = 0;
 
     return (
@@ -299,19 +299,25 @@ export default function menu() {
                                                             <Card className="hover:bg-transparent hover:text-white hover:cursor-pointer transition-all text-white w-[12rem] h-[13rem] ">
                                                                 <CardContent className="flex flex-col justify-center text-start p-4">
                                                                     <div className="flex flex-col items-center ">
-                                                                        <img
-                                                                            src={CDN_URL + y.dish.info.imageId}
-                                                                            className="w-24 h-24 object-cover rounded-md"
-                                                                        />
-                                                                        <div className="w-full truncate">
-                                                                            <p className="text-xs font-semibold mt-2"> {y.title} </p>
+                                                                        {
+                                                                            !y.dish.info.imageId ? <img
+                                                                                src='/food/food-img.png'
+                                                                                className="w-24 h-24 object-cover rounded-md"
+                                                                            /> : <img
+                                                                                src={CDN_URL + y.dish.info.imageId}
+                                                                                className="w-24 h-24 object-cover rounded-md"
+                                                                            />
+                                                                        }
+
+                                                                        <div className="w-full flex justify-center truncate">
+                                                                            <p className="text-sm font-semibold mt-2"> {y.title} </p>
                                                                         </div>
                                                                     </div>
                                                                     <div className="flex items-center absolute bottom-0 -ml-2">
                                                                         <BadgeIndianRupee
                                                                             className="w-4 text-white -mt-6 mr-1"
                                                                         />
-                                                                        <p className="mb-6 mr-2 text-base"> {Math.round(y.dish.info.price / 100)} </p>
+                                                                        <p className="mb-6 mr-2 text-base"> {y.dish.info.price ? Math.round(y.dish.info.price / 100) : Math.round(y.dish.info.defaultPrice / 100)} </p>
                                                                     </div>
                                                                     {
                                                                         count[p + j] > 0 ? <div className="text-xs text-white font-medium absolute bottom-0 mb-6 ml-16 border w-[5.5rem] rounded-md"><div className="flex space-x-3 ml-3 items-center">
@@ -325,7 +331,7 @@ export default function menu() {
                                                                         </div></div> : <button
                                                                             className="rounded-md bg-white text-gray-600 absolute bottom-0 mb-5 ml-14 font-medium w-24 text-xs"
                                                                             onClick={() => cart(j, 'add', y.title, y.dish.info.price / 100)}
-                                                                        > <p className="p-2"> Add to cart </p> </button>
+                                                                        > <p className="p-2"> 1 Add to cart </p> </button>
                                                                     }
                                                                 </CardContent>
                                                             </Card>
@@ -377,12 +383,17 @@ export default function menu() {
                                                             <Card className="hover:bg-transparent hover:text-white hover:cursor-pointer transition-all text-white w-[12rem] h-[13rem] ">
                                                                 <CardContent className="flex flex-col text-start p-4">
                                                                     <div className="flex flex-col items-center">
-                                                                        <img
-                                                                            src={CDN_URL + y.card.info.imageId}
-                                                                            className="w-24 h-24 object-cover rounded-md"
-                                                                        />
-                                                                        <div className="w-full overflow-hidden">
-                                                                            <p className={`text-sm font-semibold mt-2 ${styles.marquee}`}> {y.card.info.name} </p>
+                                                                        {
+                                                                            !y.card.info.imageId ? <img
+                                                                                src='/food/food-img.png'
+                                                                                className="w-24 h-24 object-cover rounded-md"
+                                                                            /> : <img
+                                                                                src={CDN_URL + y.card.info.imageId}
+                                                                                className="w-24 h-24 object-cover rounded-md"
+                                                                            />
+                                                                        }
+                                                                        <div className="w-full flex justify-center truncate">
+                                                                            <p className="text-sm font-semibold mt-2"> {y.card.info.name} </p>
                                                                         </div>
                                                                     </div>
                                                                     <div className="flex items-center absolute bottom-0 -ml-2">
@@ -392,7 +403,7 @@ export default function menu() {
                                                                         <p className="mb-6 mr-2 text-base"> {y.card.info.price ? Math.round(y.card.info.price / 100) : Math.round(y.card.info.defaultPrice / 100)} </p>
                                                                     </div>
                                                                     {
-                                                                        count[p + j] > 0 ?
+                                                                        count[ok] > 0 ?
                                                                             <div className="text-xs text-white font-medium absolute bottom-0 mb-6 ml-16 border w-[5.5rem] rounded-md">
                                                                                 <div className="flex space-x-3 ml-3 items-center">
                                                                                     <Minus onClick={() => cart(ok, 'minus', y.card.info.name, y.card.info.price ? y.card.info.price / 100 : y.card.info.defaultPrice / 100)}
@@ -405,8 +416,8 @@ export default function menu() {
                                                                                 </div>
                                                                             </div> : <button
                                                                                 className="rounded-md bg-white text-gray-600 absolute bottom-0 mb-5 ml-14 font-medium w-24 text-xs"
-                                                                                onClick={() => cart(j, 'add', y.title, y.dish.info.price / 100)}
-                                                                            > <p className="p-2"> Add to cart </p> </button>
+                                                                                onClick={() => cart(ok, 'add', y.card.info.name, y.card.info.price / 100)}
+                                                                            > <p className="p-2"> 2 Add to cart </p> </button>
                                                                     }
                                                                 </CardContent>
                                                             </Card>
@@ -462,11 +473,16 @@ export default function menu() {
                                                                 <Card className="hover:bg-transparent hover:text-white hover:cursor-pointer transition-all text-white w-[12rem] h-[13rem] ">
                                                                     <CardContent className="flex flex-col text-start p-4">
                                                                         <div className="flex flex-col items-center">
-                                                                            <img
-                                                                                src={CDN_URL + z.card.info.imageId}
-                                                                                className="w-24 h-24 object-cover rounded-md"
-                                                                            />
-                                                                            <div className="w-full truncate">
+                                                                            {
+                                                                                !z.card.info.imageId ? <img
+                                                                                    src='/food/food-img.png'
+                                                                                    className="w-24 h-24 object-cover rounded-md"
+                                                                                /> : <img
+                                                                                    src={CDN_URL + z.card.info.imageId}
+                                                                                    className="w-24 h-24 object-cover rounded-md"
+                                                                                />
+                                                                            }
+                                                                            <div className="w-full flex justify-center truncate">
                                                                                 <p className="text-sm font-semibold mt-2"> {z.card.info.name} </p>
                                                                             </div>
                                                                         </div>
@@ -477,7 +493,7 @@ export default function menu() {
                                                                             <p className="mb-6 mr-2 text-base"> {z.card.info.price ? Math.round(z.card.info.price / 100) : Math.round(z.card.info.defaultPrice / 100)} </p>
                                                                         </div>
                                                                         {
-                                                                            count[p + i] > 0 ? <div className="text-xs text-white font-medium absolute bottom-0 mb-6 ml-16 border w-[5.5rem] rounded-md"><div className="flex space-x-3 ml-3 items-center">
+                                                                            count[ok] > 0 ? <div className="text-xs text-white font-medium absolute bottom-0 mb-6 ml-16 border w-[5.5rem] rounded-md"><div className="flex space-x-3 ml-3 items-center">
                                                                                 <Minus onClick={() => cart(ok, 'minus', z.card.info.name, z.card.info.price / 100)}
                                                                                     className="hover:cursor-pointer w-4"
                                                                                 />
@@ -488,7 +504,7 @@ export default function menu() {
                                                                             </div></div> : <button
                                                                                 className="rounded-md bg-white text-gray-600 absolute bottom-0 mb-5 ml-14 font-medium w-24 text-xs"
                                                                                 onClick={() => cart(ok, 'add', z.card.info.name, z.card.info.price ? z.card.info.price / 100 : z.card.info.defaultPrice / 100)}
-                                                                            > <p className="p-2"> Add to cart </p> </button>
+                                                                            > <p className="p-2"> 3 Add to cart </p> </button>
                                                                         }
                                                                     </CardContent>
                                                                 </Card>

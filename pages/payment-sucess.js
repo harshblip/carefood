@@ -12,12 +12,17 @@ const kanit = Kanit({
 export default function PaymentSucess() {
 
     const restid = useSelector(state => state.restaurants.orderId)
+    const accessToken = useSelector(state => state.signup.accessToken)
     console.log(restid)
     useEffect(() => {
         (
             async () => {
                 try {
-                    const response = await axios.put('/api/paymentUpdate', { restid })
+                    const response = await axios.put('/api/paymentUpdate', { restid }, {
+                        headers: {
+                            Authorization: `Bearer ${accessToken}`
+                        }
+                    })
                     if (response.status === 200) {
                         console.log("everything went well")
                     } else {
