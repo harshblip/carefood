@@ -21,7 +21,7 @@ export default function Header() {
                         carefood
                     </p>
                 </div>
-                <div className={`heavy-weight hidden md:flex space-x-4 md:mr-0`}>
+                <div className={`heavy-weight flex space-x-4 md:mr-0`}>
                     <AuthBtn />
                     {
                         userName ? <></> : <button className={`${styles.logo} bg-[#216f3f] p-2 rounded-md text-white h-9 w-20  text-xs`}>Signup</button>
