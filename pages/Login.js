@@ -25,7 +25,7 @@ export default function LoginPage() {
         e.preventDefault();
         console.log(email, password);
         try {
-            const response = await axios.post('https://carefood-kohl.vercel.app/api/login', {
+            const response = await axios.post('/api/login', {
                 email,
                 password,
             });
