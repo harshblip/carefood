@@ -44,7 +44,7 @@ export default function PaymentSucess() {
     }, 1000)
 
     if (timer === 0) {
-        router.push('/cart')
+        router.push('/Cart')
     }
 
     return (

@@ -190,7 +190,7 @@ export default function Resturants() {
             id: x
         }))
         localStorage.removeItem('menu');
-        router.push('/menu')
+        router.push('/Menu')
     }
 
     // console.log(data2.length > 0 ? data2.filter(x => x.info.isOpen === true) : '')

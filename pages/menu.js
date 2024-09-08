@@ -133,7 +133,7 @@ export default function Menu() {
 
     async function addCart() {
         if (!userEmail) {
-            router.push('/login')
+            router.push('/Login')
         } else {
             var sum = 0;
             mycart.map(x => { sum = sum + x.quantity * x.price })
@@ -166,7 +166,7 @@ export default function Menu() {
             } catch (err) {
                 console.log("error response ", err)
             }
-            router.push('/cart')
+            router.push('/Cart')
         }
     }
 
@@ -359,7 +359,7 @@ export default function Menu() {
                     {
                         restaurant.menu.length > 0 ? restaurant.menu.map((x, i) => {
                             p = q + 1
-                            return <div>
+                            return <div key={i}>
                                 <Carousel
                                     opts={{
                                         align: "start"
@@ -371,7 +371,7 @@ export default function Menu() {
                                             q = q + 1
                                             var ok = j + p;
                                             return (
-                                                <div className="flex flex-col">
+                                                <div className="flex flex-col" key={j}>
                                                     {
                                                         (x.card.card.title !== title ?
                                                             <p className="absolute font-medium text-xl text-white mt-2 ml-8"> {title = x.card.card.title} </p> : ''

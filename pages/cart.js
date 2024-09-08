@@ -186,7 +186,7 @@ export default function Cart() {
         dispatch(storeRestId({
             id: x
         }))
-        router.push('/menu')
+        router.push('/Menu')
     }
 
     const [lmao, setLmao] = useState([])
@@ -211,7 +211,7 @@ export default function Cart() {
 
         console.log(data.orders[i].totalAmt)
 
-        router.push('/checkout')
+        router.push('/Checkout')
     }
 
     console.log(data.orders?.length);

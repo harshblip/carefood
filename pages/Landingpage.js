@@ -111,7 +111,7 @@ export default function Landingpage() {
                 setClick2(true)
             } else {
                 localStorage.removeItem('restus')
-                router.push('/resturants')
+                router.push('/Resturants')
             }
         } else {
             setWarning(false);
@@ -146,7 +146,7 @@ export default function Landingpage() {
                         </p>
                     </div>
                     <div className='sm:hidden visible flex justify-center mt-8 text-gray-600 text-center text-sm'>
-                        <p className='leading-6'> Browse your favourite food or restaurant near you. add to <br /> cart. don't pay  any of those items.
+                        <p className='leading-6'> Browse your favourite food or restaurant near you. add to <br /> cart. don&apos;t pay  any of those items.
                             get it all saved in <br /> your account. all of this being powered by <br />mongodb, redux and next
                         </p>
                     </div>
