@@ -2,6 +2,7 @@ import { loginUser } from "../../prisma/Userin";
 
 export default async function handler(req, res) {
     console.log("ok")
+    
     if (req.method === 'POST') {
         const { email, password } = req.body;
 
