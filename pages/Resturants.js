@@ -10,6 +10,7 @@ import { ComboboxDemo } from "../components/combubox";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
 import { storeRestId } from "../slices/restaurantSlice";
+import Image from "next/image";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 
@@ -185,6 +186,8 @@ export default function Resturants() {
         }
     }
 
+    // data.communication.swiggyNotPresent.swiggyNotPresent
+
     function navi(x) {
         dispatch(storeRestId({
             id: x
@@ -193,6 +196,8 @@ export default function Resturants() {
         router.push('/Menu')
     }
 
+    const isPresent = data?.data?.communication?.swiggyNotPresent?.swiggyNotPresent
+    console.log(isPresent)
     // console.log(data2.length > 0 ? data2.filter(x => x.info.isOpen === true) : '')
 
     return (
@@ -251,7 +256,7 @@ export default function Resturants() {
                     </div>
                     <div className={`${styles.grid} z-10`}>
                         {
-                            data2.length > 0 ? data2.map((x, i) => <div key={i}>
+                            !isPresent ? data2.map((x, i) => <div key={i}>
                                 <div
                                     className={`p-2 -ml-16 sm:ml-24 hover:cursor-pointer`}
                                     onClick={() => navi(x.info.id)}
@@ -269,8 +274,15 @@ export default function Resturants() {
                                         veg={x.info.veg}
                                     />
                                 </div>
-                            </div>) : <div className="flex flex-col justify-center ml-[2rem] text-white absolute">
-                                <p className={`mt-4 ${kanit.className}`}> refresh page restaurant </p>
+                            </div>) : <div className="flex justify-center mt-[3rem] -ml-8 sm:ml-[10rem] space-x-10 sm:w-[150%] p-2">
+                                <Image
+                                    src='/personal/no-swiggies.jpg'
+                                    height={0}
+                                    width={150}
+                                    alt='no restaurants found'
+                                    className="mb-24 rounded-md"
+                                />
+                                <p className={`${kanit.className} text-white font-semibold text-xl mt-10 -mr-12`}> There are no swiggies available at your location </p>
                             </div>
                         }
                     </div>
