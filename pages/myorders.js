@@ -6,7 +6,6 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import { BadgeIndianRupee, Pin } from "lucide-react";
 import { useRouter } from "next/router";
-import Image from "next/image";
 
 const anton = Anton({
     weight: ['400'],
@@ -29,7 +28,7 @@ const manrop = Manrope({
     subsets: ['latin']
 })
 
-export default function myorders() {
+export default function Myorders() {
     const [data, setData] = useState([])
     const userEmail = useSelector(state => state.signup.email)
     const accessToken = useSelector(state => state.signup.accessToken)
@@ -88,7 +87,7 @@ export default function myorders() {
                                 <div className="bg-white/60">
                                     <div className="p-8 text-sm">
                                         {
-                                            data.orders[i].items.map((y, j) => <div className="w-full bg-white/30 rounded-md flex justify-between p-4 ">
+                                            data.orders[i].items.map((y, j) => <div className="w-full bg-white/30 rounded-md flex justify-between p-4" key={j}>
                                                 <div className="text-gray-600">
                                                     {y.name}
                                                 </div>

@@ -9,7 +9,7 @@ export async function getServerSideProps(context) {
     };
 }
 
-export default function Home({ session }) {
+export default function Home({ }) {
     return (
         <>
             <div className={HomeStyles.container}>

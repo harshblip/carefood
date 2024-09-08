@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux"
-import { Manrope, Anton } from "next/font/google"
+import { Manrope, Anton, Kanit } from "next/font/google"
 import { Elements } from "@stripe/react-stripe-js"
 import { loadStripe } from "@stripe/stripe-js"
 import Payment from "../components/payment"
@@ -17,7 +17,12 @@ const anton = Anton({
     subsets: ['latin']
 })
 
-export default function checkout() {
+const kanit = Kanit({
+    subsets: ['latin'],
+    weight: ['300', '500', '600']
+})
+
+export default function Checkout() {
     const amount = useSelector(state => state.restaurants.amount)
     const name = useSelector(state => state.restaurants.restName)
     const orderId = useSelector(state => state.restaurants.orderId)
@@ -75,7 +80,7 @@ export default function checkout() {
                                     <p className="mb-2 text-sm font-bold text-gray-500 mt-6"> your cart </p>
                                     <div className={`h-28 w-full rounded-md shadow-md overflow-auto overflow-y-scroll no-scrollbar flex flex-col text-sm ${manrop.className} text-gray-500`}>
                                         {
-                                            orders.map((x, i) => <div className="flex justify-between p-2 font-bold">
+                                            orders.map((x, i) => <div className="flex justify-between p-2 font-bold" key={i}>
                                                 <div className="flex justify-between w-full text-xs">
                                                     <p> {x.name} </p>
                                                     <p> {x.quantity} </p>

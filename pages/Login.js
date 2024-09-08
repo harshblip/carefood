@@ -82,7 +82,7 @@ export default function LoginPage() {
                             />
                         </label>
                         <div className=' sm:relative'>
-                            <p className='text-sm underline'> Don't have an account ? </p>
+                            <p className='text-sm underline'> Don&apos;t have an account ? </p>
                         </div>
                         <button
                             type="submit"
@@ -103,7 +103,7 @@ export default function LoginPage() {
                         <p className='text-3xl font-medium'> What our <br /> foodies have to say. <br /> “ </p>
                     </div>
                     <div>
-                        <p className='mt-4 text-sm font-light'> "Searching and browsing food is easier and fun as ever. <br /> Just put your city and you are good to go!"  </p>
+                        <p className='mt-4 text-sm font-light'> &quot;Searching and browsing food is easier and fun as ever. <br /> Just put your city and you are good to go!&quot;  </p>
                     </div>
                     <div className='flex flex-col mt-8'>
                         <p className='font-medium'> FNC Alfajer </p>

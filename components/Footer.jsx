@@ -22,16 +22,19 @@ export default function Footer() {
                         src='/plants/plant.png'
                         height={0}
                         width={120}
+                        alt='plants-image'
                     />
                     <Image
                         src='/plants/flour.png'
                         height={0}
                         width={250}
+                        alt='plants-image'
                     />
                     <Image
                         src='/plants/plant.png'
                         height={0}
                         width={120}
+                        alt='plants-image'
                     />
                 </div>
             </div>

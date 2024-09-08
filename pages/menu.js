@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux"
 import { Kanit, Anton } from 'next/font/google';
 import { BadgeIndianRupee, Bike, Minus, Plus, Star, Utensils } from "lucide-react";
-import Image from "next/image";
 import { CDN_URL } from "../utils/constants";
 import { Card, CardContent } from '@/components/ui/card'
 import {
@@ -16,7 +15,6 @@ import {
 import Header from "../components/Header";
 import styles from '../src/app/menu.module.css'
 import { useRouter } from "next/router";
-import { useDispatch } from "react-redux";
 
 const anton = Anton({
     weight: ['400'],
@@ -28,7 +26,7 @@ const kanit = Kanit({
     weight: ['200', '300', '400', '500', '600', '700']
 })
 
-export default function menu() {
+export default function Menu() {
     const accessToken = useSelector(state => state.signup.accessToken)
     const userEmail = useSelector(state => state.signup.email)
     const restId = useSelector(state => state.restaurants.restId)
@@ -288,7 +286,7 @@ export default function menu() {
                                     x.card.card.carousel ? x.card.card.carousel.map((y, j) => {
                                         q = q + 1
                                         return (
-                                            <div className="flex flex-col sm:mt-12">
+                                            <div className="flex flex-col sm:mt-12" key={j}>
                                                 {
                                                     (x.card.card.title !== title ? <p className="absolute font-medium text-xl text-white mt-2 ml-8"> {title = x.card.card.title} </p> : ''
                                                     )
@@ -303,6 +301,7 @@ export default function menu() {
                                                                             !y.dish.info.imageId ? <img
                                                                                 src='/food/food-img.png'
                                                                                 className="w-24 h-24 object-cover rounded-md"
+                                                                                alt='fooditem-image'
                                                                             /> : <img
                                                                                 src={CDN_URL + y.dish.info.imageId}
                                                                                 className="w-24 h-24 object-cover rounded-md"
@@ -387,6 +386,7 @@ export default function menu() {
                                                                             !y.card.info.imageId ? <img
                                                                                 src='/food/food-img.png'
                                                                                 className="w-24 h-24 object-cover rounded-md"
+                                                                                alt='fooditem-image'
                                                                             /> : <img
                                                                                 src={CDN_URL + y.card.info.imageId}
                                                                                 className="w-24 h-24 object-cover rounded-md"
@@ -445,12 +445,12 @@ export default function menu() {
             </div>
 
             {
-                restaurant.menu.length > 0 ? restaurant.menu.map(x => <div>
+                restaurant.menu.length > 0 ? restaurant.menu.map((x, e) => <div key={e}>
                     {
-                        x.card.card.categories ? x.card.card.categories.map(y => {
+                        x.card.card.categories ? x.card.card.categories.map((y, j) => {
                             p = q + 1
                             return (
-                                <div>
+                                <div key={j}>
                                     <Carousel
                                         opts={{
                                             align: "start"
@@ -462,7 +462,7 @@ export default function menu() {
                                                 q = q + 1
                                                 var ok = i + p;
                                                 return (
-                                                    <div>
+                                                    <div key={i}>
                                                         {
                                                             (y.title !== title ?
                                                                 <p className="absolute font-medium text-xl text-white mt-2 ml-8"> {title = y.title} </p> : ''
@@ -477,6 +477,7 @@ export default function menu() {
                                                                                 !z.card.info.imageId ? <img
                                                                                     src='/food/food-img.png'
                                                                                     className="w-24 h-24 object-cover rounded-md"
+                                                                                    alt='fooditem-image'
                                                                                 /> : <img
                                                                                     src={CDN_URL + z.card.info.imageId}
                                                                                     className="w-24 h-24 object-cover rounded-md"

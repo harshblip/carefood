@@ -5,9 +5,9 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import DefaultLayout from '../layout/default'
 import Image from 'next/image'
-import { Raleway, Kanit, Comfortaa, Lexend } from 'next/font/google';
+import { Raleway, Kanit, Lexend } from 'next/font/google';
 import styles from '../src/app/Landingpage.module.css'
-import { Map, Keyboard, Instagram, Twitter, Facebook, Mail, ArrowUpRight } from 'lucide-react';
+import { Map, Keyboard, ArrowUpRight } from 'lucide-react';
 import text from '../dumbdata.json'
 import { storeCity, storeCoord } from '../slices/locationSlice'
 import { useDispatch } from 'react-redux'
@@ -141,7 +141,7 @@ export default function Landingpage() {
                         <p className={styles.h1}> Locally Produced <br /> Delivered Direct to <br /> Your Door </p>
                     </div>
                     <div className='hidden sm:visible sm:flex justify-center mt-2 text-gray-600 text-center text-sm'>
-                        <p> Browse your favourite food or restaurant near you. add to cart. don't pay for <br /> any of those items.
+                        <p> Browse your favourite food or restaurant near you. add to cart. don&apos;t pay for <br /> any of those items.
                             get it all saved in your account. all of this being <br /> powered by mongodb, redux and next
                         </p>
                     </div>
@@ -222,6 +222,7 @@ export default function Landingpage() {
                                     {text.map((x, i) => i <= 2 ? <div
                                         className={`flex flex-col p-4 ${click3[i] === 1 ? `bg-[#cefdcc] text-[#2d5c3c]` : `bg-[#80c17e8f] text-white`}   rounded-md hover:bg-[#cefdcc] hover:text-[#2d5c3c] transition-all hover:cursor-pointer mt-6 justify-center`}
                                         onClick={() => (setIndex(x.id), clickfun(i))}
+                                        key={i}
                                     >
                                         <div className='flex'>
                                             <div>
@@ -265,15 +266,16 @@ export default function Landingpage() {
                                 height={0}
                                 width={650}
                                 className='rounded-xl'
+                                alt='forestimage'
                             />
                         </div>
                     </div>
                     <div className='mt-8 sm:ml-0 ml-6'>
                         {
-                            text.map((x, i) => i >= 3 ? <div className='flex flex-col'>
+                            text.map((x, i) => i >= 3 ? <div className='flex flex-col' key={i}>
                                 <div className='bg-[#f5f5f5] hover:bg-[#729071] mt-4 w-[26rem] sm:w-[24rem] rounded-md transition-all'>
                                     <div className={` hover:text-white flex flex-col p-4  ${lexend.className} hover:cursor-pointer mr-12 ]`}>
-                                        <p className='font-normal leading-5 text-sm'> "{x.description}" </p>
+                                        <p className='font-normal leading-5 text-sm'> &quot;{x.description}&quot; </p>
                                         <div className='flex space-x-10 mt-6'>
                                             <div>
                                                 <Image
@@ -281,6 +283,7 @@ export default function Landingpage() {
                                                     height={0}
                                                     width={30}
                                                     className='absolute rounded-xl mr-12'
+                                                    alt='dp'
                                                 />
                                             </div>
                                             <div className='flex flex-col -mt-1 mb-4'>

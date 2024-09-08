@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import { Anek_Latin } from 'next/font/google';
 import styles from '../src/app/Signup.module.css'
 import axios from 'axios';
-import { Compass, Cookie, Mail, PersonStanding, Phone, Shield, ShieldEllipsis, UserRound } from 'lucide-react';
+import { Compass, Cookie, Mail, Phone, Shield, ShieldEllipsis, UserRound } from 'lucide-react';
 
 const anek = Anek_Latin({
   weight: ['300', '400', '500', '700'],
@@ -85,6 +85,7 @@ const Signup = () => {
         } else {
           console.log("status", response.data)
           dispatch(signupSuccess({ userId: response.data.id }));
+          router.push('/Landingpage')
           console.log('User signed up successfully');
         }
       } else {
@@ -152,7 +153,7 @@ const Signup = () => {
                   />
                 </div>
                 {
-                  check ? <p className='text-xs text-red-400 font-medium mt-1'> bro those passwords don't match </p> : ''
+                  check ? <p className='text-xs text-red-400 font-medium mt-1'> bro those passwords don&apos;t match </p> : ''
                 }
               </div>
               <div className='flex flex-col'>
@@ -174,11 +175,12 @@ const Signup = () => {
                       <div>
                         <div>
                           {
-                            cities.map(x => {
+                            cities.map((x, i) => {
                               return (
                                 <div
                                   className="hover:cursor-pointer bg-white/25 hover:bg-transparent p-1 rounded-md mt-1"
                                   onClick={() => (setCity(x.name), setClick(true))}
+                                  key={i}
                                 >
                                   {x.name}, {x.place_formatted}
                                 </div>
@@ -205,7 +207,7 @@ const Signup = () => {
                   />
                 </div>
                 {
-                  phun.length > 11 ? <p className='text-xs text-red-400 font-medium mt-1'> bro this isn't a valid phone number </p> : ''
+                  phun.length > 11 ? <p className='text-xs text-red-400 font-medium mt-1'> bro this isn&apos;t a valid phone number </p> : ''
                 }
               </div>
               <div className='flex'>

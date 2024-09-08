@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Varela_Round, Kanit, Anton } from "next/font/google";
-import { BadgePercent, Earth, Hotel, PersonStanding, Star } from "lucide-react";
-import { CurrencyDollarIcon, CurrencyRupeeIcon } from "@heroicons/react/solid";
+import { BadgePercent, Earth, PersonStanding, Star } from "lucide-react";
+import { CurrencyRupeeIcon } from "@heroicons/react/solid";
 
 const varela = Varela_Round({
     weight: ['400'],

@@ -1,5 +1,5 @@
 import React from 'react'
-import { DropdownMenu, DropdownMenuTrigger, DropdownMenuGroup, DropdownMenuShortcut, DropdownMenuItem, DropdownMenuContent } from "@/components/ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuGroup, DropdownMenuItem, DropdownMenuContent } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 
 function Dropdownbtn() {

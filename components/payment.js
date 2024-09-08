@@ -10,7 +10,7 @@ const kanit = Kanit({
     weight: ['300', '500', '600']
 })
 
-export default function payment() {
+export default function Payment() {
 
     const amount = useSelector(state => state.restaurants.amount)
     // console.log("amm", amount)

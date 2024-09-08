@@ -29,7 +29,7 @@ const anton = Anton({
     subsets: ['latin']
 })
 
-export default function resturants() {
+export default function Resturants() {
 
     const dispatch = useDispatch();
     const router = useRouter();
@@ -251,7 +251,7 @@ export default function resturants() {
                     </div>
                     <div className={`${styles.grid} z-10`}>
                         {
-                            data2.length > 0 ? data2.map(x => <div>
+                            data2.length > 0 ? data2.map((x, i) => <div key={i}>
                                 <div
                                     className={`p-2 -ml-16 sm:ml-24 hover:cursor-pointer`}
                                     onClick={() => navi(x.info.id)}

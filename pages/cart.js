@@ -112,7 +112,7 @@ export default function Cart() {
         } else {
             if (x === 'minus') {
                 const newClick = [...click];
-                newClick[j] = Math.max(0,newClick[j] - 1);
+                newClick[j] = Math.max(0, newClick[j] - 1);
                 setClick(newClick);
             } else {
                 const newClick = [...click];
@@ -120,12 +120,12 @@ export default function Cart() {
                 setClick(newClick);
             }
         }
-        r.forEach(y => y.name === food ? x === 'add' ? y.quantity = y.quantity + 1 : y.quantity = Math.max(0,y.quantity - 1) : '')
+        r.forEach(y => y.name === food ? x === 'add' ? y.quantity = y.quantity + 1 : y.quantity = Math.max(0, y.quantity - 1) : '')
         // setData(duta);
         foodd = food;
         const id = data.orders[i].id
         const id2 = data.orders[i].items[j].id
-        const newQ = x === 'add' ? click[j] + 1 || q + 1 : Math.max(0,click[j] - 1) || q - 1
+        const newQ = x === 'add' ? click[j] + 1 || q + 1 : Math.max(0, click[j] - 1) || q - 1
         console.log(newQ)
         if (newQ === 0) {
             try {
@@ -192,7 +192,7 @@ export default function Cart() {
     const [lmao, setLmao] = useState([])
 
     useEffect(() => {
-        if (data.orders) {
+        if (data && data.orders) {
             setLmao(Array(data.orders.length).fill(false));
         }
     }, [])
@@ -237,7 +237,7 @@ export default function Cart() {
                             <div className="p-4 flex flex-col space-y-4 bg-[#efefef] rounded-md w-[15rem] float-start hover:cursor-pointer">
                                 <p className={`${manrop.className} font-semibold text-gray-600 text-sm`}> restaurants </p>
                                 {
-                                    data.orders ? data.orders.map((x, i) => <div className="bg-white rounded-md mt-4 flex flex-col">
+                                    data.orders ? data.orders.map((x, i) => <div className="bg-white rounded-md mt-4 flex flex-col" key={i}>
                                         <div className={`${manrop.className} p-2 text-gray-600 font-semibold flex justify-between `}>
                                             <div>
                                                 <p className="text-xs mt-1"> {x.restaurantName} </p>
@@ -268,7 +268,7 @@ export default function Cart() {
                                     <div className=" rounded-md w-[28rem] ml-8 sm:ml-[10rem] sm:w-1/2 bg-[#f8f9fa]">
                                         <div className="p-8 text-sm">
                                             {
-                                                data.orders[i].items.map((y, j) => <div className="w-full bg-white rounded-md flex justify-between p-4">
+                                                data.orders[i].items.map((y, j) => <div className="w-full bg-white rounded-md flex justify-between p-4" key={i}>
                                                     <div className="text-gray-600">
                                                         {y.name}
                                                     </div>

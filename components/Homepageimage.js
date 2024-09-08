@@ -9,6 +9,7 @@ export default function Homepageimg() {
                     width={220}
                     height={180}
                     className={styles.polygon}
+                    alt='polygon'
                 />
                 <Image
                     src="/coffiandmilk.png"

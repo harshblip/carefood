@@ -42,7 +42,7 @@ export const authOptions = ({
         })
     ],
     callbacks: {
-        async session({ session, token, user }) {
+        async session({ session, user }) {
             session.user.id = user.id;
             return session;
         },

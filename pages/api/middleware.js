@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import { verifyRefreshToken, signAccessToken } from '../../services/token';
 
-export default async function authMiddleware(req, res, next) {
+export default async function authMiddleware(req) {
     const accessToken = req.headers.authorization?.split(' ')[1];
     // Extract access token from headers
     if (!accessToken) {
