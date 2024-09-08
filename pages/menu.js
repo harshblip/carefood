@@ -331,7 +331,7 @@ export default function menu() {
                                                                         </div></div> : <button
                                                                             className="rounded-md bg-white text-gray-600 absolute bottom-0 mb-5 ml-14 font-medium w-24 text-xs"
                                                                             onClick={() => cart(j, 'add', y.title, y.dish.info.price ? Math.round(y.dish.info.price / 100) : Math.round(y.dish.info.defaultPrice / 100))}
-                                                                        > <p className="p-2"> 1 Add to cart </p> </button>
+                                                                        > <p className="p-2"> Add to cart </p> </button>
                                                                     }
                                                                 </CardContent>
                                                             </Card>
@@ -417,7 +417,7 @@ export default function menu() {
                                                                             </div> : <button
                                                                                 className="rounded-md bg-white text-gray-600 absolute bottom-0 mb-5 ml-14 font-medium w-24 text-xs"
                                                                                 onClick={() => cart(ok, 'add', y.card.info.name, y.card.info.price ? Math.round(y.card.info.price / 100) : Math.round(y.card.info.defaultPrice / 100))}
-                                                                            > <p className="p-2"> 2 Add to cart </p> </button>
+                                                                            > <p className="p-2"> Add to cart </p> </button>
                                                                     }
                                                                 </CardContent>
                                                             </Card>
@@ -504,7 +504,7 @@ export default function menu() {
                                                                             </div></div> : <button
                                                                                 className="rounded-md bg-white text-gray-600 absolute bottom-0 mb-5 ml-14 font-medium w-24 text-xs"
                                                                                 onClick={() => cart(ok, 'add', z.card.info.name, z.card.info.price ? Math.round(z.card.info.price / 100) : Math.round(z.card.info.defaultPrice / 100))}
-                                                                            > <p className="p-2"> 3 Add to cart </p> </button>
+                                                                            > <p className="p-2"> Add to cart </p> </button>
                                                                         }
                                                                     </CardContent>
                                                                 </Card>

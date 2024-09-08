@@ -84,50 +84,46 @@ export default function myorders() {
                 <div className="z-10 ml-24 mt-6 mb-8 flex flex-col space-y-8">
                     {
                         data.orders ? data.orders.map((x, i) => <div key={i}>
-                            <div className={` ${manrop.className} font-medium rounded-md w-[28rem] ml-8 sm:ml-[10rem] sm:w-1/2 bg-[#f8f9fa]`}>
-                            <Image 
-                                src='/personal/paid.png'
-                                height={0}
-                                width={400}
-                                className="ml-16 mt-24 absolute opacity-40 object-contain"
-                            />
-                                <div className="p-8 text-sm">
-                                    {
-                                        data.orders[i].items.map((y, j) => <div className="w-full bg-white rounded-md flex justify-between p-4">
-                                            <div className="text-gray-600">
-                                                {y.name}
-                                            </div>
-                                            <div className="flex space-x-4 items-center">
-                                                <p className="text-gray-600 font-semibold"> {y.quantity}x </p>
-                                                <div className="h-4 border-r-2 mt-[2px] ml-2">
+                            <div className={` ${manrop.className} font-medium rounded-md w-[28rem] ml-8 sm:ml-[10rem] sm:w-1/2 bg-[#f8f9fa] ${styles.cardbg} `}>
+                                <div className="bg-white/60">
+                                    <div className="p-8 text-sm">
+                                        {
+                                            data.orders[i].items.map((y, j) => <div className="w-full bg-white/30 rounded-md flex justify-between p-4 ">
+                                                <div className="text-gray-600">
+                                                    {y.name}
                                                 </div>
-                                                <div className="flex items-center space-x-1">
-                                                    <BadgeIndianRupee className="w-4 text-green-400" />
-                                                    <p className="font-semibold font-base text-green-400"> {Math.round(y.price)} </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        )
-                                    }
-                                    <div className="flex flex-col">
-                                        <div className="flex justify-between text-[#8ac4a7] font-semibold mt-4">
-                                            <div className="flex flex-col justify-between w-full">
-                                                <div>
-                                                    <div className="flex space-y-2 justify-between w-full">
-                                                        <div className="flex mt-2">
-                                                            <BadgeIndianRupee className="w-5 text-green-400" />
-                                                            <p className="text-2xl -mt-1 ml-2"> {x.totalAmt} </p>
-                                                        </div>
-                                                        <div>
-                                                            <p className="text-right text-2xl -mt-2"> {x.restaurantName} </p>
-                                                        </div>
+                                                <div className="flex space-x-4 items-center">
+                                                    <p className="text-gray-600 font-semibold"> {y.quantity}x </p>
+                                                    <div className="h-4 border-r-2 mt-[2px] ml-2">
+                                                    </div>
+                                                    <div className="flex items-center space-x-1">
+                                                        <BadgeIndianRupee className="w-4 text-green-400" />
+                                                        <p className="font-semibold font-base text-green-400"> {Math.round(y.price)} </p>
                                                     </div>
                                                 </div>
-                                                <div className="flex space-x-2 justify-between">
-                                                    <p className="text-[#8ac4a7] font-semibold opacity-40 text-start"> {x.orderTime} </p>
-                                                    <div className="flex">
-                                                        <p className="text-[0.7rem] mt-0"> {x.address} </p>
-                                                        <Pin className="w-4 text-emerald-500" />
+                                            </div>
+                                            )
+                                        }
+                                        <div className="flex flex-col">
+                                            <div className="flex justify-between text-[#8ac4a7] font-semibold mt-4">
+                                                <div className="flex flex-col justify-between w-full">
+                                                    <div>
+                                                        <div className="flex space-y-2 justify-between w-full">
+                                                            <div className="flex mt-2">
+                                                                <BadgeIndianRupee className="w-5 text-green-400" />
+                                                                <p className="text-2xl -mt-1 ml-2"> {x.totalAmt} </p>
+                                                            </div>
+                                                            <div>
+                                                                <p className="text-right text-2xl -mt-2"> {x.restaurantName} </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="flex space-x-2 justify-between">
+                                                        <p className="text-[#8ac4a7] font-semibold opacity-40 text-start"> {x.orderTime} </p>
+                                                        <div className="flex">
+                                                            <p className="text-[0.7rem] mt-0"> {x.address} </p>
+                                                            <Pin className="w-4 text-emerald-500" />
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -135,7 +131,8 @@ export default function myorders() {
                                     </div>
                                 </div>
                             </div>
-                        </div>) : ''
+                        </div>
+                        ) : ''
                     }
                 </div>
             </div>

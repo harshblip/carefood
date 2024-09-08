@@ -112,7 +112,7 @@ export default function Cart() {
         } else {
             if (x === 'minus') {
                 const newClick = [...click];
-                newClick[j] = newClick[j] - 1;
+                newClick[j] = Math.max(0,newClick[j] - 1);
                 setClick(newClick);
             } else {
                 const newClick = [...click];
@@ -120,12 +120,12 @@ export default function Cart() {
                 setClick(newClick);
             }
         }
-        r.forEach(y => y.name === food ? x === 'add' ? y.quantity = y.quantity + 1 : y.quantity = y.quantity - 1 : '')
+        r.forEach(y => y.name === food ? x === 'add' ? y.quantity = y.quantity + 1 : y.quantity = Math.max(0,y.quantity - 1) : '')
         // setData(duta);
         foodd = food;
         const id = data.orders[i].id
         const id2 = data.orders[i].items[j].id
-        const newQ = x === 'add' ? click[j] + 1 || q + 1 : click[j] - 1 || q - 1
+        const newQ = x === 'add' ? click[j] + 1 || q + 1 : Math.max(0,click[j] - 1) || q - 1
         console.log(newQ)
         if (newQ === 0) {
             try {
@@ -189,7 +189,16 @@ export default function Cart() {
         router.push('/menu')
     }
 
+    const [lmao, setLmao] = useState([])
+
+    useEffect(() => {
+        if (data.orders) {
+            setLmao(Array(data.orders.length).fill(false));
+        }
+    }, [])
+
     function checkout(i) {
+        lmao[i] = true;
         dispatch(storeOrder({
             id: data.orders ? data.orders[i].id : 0,
             amm: data.orders ? data.orders[i].totalAmt : 0,
@@ -205,7 +214,7 @@ export default function Cart() {
         router.push('/checkout')
     }
 
-    console.log(data);
+    console.log(data.orders?.length);
 
     return (
         <div className="w-[130vw] h-full sm:w-full bg-[#b4c6b6]">
@@ -223,10 +232,10 @@ export default function Cart() {
                     <hr className="border border-white w-1/2 mr-10 sm:mr-32 rounded-sm" />
                 </div>
                 {
-                    data.orders ? <div className="flex sm:flex-row flex-col z-10">
+                    data.orders && data.orders.length > 0 ? <div className="flex sm:flex-row flex-col z-10">
                         <div className="border-gray-400 rounded-md mt-6 sm:ml-0 ml-2">
-                            <div className="p-4 flex flex-col bg-[#efefef] rounded-md w-[15rem] float-start hover:cursor-pointer">
-                                <p className="font-bold text-gray-600 text-sm"> restaurants </p>
+                            <div className="p-4 flex flex-col space-y-4 bg-[#efefef] rounded-md w-[15rem] float-start hover:cursor-pointer">
+                                <p className={`${manrop.className} font-semibold text-gray-600 text-sm`}> restaurants </p>
                                 {
                                     data.orders ? data.orders.map((x, i) => <div className="bg-white rounded-md mt-4 flex flex-col">
                                         <div className={`${manrop.className} p-2 text-gray-600 font-semibold flex justify-between `}>
@@ -235,7 +244,7 @@ export default function Cart() {
                                             </div>
 
                                             <div
-                                                className=" bg-red-400 rounded-full h-6 w-6 flex justify-center hover:cursor-pointer"
+                                                className=" bg-red-400 rounded-full h-6 w-6 flex justify-center hover:cursor-pointer mt-1"
                                                 onClick={() => deleteOrdur(x.id, x.id, 'cart')}
                                             >
                                                 <CircleMinus
@@ -244,10 +253,10 @@ export default function Cart() {
                                             </div>
                                         </div>
                                         <div
-                                            className={`mt-2 mb-2 ml-2 rounded-md w-1/2 text-sm bg-emerald-300 text-white ${manrop.className}`}
+                                            className={`mt-1 mr-4 mb-2 ml-2 rounded-md text-sm bg-[#cdb4db] text-white ${manrop.className} flex justify-center`}
                                             onClick={() => checkout(i)}
                                         >
-                                            <p className="p-1"> buy this shit </p>
+                                            <p className="p-2 text-xs"> {lmao[i] ? 'lessgoooo' : 'buy this ?'} </p>
                                         </div>
                                     </div>) : ''
                                 }

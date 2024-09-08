@@ -138,7 +138,7 @@ export default function Landingpage() {
                 <div className='mr-6 ml-6'>
 
                     <div className={`flex justify-center mt-8 text-5xl text-center`}>
-                        <h1 className={styles.h1}> Locally Produced <br /> Delivered Direct to <br /> Your Door </h1>
+                        <p className={styles.h1}> Locally Produced <br /> Delivered Direct to <br /> Your Door </p>
                     </div>
                     <div className='hidden sm:visible sm:flex justify-center mt-2 text-gray-600 text-center text-sm'>
                         <p> Browse your favourite food or restaurant near you. add to cart. don't pay for <br /> any of those items.
@@ -257,8 +257,8 @@ export default function Landingpage() {
                 </div>
             </div>
             <div className='w-[130vw] sm:w-[100vw]'>
-                <div className='mt-20 ml-24 sm:ml-0 sm:mt-0 flex flex-col sm:flex sm:flex-row'>
-                    <div className='sm:mr-0 -ml-10 p-4 sm:p-10'>
+                <div className='mt-20 ml-10 sm:ml-0 sm:mt-0 flex flex-col sm:flex sm:flex-row'>
+                    <div className='sm:mr-0 mr-8 sm:p-10'>
                         <div className='sm:p-6'>
                             <Image
                                 src='/plants/forest.png'
@@ -268,7 +268,7 @@ export default function Landingpage() {
                             />
                         </div>
                     </div>
-                    <div className='mt-8'>
+                    <div className='mt-8 sm:ml-0 ml-6'>
                         {
                             text.map((x, i) => i >= 3 ? <div className='flex flex-col'>
                                 <div className='bg-[#f5f5f5] hover:bg-[#729071] mt-4 w-[26rem] sm:w-[24rem] rounded-md transition-all'>

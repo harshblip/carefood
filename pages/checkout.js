@@ -57,9 +57,9 @@ export default function checkout() {
         <div className="w-[130vw] h-[100vh] sm:w-full bg-[#b4c6b6]">
             <div className="sm:ml-24 ml-4">
                 {userEmail ? <> <div className="flex fixed -ml-4 sm:-ml-24 z-0 my-[20rem] sm:my-[14rem] focus:blur select-none">
-                    <p className={`${anton.className} text-start text-7xl sm:text-[12rem] text-[#d3d9d5] `}> PAY</p>
+                    <p className={`${anton.className} text-start text-7xl sm:text-7xl sm:text-[12rem] text-[#d3d9d5] `}> PAY</p>
                 </div>
-                    <div className="flex space-x-4 absolute top-32 left-[25%]">
+                    <div className="flex sm:flex-row flex-col space-y-6 sm:space-y-0 sm:space-x-4 absolute top-32 left-[25%]">
                         <div className="z-10 p-2 flex flex-col justify-between bg-[#f8f9fa] rounded-md w-[20rem] h-[25rem]">
                             <div className={`p-4 ${manrop.className}`}>
                                 <div className="flex flex-col space-y-4">
@@ -90,7 +90,7 @@ export default function checkout() {
                                 <hr
                                     className="border-2 border-gray-300 border-dashed"
                                 />
-                                <p className="text-gray-600 font-medium text-sm ml-[0.1rem]"> {address} </p>
+                                <p className="text-gray-600 font-medium text-sm ml-[0.1rem]"> {address.toLowerCase()} </p>
                             </div>
                         </div>
                         <div className="p-2 rounded-md">

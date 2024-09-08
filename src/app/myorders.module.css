@@ -7,7 +7,7 @@
 
 .cardbg {
     background-image: url('/personal/paid.png');
-    background-size: contain;
+    background-size: 24rem;
     background-position: center;
     border-radius: 0.6rem;
     background-repeat: no-repeat;
