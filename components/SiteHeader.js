@@ -1,7 +1,6 @@
 import AuthBtn from "./AuthBtn"
 import styles from '../src/app/SiteHeader.module.css'
 import { Comfortaa } from 'next/font/google';
-import DropdownMenu from "./Dropdownbtn";
 import { useSelector } from "react-redux";
 
 const comfortaa = Comfortaa({
