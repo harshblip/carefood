@@ -64,7 +64,7 @@ const AuthBtn = () => {
                             </DropdownMenuLabel>
                             <DropdownMenuLabel
                                 className="hover:cursor-pointer hover:bg-[#f8f9fa] rounded-sm"
-                                onClick={() => router.push('/myorders')}
+                                onClick={() => router.push('/Myorders')}
                             >
                                 my orders
                             </DropdownMenuLabel>
