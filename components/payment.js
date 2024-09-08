@@ -53,7 +53,7 @@ export default function Payment() {
             elements,
             clientSecret,
             confirmParams: {
-                return_url: 'https://carefood-kohl.vercel.app/payment-sucess'
+                return_url: 'https://carefood-kohl.vercel.app/Payment-sucess'
             }
         })
 
