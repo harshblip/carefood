@@ -32,7 +32,6 @@ const lexend = Lexend({
 export default function Landingpage() {
 
     const [click, setClick] = useState(false);
-    const [click2, setClick2] = useState(false);
     const [click3, setClick3] = useState([0, 0, 0]);
     const [warning, setWarning] = useState(true);
     const [select, setSelect] = useState(false);
@@ -111,7 +110,6 @@ export default function Landingpage() {
             const r = country.substring(country.length - 5, country.length)
             if (r !== 'India') {
                 setVal('no city out of india pls')
-                setClick2(true)
             } else {
                 localStorage.removeItem('restus')
                 router.push('/Resturants')
@@ -184,9 +182,9 @@ export default function Landingpage() {
                                                     {
 
                                                         x.feature_type === 'place' || x.feature_type === 'locality' ?
-                                                            <div className={`${kanit.className} text-gray-600 font-normal p-2`}>
+                                                            <div className={`${kanit.className} text-gray-600 font-normal p-1`}>
                                                                 <button
-                                                                    className="text-start text-sm rounded-md transition-all ease-in"
+                                                                    className="text-start text-sm rounded-md transition-all ease-in hover:bg-[#70956b] hover:text-white w-full p-2"
                                                                     onClick={() => handleSelect(x, x.mapbox_id)}
                                                                 >
                                                                     {x.name}, {x.place_formatted}
@@ -201,7 +199,7 @@ export default function Landingpage() {
                                 </div>
                                 <div>
                                     <button
-                                        className='p-2 bg-transparent hover:bg-[#e3f3d6] transition-all mt-8 ml-2 sm:ml-0 w-12 sm:w-16 rounded-md absolute'
+                                        className={`${kanit.className} text-gray-600 font-normal p-2 bg-transparent hover:bg-[#d0f0b5] transition-all mt-6 ml-2 sm:ml-2 w-12 h-12 sm:w-16 rounded-md absolute`}
                                         onClick={() => handleSurf()}
                                     >
                                         Go

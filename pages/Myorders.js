@@ -80,7 +80,7 @@ export default function Myorders() {
                     <p className={`tracking-widest text-sm ${kanit.className} -mt-2 ml-2 mr-2 text-white font-light`}> MY/ORDERS </p>
                     <hr className="border border-white w-1/2 mr-10 sm:mr-32 rounded-sm" />
                 </div>
-                <div className="z-10 ml-6 sm:ml-24 mt-6 mb-8 flex flex-col space-y-8">
+                <div className="z-10 -ml-4 mr-8 sm:mr-0 sm:ml-24 mt-6 mb-8 flex flex-col space-y-8">
                     {
                         data.orders ? data.orders.map((x, i) => <div key={i}>
                             <div className={` ${manrop.className} font-medium rounded-md w-[28rem] ml-8 sm:ml-[10rem] sm:w-1/2 bg-[#f8f9fa] ${styles.cardbg} `}>

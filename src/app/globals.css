@@ -33,18 +33,23 @@ body {
 }
 
 div::selection {
-  color: white;
-  background-color: rgb(73, 185, 131);
+  background-color: transparent;
 }
 
 div>p::selection {
-  color: white;
-  background-color: rgb(73, 185, 131);
+  background-color: transparent;
 }
 
 div>p>span::selection {
-  color: white;
-  background-color: rgb(73, 185, 131);
+  background-color: transparent;
+}
+
+div>button>p::selection {
+  background-color: transparent;
+}
+
+div>img::selection {
+  background-color: transparent;
 }
 
 input {

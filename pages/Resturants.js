@@ -45,7 +45,9 @@ export default function Resturants() {
     const [nonveg, setNonveg] = useState(false);
     const [rating, setRating] = useState(true);
     const [open, setOpen] = useState(true);
+    const [loading, setLoading] = useState(false);
     const [preference, setPreference] = useState('')
+    const noData = [0, 0, 0, 0, 0, 0]
     console.log(x, y)
     // data2 final
     // data3 for experiment
@@ -60,11 +62,13 @@ export default function Resturants() {
 
             if (response.status === 200) {
                 setData(response.data);
+                setLoading(true)
                 localStorage.setItem('restus', JSON.stringify(response.data));
                 localStorage.setItem('city', city);
             }
         } : () => {
             // console.log(citi, city);
+            setLoading(true)
             setData(restus)
             setData2(restus);
             setData3(restus);
@@ -256,34 +260,50 @@ export default function Resturants() {
                     </div>
                     <div className={`${styles.grid} z-10`}>
                         {
-                            !isPresent ? data2.map((x, i) => <div key={i}>
-                                <div
-                                    className={`p-2 -ml-16 sm:ml-24 hover:cursor-pointer`}
-                                    onClick={() => navi(x.info.id)}
-                                >
-                                    <Card
-                                        id={x.info.name}
-                                        name={x.info.name}
-                                        areaName={x.info.areaName}
-                                        locality={x.info.locality}
-                                        costforTwo={x.info.costForTwo}
-                                        cuisine={x.info.cuisines}
-                                        totalRating={x.info.avgRatingString}
-                                        totalRatings={x.info.totalRatingsString}
-                                        discount={x.info.aggregatedDiscountInfoV3}
-                                        veg={x.info.veg}
+                            loading ?
+                                !isPresent ? data2.map((x, i) => <div key={i}>
+                                    <div
+                                        className={`p-2 -ml-16 sm:ml-24 hover:cursor-pointer`}
+                                        onClick={() => navi(x.info.id)}
+                                    >
+                                        <Card
+                                            id={x.info.name}
+                                            name={x.info.name}
+                                            areaName={x.info.areaName}
+                                            locality={x.info.locality}
+                                            costforTwo={x.info.costForTwo}
+                                            cuisine={x.info.cuisines}
+                                            totalRating={x.info.avgRatingString}
+                                            totalRatings={x.info.totalRatingsString}
+                                            discount={x.info.aggregatedDiscountInfoV3}
+                                            veg={x.info.veg}
+                                        />
+                                    </div>
+                                </div>) : <div className="flex justify-center mt-[3rem] -ml-8 sm:ml-[10rem] space-x-10 sm:w-[150%] p-2">
+                                    <Image
+                                        src='/personal/no-swiggies.jpg'
+                                        height={0}
+                                        width={150}
+                                        alt='no restaurants found'
+                                        className="mb-24 rounded-md"
                                     />
-                                </div>
-                            </div>) : <div className="flex justify-center mt-[3rem] -ml-8 sm:ml-[10rem] space-x-10 sm:w-[150%] p-2">
-                                <Image
-                                    src='/personal/no-swiggies.jpg'
-                                    height={0}
-                                    width={150}
-                                    alt='no restaurants found'
-                                    className="mb-24 rounded-md"
-                                />
-                                <p className={`${kanit.className} text-white font-semibold text-xl mt-10 -mr-12`}> There are no swiggies available at your location </p>
-                            </div>
+                                    <p className={`${kanit.className} text-white font-semibold text-xl mt-10 -mr-12`}> There are no swiggies available at your location </p>
+                                </div> : noData ? noData.map((_, i) => <div key={i}>
+                                    <div className={`p-2 -ml-16 sm:ml-24 hover:cursor-pointer`}>
+                                        <Card
+                                            id={'0'}
+                                            name={'loading..'}
+                                            areaName={'loading...'}
+                                            locality={'loading...'}
+                                            costforTwo={'0.00'}
+                                            cuisine={'loading...'}
+                                            totalRating={''}
+                                            totalRatings={''}
+                                            discount={''}
+                                            veg={true}
+                                        />
+                                    </div>
+                                </div>) : ''
                         }
                     </div>
                 </figure>

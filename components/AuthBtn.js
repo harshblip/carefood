@@ -6,6 +6,7 @@ import axios from 'axios';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { Comfortaa } from "next/font/google";
+import { ChevronDown } from "lucide-react";
 
 const comfortaa = Comfortaa({
     subsets: ['latin'],
@@ -51,22 +52,31 @@ const AuthBtn = () => {
                 userName ?
                     <DropdownMenu>
                         <DropdownMenuTrigger>
-                            <Button className="outline-none border-none">
+                            <Button className="outline-none border-none flex items-center -mt-5">
                                 <p className={`${comfortaa.className} text-[#2d5c3c] font-bold text-lg`}> Hey, {userName} </p>
+                                <ChevronDown
+                                    className="w-5 ml-2 text-[#2d5c3c]"
+                                />
                             </Button>
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent className='w-44 text-[#2d5c3c] font-normal text-sm'>
+                        <DropdownMenuContent className='w-44 text-[#418a58] font-normal text-sm backdrop-blur-sm'>
                             <DropdownMenuLabel
-                                className="hover:cursor-pointer hover:bg-[#f8f9fa] rounded-sm"
+                                className="hover:cursor-pointer hover:bg-[#418a58] hover:text-white transition-all rounded-sm"
                                 onClick={() => handleLogout()}
                             >
-                                logout
+                                Logout
                             </DropdownMenuLabel>
                             <DropdownMenuLabel
-                                className="hover:cursor-pointer hover:bg-[#f8f9fa] rounded-sm"
+                                className="hover:cursor-pointer hover:bg-[#418a58] hover:text-white transition-all rounded-sm"
                                 onClick={() => router.push('/Myorders')}
                             >
-                                my orders
+                                My orders
+                            </DropdownMenuLabel>
+                            <DropdownMenuLabel
+                                className="hover:cursor-pointer hover:bg-[#418a58] hover:text-white transition-all rounded-sm"
+                                onClick={() => router.push('/Cart')}
+                            >
+                                My cart
                             </DropdownMenuLabel>
                         </DropdownMenuContent>
                     </DropdownMenu> : <button onClick={handleLoginClick} className="text-xs">Login</button>

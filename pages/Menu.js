@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux"
 import { Kanit, Anton } from 'next/font/google';
-import { BadgeIndianRupee, Bike, Minus, Plus, Star, Utensils } from "lucide-react";
+import { BadgeIndianRupee, Bike, Info, Minus, Plus, Star, Utensils } from "lucide-react";
 import { CDN_URL } from "../utils/constants";
 import { Card, CardContent } from '@/components/ui/card'
 import {
@@ -15,6 +15,8 @@ import {
 import Header from "../components/Header";
 import styles from '../src/app/menu.module.css'
 import { useRouter } from "next/router";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import LoadingMenu from "../components/LoadingMenu";
 
 const anton = Anton({
     weight: ['400'],
@@ -35,6 +37,7 @@ export default function Menu() {
     const [data, setData] = useState([]);
     const [count, setCount] = useState([]);
     const [mycart, setMyCart] = useState([]);
+    const sample = [0, 0, 0, 0, 0]
     const [restaurant, setRestaurant] = useState({
         menu: [],
         name: '',
@@ -259,7 +262,7 @@ export default function Menu() {
                 </div>
             </div>
 
-            <div className="w-full mt-12 flex flex-col">
+            <div className="w-full mt-12 flex flex-col z-10">
                 <div className="flex justify-center items-center space-x-2">
                     <hr className="border-2 border-white w-1/4 ml-8 rounded-sm" />
                     <Utensils
@@ -272,90 +275,106 @@ export default function Menu() {
                     <hr className="border-2 border-white w-1/4 mr-8 rounded-sm" />
                 </div>
 
+                <div>
 
-                {
-                    restaurant.menu.length > 0 ? restaurant.menu.map((x, i) => <div key={i}>
-                        <Carousel
-                            opts={{
-                                align: "start"
-                            }}
-                            className="w-full max-w-xs sm:max-w-4xl ml-6 sm:ml-32 mb-4"
-                        >
-                            <CarouselContent>
-                                {
-                                    x.card.card.carousel ? x.card.card.carousel.map((y, j) => {
-                                        q = q + 1
-                                        return (
-                                            <div className="flex flex-col sm:mt-12" key={j}>
-                                                {
-                                                    (x.card.card.title !== title ? <p className="absolute font-medium text-xl text-white mt-2 ml-8"> {title = x.card.card.title} </p> : ''
-                                                    )
-                                                }
-                                                <div>
-                                                    <CarouselItem key={j} className="basis-1/4 sm:basis-1/3 sm:w-32 mt-12 mr-24 rounded-md">
-                                                        <div>
-                                                            <Card className="hover:bg-transparent hover:text-white hover:cursor-pointer transition-all text-white w-[12rem] h-[13rem] ">
-                                                                <CardContent className="flex flex-col justify-center text-start p-4">
-                                                                    <div className="flex flex-col items-center ">
-                                                                        {
-                                                                            !y.dish.info.imageId ? <img
-                                                                                src='/food/food-img.png'
-                                                                                className="w-24 h-24 object-cover rounded-md"
-                                                                                alt='fooditem-image'
-                                                                            /> : <img
-                                                                                src={CDN_URL + y.dish.info.imageId}
-                                                                                className="w-24 h-24 object-cover rounded-md"
-                                                                            />
-                                                                        }
-
-                                                                        <div className="w-full flex justify-center truncate">
-                                                                            <p className="text-sm font-semibold mt-2"> {y.title} </p>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div className="flex items-center absolute bottom-0 -ml-2">
-                                                                        <BadgeIndianRupee
-                                                                            className="w-4 text-white -mt-6 mr-1"
+                    {
+                        restaurant.menu.length > 0 ? restaurant.menu.map((x, i) => <div key={i}>
+                            <Carousel
+                                opts={{
+                                    align: "start"
+                                }}
+                                className="max-w-xl sm:max-w-4xl ml-6 sm:ml-32 mb-4"
+                            >
+                                <CarouselContent>
+                                    {
+                                        x.card.card.carousel ? x.card.card.carousel.map((y, j) => {
+                                            q = q + 1
+                                            return (
+                                                <div className="flex flex-col sm:mt-12" key={j}>
+                                                    {
+                                                        (x.card.card.title !== title ? <div className="absolute flex space-x-2 items-center">
+                                                            <p className="font-medium text-xl text-white mt-0 ml-8"> {title = x.card.card.title} </p>
+                                                            <TooltipProvider>
+                                                                <Tooltip>
+                                                                    <TooltipTrigger>
+                                                                        <Info
+                                                                            className="w-4 text-white mt-1"
                                                                         />
-                                                                        <p className="mb-6 mr-2 text-base"> {y.dish.info.price ? Math.round(y.dish.info.price / 100) : Math.round(y.dish.info.defaultPrice / 100)} </p>
-                                                                    </div>
-                                                                    {
-                                                                        count[p + j] > 0 ? <div className="text-xs text-white font-medium absolute bottom-0 mb-6 ml-16 border w-[5.5rem] rounded-md"><div className="flex space-x-3 ml-3 items-center">
-                                                                            <Minus onClick={() => cart(j, 'minus', y.title, y.dish.info.price ? Math.round(y.dish.info.price / 100) : Math.round(y.dish.info.defaultPrice / 100))}
-                                                                                className="hover:cursor-pointer w-4"
+                                                                    </TooltipTrigger>
+                                                                    <TooltipContent className="absolute w-[14rem] mt-1 ml-2">
+                                                                        <p className={`text-white text-sm`}>slide to the left to see more</p>
+                                                                    </TooltipContent>
+                                                                </Tooltip>
+                                                            </TooltipProvider>
+                                                        </div> : ''
+                                                        )
+                                                    }
+                                                    <div>
+                                                        <CarouselItem key={j} className="basis-1/4 sm:basis-1/3 sm:w-32 mt-12 mr-8 sm:mr-24 rounded-md">
+                                                            <div>
+                                                                <Card className="hover:bg-transparent hover:text-white hover:cursor-pointer transition-all text-white w-[12rem] h-[13rem] ">
+                                                                    <CardContent className="flex flex-col justify-center text-start p-4">
+                                                                        <div className="flex flex-col items-center ">
+                                                                            {
+                                                                                !y.dish.info.imageId ? <img
+                                                                                    src='/food/food-img.png'
+                                                                                    className="w-24 h-24 object-cover rounded-md"
+                                                                                    alt='fooditem-image'
+                                                                                /> : <img
+                                                                                    src={CDN_URL + y.dish.info.imageId}
+                                                                                    className="w-24 h-24 object-cover rounded-md"
+                                                                                />
+                                                                            }
+
+                                                                            <div className="w-full flex justify-center truncate">
+                                                                                <p className="text-sm font-semibold mt-2"> {y.title} </p>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div className="flex items-center absolute bottom-0 -ml-2">
+                                                                            <BadgeIndianRupee
+                                                                                className="w-4 text-white -mt-6 mr-1"
                                                                             />
-                                                                            <p className="text-sm text-white font-semibold"> {count[p + j]} </p>
-                                                                            <Plus onClick={() => cart(j, 'add', y.title, y.dish.info.price ? Math.round(y.dish.info.price / 100) : Math.round(y.dish.info.defaultPrice / 100))}
-                                                                                className="hover:cursor-pointer w-4"
-                                                                            />
-                                                                        </div></div> : <button
-                                                                            className="rounded-md bg-white text-gray-600 absolute bottom-0 mb-5 ml-14 font-medium w-24 text-xs"
-                                                                            onClick={() => cart(j, 'add', y.title, y.dish.info.price ? Math.round(y.dish.info.price / 100) : Math.round(y.dish.info.defaultPrice / 100))}
-                                                                        > <p className="p-2"> Add to cart </p> </button>
-                                                                    }
-                                                                </CardContent>
-                                                            </Card>
-                                                        </div>
-                                                    </CarouselItem>
+                                                                            <p className="mb-6 mr-2 text-base"> {y.dish.info.price ? Math.round(y.dish.info.price / 100) : Math.round(y.dish.info.defaultPrice / 100)} </p>
+                                                                        </div>
+                                                                        {
+                                                                            count[p + j] > 0 ? <div className="text-xs text-white font-medium absolute bottom-0 mb-6 ml-16 border w-[5.5rem] rounded-md"><div className="flex space-x-3 ml-3 items-center">
+                                                                                <Minus onClick={() => cart(j, 'minus', y.title, y.dish.info.price ? Math.round(y.dish.info.price / 100) : Math.round(y.dish.info.defaultPrice / 100))}
+                                                                                    className="hover:cursor-pointer w-4"
+                                                                                />
+                                                                                <p className="text-sm text-white font-semibold"> {count[p + j]} </p>
+                                                                                <Plus onClick={() => cart(j, 'add', y.title, y.dish.info.price ? Math.round(y.dish.info.price / 100) : Math.round(y.dish.info.defaultPrice / 100))}
+                                                                                    className="hover:cursor-pointer w-4"
+                                                                                />
+                                                                            </div></div> : <button
+                                                                                className="rounded-md bg-white text-gray-600 absolute bottom-0 mb-5 ml-14 font-medium w-24 text-xs"
+                                                                                onClick={() => cart(j, 'add', y.title, y.dish.info.price ? Math.round(y.dish.info.price / 100) : Math.round(y.dish.info.defaultPrice / 100))}
+                                                                            > <p className="p-2"> Add to cart </p> </button>
+                                                                        }
+                                                                    </CardContent>
+                                                                </Card>
+                                                            </div>
+                                                        </CarouselItem>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        )
+                                            )
+                                        }
+                                        ) : ''
                                     }
-                                    ) : ''
-                                }
-                            </CarouselContent>
-                        </Carousel>
-                    </div>) : <>
-                        <div className="w-full flex justify-center flex-col">
-                            <p className="text-white font-semibold text-lg"> almost there, just a moment.... </p>
-                        </div>
-                    </>
-                }
+                                </CarouselContent>
+                            </Carousel>
+                        </div>) : <>
+                            {
+                                sample.map((x, i) => <LoadingMenu key={i} />)
+                            }
+                        </>
+                    }
+                </div>
                 <div className="hidden">
                     {
                         p = q
                     }
                 </div>
-                <div className="sm:-mt-44 -mt-[16rem]">
+                <div className="sm:-mt-44 -mt-[12rem]">
                     {
                         restaurant.menu.length > 0 ? restaurant.menu.map((x, i) => {
                             p = q + 1
@@ -373,8 +392,21 @@ export default function Menu() {
                                             return (
                                                 <div className="flex flex-col" key={j}>
                                                     {
-                                                        (x.card.card.title !== title ?
-                                                            <p className="absolute font-medium text-xl text-white mt-2 ml-8"> {title = x.card.card.title} </p> : ''
+                                                        (x.card.card.title !== title ? <div className="absolute flex space-x-2 items-center">
+                                                            <p className="font-medium text-xl text-white mt-0 ml-8"> {title = x.card.card.title} </p>
+                                                            <TooltipProvider>
+                                                                <Tooltip>
+                                                                    <TooltipTrigger>
+                                                                        <Info
+                                                                            className="w-4 text-white mt-1"
+                                                                        />
+                                                                    </TooltipTrigger>
+                                                                    <TooltipContent className="absolute w-[14rem] mt-1 ml-2">
+                                                                        <p className={`text-white text-sm`}>slide to the left to see more</p>
+                                                                    </TooltipContent>
+                                                                </Tooltip>
+                                                            </TooltipProvider>
+                                                        </div> : ''
                                                         )
                                                     }
                                                     <CarouselItem key={j} className="basis-1/4 sm:basis-1/3 sm:w-32 mt-12 mr-4 sm:mr-24 rounded-md">
@@ -431,9 +463,9 @@ export default function Menu() {
                                 </Carousel>
                             </div>
                         }) : <>
-                            <div className="w-full flex justify-center flex-col">
-                                <p className="text-white font-semibold text-lg"> almost there, just a moment.... </p>
-                            </div>
+                            {
+                                sample.map((x, i) => <LoadingMenu key={i} />)
+                            }
                         </>
                     }
                 </div>
@@ -464,8 +496,21 @@ export default function Menu() {
                                                 return (
                                                     <div key={i}>
                                                         {
-                                                            (y.title !== title ?
-                                                                <p className="absolute font-medium text-xl text-white mt-2 ml-8"> {title = y.title} </p> : ''
+                                                            (y.title !== title ? <div className="absolute flex space-x-2 items-center">
+                                                                <p className="font-medium text-xl text-white mt-0 ml-8"> {title = y.title} </p>
+                                                                <TooltipProvider>
+                                                                    <Tooltip>
+                                                                        <TooltipTrigger>
+                                                                            <Info
+                                                                                className="w-4 text-white mt-1"
+                                                                            />
+                                                                        </TooltipTrigger>
+                                                                        <TooltipContent className="absolute w-[14rem] mt-1 ml-2">
+                                                                            <p className={`text-white text-sm`}>slide to the left to see more</p>
+                                                                        </TooltipContent>
+                                                                    </Tooltip>
+                                                                </TooltipProvider>
+                                                            </div> : ''
                                                             )
                                                         }
                                                         <CarouselItem key={i} className="basis-1/4 sm:basis-1/3 sm:w-32 mt-12 mr-4 sm:mr-24 rounded-md">
@@ -521,15 +566,15 @@ export default function Menu() {
                         }) : ''
                     }
                 </div>) : <>
-                    <div className="w-full flex justify-center flex-col">
-                        <p className="text-white font-semibold text-lg"> almost there, just a moment.... </p>
-                    </div>
+                    {
+                        sample.map((x, i) => <LoadingMenu key={i} />)
+                    }
                 </>
             }
 
             {
                 mycart.length ? <button
-                    className={`w-1/2 sm:w-[20rem] h-14 sm:h-11 fixed bottom-0 right-[25%] sm:right-[35%] mb-2 rounded-md bg-emerald-500 flex p-1 justify-between ${styles.slideup} `}
+                    className={`w-1/2 sm:w-[20rem] h-14 sm:h-11 fixed bottom-0 right-[25%] sm:right-[35%] mb-2 rounded-md bg-emerald-500 flex p-1 justify-between z-10 ${styles.slideup} `}
                     onClick={() => addCart()}
                 > <p className="text-white font-semibold text-lg sm:text-sm p-2"> Add to cart </p> <p className="text-white font-semibold text-lg sm:text-sm p-2"> ₹{billTotal} </p> </button> : ''
             }
