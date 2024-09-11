@@ -20,7 +20,7 @@ const railway = Raleway({
 })
 
 const kanit = Kanit({
-    weight: ['200', '300'],
+    weight: ['200', '300', '400'],
     subsets: ['latin']
 })
 
@@ -71,9 +71,11 @@ export default function Landingpage() {
         if (value === '') {
             setVal('');
         }
+        setSelect(false)
         setWritten(value)
         setVal(value)
         if (value !== '') {
+            console.log("hiiii")
             const response = await axios.get(`${process.env.NEXT_PUBLIC_MAPBOX_URL}/suggest?q=${value}&language=en&session_token=${process.env.NEXT_PUBLIC_MAPBOX_SESSION_SECRET}&access_token=${process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}`)
             if (response.status === 200) {
                 const cities = response.data.suggestions
@@ -108,6 +110,7 @@ export default function Landingpage() {
         if (val !== '') {
             const r = country.substring(country.length - 5, country.length)
             if (r !== 'India') {
+                setVal('no city out of india pls')
                 setClick2(true)
             } else {
                 localStorage.removeItem('restus')
@@ -171,17 +174,17 @@ export default function Landingpage() {
                                         onClick={() => clicked()}
                                         onBlur={() => clicked()}
                                         onChange={(e) => handleSearch(e)}
-                                        value={!click2 ? val : 'no city out of india pls'}
+                                        value={val}
                                     />
-                                    <div className='flex flex-col transition-all ease-in'>
+                                    <div className='flex flex-col transition-all ease-in bg-white/80 rounded-md mt-2'>
 
                                         {
                                             data.length > 0 && written !== '' && !select ? data.map(
-                                                (x, i) => <div className="transition-all ease-in flex flex-col mt-4" key={i}>
+                                                (x, i) => <div className="transition-all ease-in flex flex-col" key={i}>
                                                     {
 
                                                         x.feature_type === 'place' || x.feature_type === 'locality' ?
-                                                            <div>
+                                                            <div className={`${kanit.className} text-gray-600 font-normal p-2`}>
                                                                 <button
                                                                     className="text-start text-sm rounded-md transition-all ease-in"
                                                                     onClick={() => handleSelect(x, x.mapbox_id)}

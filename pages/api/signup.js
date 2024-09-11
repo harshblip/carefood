@@ -5,8 +5,8 @@ export default async function handler(req, res) {
     if (req.method == "POST") {
         const { name, email, password, city, phoneNumber, funFood } = req.body;
         try {
-            const user = await createUser(name, email, password, city, phoneNumber, funFood);
-            return res.status(200).json(user);
+            const { user, status } = await createUser(name, email, password, city, phoneNumber, funFood);
+            return res.status(200).json({ user, status });
         } catch (error) {
             return res.status(500).json({ error: 'Error creating user' });
         }

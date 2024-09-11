@@ -2,6 +2,7 @@ import AuthBtn from "./AuthBtn"
 import styles from '../src/app/SiteHeader.module.css'
 import { Comfortaa } from 'next/font/google';
 import { useSelector } from "react-redux";
+import { useRouter } from "next/router";
 
 const comfortaa = Comfortaa({
   subsets: ['latin'],
@@ -11,6 +12,7 @@ const comfortaa = Comfortaa({
 
 const SiteHeader = () => {
   const userName = useSelector(state => state.signup.name)
+  const router = useRouter()
   return (
     <header className={comfortaa.className}>
       <figure>
@@ -38,7 +40,9 @@ const SiteHeader = () => {
           <div className={`${styles.logo} flex space-x-4 md:mr-0 -mt-2`}>
             <AuthBtn />
             {
-              userName ? <></> : <button className={`${styles.logo} bg-[#216f3f] p-2 rounded-md text-white h-9 w-20  text-xs`}>Signup</button>
+              userName ? <></> : <button className={`${styles.logo} bg-[#216f3f] p-2 rounded-md text-white h-9 w-20  text-xs`}
+              onClick={() => router.push('/Signup')}
+              >Signup</button>
             }
           </div>
 

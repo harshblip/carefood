@@ -78,12 +78,13 @@ const Signup = () => {
       });
 
       if (response.status === 200) {
-        const str = response.data
+        const str = response.data.status
+        console.log(response.data.status)
         if (str === "User already exists") {
           setError(true);
           console.log("hi")
         } else {
-          console.log("status", response.data)
+          console.log("status", response)
           dispatch(signupSuccess({ userId: response.data.id }));
           router.push('/Landingpage')
           console.log('User signed up successfully');
