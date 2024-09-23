@@ -62,7 +62,7 @@ export default function Menu() {
         }
         (
             getMenu.length === 0 ? async () => {
-                console.log("hi")
+                // console.log("hi")
                 const response = await axios.get(`${process.env.NEXT_PUBLIC_SWIGGY_MENU}&lat=${y}&lng=${x}&&submitAction=ENTER&restaurantId=${restId}`)
 
                 if (response.status === 200) {
@@ -71,7 +71,7 @@ export default function Menu() {
                     localStorage.setItem('menu', JSON.stringify(response.data.data))
                 }
             } : () => {
-                console.log("hello")
+                // console.log("hello")
                 setData(getMenu);
             }
         )()
@@ -178,7 +178,7 @@ export default function Menu() {
     var title = ""
     var p = 0
     var q = 0;
-    
+
     return (
         <div className={`${kanit.className} flex flex-col bg-[#b4c6b6] w-[160%] sm:w-full`}>
             <Header />

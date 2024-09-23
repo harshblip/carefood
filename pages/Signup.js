@@ -31,6 +31,9 @@ const Signup = () => {
   const [error, setError] = useState(false);
   const [emailCheck, setEmailCheck] = useState(false)
 
+  const router = useRouter()
+  const dispatch = useDispatch()
+
   const handleChange = async (e) => {
     setError(false);
     const { name, value } = e.target;
@@ -82,7 +85,7 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData)
+    // console.log(formData)
     try {
       const response = await axios.post('/api/signup', formData, {
         headers: { 'Content-Type': 'application/json' }
@@ -93,7 +96,7 @@ const Signup = () => {
         console.log(response.data.status)
         if (str === "User already exists") {
           setError(true);
-          console.log("hi")
+          // console.log("hi")
         } else {
           console.log("status", response)
           dispatch(signupSuccess({ userId: response.data.id }));

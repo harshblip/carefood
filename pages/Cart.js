@@ -353,7 +353,7 @@ export default function Cart() {
                                 width={250}
                                 alt='nothing in the cart'
                             />
-                            <p className={`${anton.className} text-2xl sm:text-4xl font-semibold text-[#f1faee]`}> <Link href='/menu' className="text-emerald-500 underline"> Go</Link> to menu page to add some items </p>
+                            <p className={`${anton.className} text-2xl sm:text-4xl font-semibold text-[#f1faee]`}> <Link href='/Menu' className="text-emerald-500 underline"> Go</Link> to menu page to add some items </p>
                         </div>
                     </>
                 }

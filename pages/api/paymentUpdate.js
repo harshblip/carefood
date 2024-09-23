@@ -16,7 +16,7 @@ export default async function handler(req, res) {
         }
     }
     if (req.method === 'GET') {
-        const { userEmail } = req.body;
+        const { userEmail } = req.query;
         try {
             const { message } = await authMiddleware(req, res)
             if (message === 'success') {

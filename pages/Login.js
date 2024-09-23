@@ -23,7 +23,7 @@ export default function LoginPage() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(email, password);
+        // console.log(email, password);
         try {
             const response = await axios.post('/api/login', {
                 email,
@@ -81,7 +81,7 @@ export default function LoginPage() {
                                 className='mt-2 h-8 w-[16rem] sm:w-[18rem] rounded-md p-2 text-black text-sm font-medium outline-none'
                             />
                         </label>
-                        <div className=' sm:relative'>
+                        <div className='hover:cursor-pointer sm:relative' onClick={() => router.push('/Signup')}>
                             <p className='text-sm underline'> Don&apos;t have an account ? </p>
                         </div>
                         <button

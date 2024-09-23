@@ -33,7 +33,7 @@ export default function Myorders() {
     const userEmail = useSelector(state => state.signup.email)
     const accessToken = useSelector(state => state.signup.accessToken)
     const router = useRouter();
-
+    console.log(userEmail)
     useEffect(() => {
         if (!userEmail) {
             router.push('/Landingpage')
@@ -52,8 +52,8 @@ export default function Myorders() {
                         })
                         if (response.status === 200) {
                             setData(response.data);
-                            // console.log(response.data)
-                            console.log("data aagya", response.status)
+                            console.log(response.data)
+                            console.log("data aagya", response.data)
                         } else {
                             console.log("error in response myorders.js", response.data)
                         }
