@@ -29,29 +29,38 @@ const Signup = () => {
   const [cities, setCities] = useState([]);
   const [click, setClick] = useState(false);
   const [error, setError] = useState(false);
+  const [emailCheck, setEmailCheck] = useState(false)
 
   const handleChange = async (e) => {
     setError(false);
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-    if (e.target.name === 'city') {
-      setCity(e.target.value)
+    const { name, value } = e.target;
+    if (name === 'email') {
+      if (!validateEmail(value)) {
+        setEmailCheck(true)
+      } else {
+        setEmailCheck(false)
+      }
+    }
+    setFormData({ ...formData, [name]: value });
+    if (name === 'city') {
+      setCity(value)
     }
 
-    if (e.target.name === 'phoneNumber') {
-      setPhun(e.target.value)
+    if (name === 'phoneNumber') {
+      setPhun(value)
     }
 
-    if (e.target.name === 'confirmPassword') {
-      if (formData.password !== e.target.value) {
+    if (name === 'confirmPassword') {
+      if (formData.password !== value) {
         setCheck(true);
       } else {
         setCheck(false);
       }
     }
 
-    if (e.target.name === 'city') {
+    if (name === 'city') {
       try {
-        const response = await axios.get(`${process.env.NEXT_PUBLIC_MAPBOX_URL}/suggest?q=${e.target.value}&language=en&session_token=${process.env.NEXT_PUBLIC_MAPBOX_SESSION_SECRET}&access_token=${process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}`)
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_MAPBOX_URL}/suggest?q=${value}&language=en&session_token=${process.env.NEXT_PUBLIC_MAPBOX_SESSION_SECRET}&access_token=${process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}`)
 
         if (response.status === 200) {
           setCities(response.data.suggestions);
@@ -66,8 +75,10 @@ const Signup = () => {
     }
   };
 
-  const dispatch = useDispatch();
-  const router = useRouter();
+  function validateEmail(email) {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailPattern.test(email);
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -86,7 +97,7 @@ const Signup = () => {
         } else {
           console.log("status", response)
           dispatch(signupSuccess({ userId: response.data.id }));
-          router.push('/Landingpage')
+          router.push('/Login')
           console.log('User signed up successfully');
         }
       } else {
@@ -105,7 +116,7 @@ const Signup = () => {
             <p> Hello! Joining Us ? </p>
           </div>
           <div className={`ml-16 sm:mt-0 mt-16`}>
-            <form onSubmit={handleSubmit} className={` flex flex-col space-y-4 w-[18rem] mt-10`}>
+            <form className={` flex flex-col space-y-4 w-[18rem] mt-10`}>
               <div className='flex'>
                 <UserRound
                   className='w-4 mt-2 mr-2 text-gray-600'
@@ -115,18 +126,27 @@ const Signup = () => {
                   placeholder="name"
                   onChange={handleChange}
                   className='p-2 outline rounded-md transition-all bg-transparent backdrop-blur-md placeholder:text-black/60 h-10 shadow-md text-white sm:text-gray-600 text-sm w-full'
+                  required
                 />
               </div>
-              <div className='flex'>
-                <Mail
-                  className='w-4 mt-2 mr-2 text-white sm:text-gray-600'
-                />
-                <input
-                  name="email"
-                  placeholder="email"
-                  onChange={handleChange}
-                  className='p-2  rounded-md transition-all bg-transparent backdrop-blur-md placeholder:text-black/60 h-10 shadow-md text-white sm:text-gray-600 text-sm w-full'
-                />
+              <div className='flex flex-col'>
+                <div className='flex'>
+                  <Mail
+                    className='w-4 mt-2 mr-2 text-white sm:text-gray-600'
+                  />
+                  <input
+                    name="email"
+                    placeholder="email"
+                    onChange={handleChange}
+                    className='p-2  rounded-md transition-all bg-transparent backdrop-blur-md placeholder:text-black/60 h-10 shadow-md text-white sm:text-gray-600 text-sm w-full'
+                    required
+                  />
+                </div>
+                <div>
+                  {
+                    emailCheck ? <p className='text-xs text-red-400 font-medium mt-1'> this isn&apos;t a valid email </p> : ''
+                  }
+                </div>
               </div>
               <div className='flex'>
                 <Shield
@@ -138,6 +158,7 @@ const Signup = () => {
                   placeholder="password"
                   onChange={handleChange}
                   className='p-2 rounded-md transition-all bg-transparent backdrop-blur-md placeholder:text-black/60 h-10 shadow-md text-white sm:text-gray-600 text-sm w-full'
+                  required
                 />
               </div>
               <div className='flex flex-col'>
@@ -151,6 +172,7 @@ const Signup = () => {
                     placeholder="confirm password"
                     onChange={handleChange}
                     className='p-2 rounded-md transition-all bg-transparent backdrop-blur-md placeholder:text-black/60 h-10 shadow-md text-gray-600 text-sm w-full'
+                    required
                   />
                 </div>
                 {
@@ -168,6 +190,7 @@ const Signup = () => {
                     onChange={handleChange}
                     className='p-2  rounded-md transition-all bg-transparent backdrop-blur-md placeholder:text-black/60 h-10 shadow-md text-gray-600 text-sm w-full'
                     value={city ? city : ''}
+                    required
                   />
                 </div>
                 {
@@ -178,13 +201,13 @@ const Signup = () => {
                           {
                             cities.map((x, i) => {
                               return (
-                                <div
+                                x.feature_type === 'place' || x.feature_type === 'locality' ? <div
                                   className="hover:cursor-pointer bg-white/25 hover:bg-transparent p-1 rounded-md mt-1"
                                   onClick={() => (setCity(x.name), setClick(true))}
                                   key={i}
                                 >
                                   {x.name}, {x.place_formatted}
-                                </div>
+                                </div> : ''
                               )
                             })
                           }
@@ -205,6 +228,7 @@ const Signup = () => {
                     placeholder="phone number"
                     onChange={handleChange}
                     className='p-2 rounded-md transition-all bg-transparent backdrop-blur-md placeholder:text-black/60 h-10 shadow-md text-gray-600 text-sm w-full'
+                    required
                   />
                 </div>
                 {
@@ -220,12 +244,15 @@ const Signup = () => {
                   placeholder="Which food would describe you the best?"
                   onChange={handleChange}
                   className='p-2 rounded-md transition-all bg-transparent backdrop-blur-md placeholder:text-black/60 h-10 shadow-md text-gray-600 text-sm w-full'
+                  required
                 />
               </div>
               <div className=''>
                 <button
                   type="submit"
-                  className={`${(phun.length === 11 || phun.length === 10) && check === false ? `` : 'bg-white/60 text-gray-300 hover:cursor-not-allowed'} mt-4 w-full p-2 shadow-md font-medium ${error === true ? `bg-red-500` : `bg-white`} rounded-md text-gray-600`}
+                  disabled={(phun.length === 11 || phun.length === 10) && check === false && emailCheck === false ? false : true}
+                  className={`${(phun.length === 11 || phun.length === 10) && check === false && emailCheck === false ? `` : 'bg-white/60 text-gray-300 hover:cursor-not-allowed'} mt-4 w-full p-2 shadow-md font-medium ${error === true ? `bg-red-500` : `bg-white`} rounded-md text-gray-600`}
+                  onClick={handleSubmit}
                 >  {
                     error === true ? <p className='text-white'> User already exists </p> : <p> Sign up </p>
                   } </button>

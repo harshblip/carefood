@@ -37,7 +37,7 @@ const SiteHeader = () => {
             </button>
           </div>
 
-          <div className={`${styles.logo} flex space-x-4 md:mr-0 -mt-2`}>
+          <div className={`${styles.logo} flex space-x-4 md:mr-0`}>
             <AuthBtn />
             {
               userName ? <></> : <button className={`${styles.logo} bg-[#216f3f] p-2 rounded-md text-white h-9 w-20  text-xs`}
