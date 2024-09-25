@@ -122,7 +122,7 @@ export default function Landingpage() {
     function clickfun(i) {
         const newclick = [...click3];
         newclick[i] === 0 ? newclick[i] = 1 : newclick[i] = 0;
-        newclick.forEach((x, y) => {
+        newclick.forEach((_, y) => {
             if (y !== i) {
                 newclick[y] = 0
             }

@@ -236,22 +236,22 @@ export default function Resturants() {
                             className={`border border-gray-300 p-3 rounded-full h-10 w-16 text-xs hover:bg-green-300 ${open ? `bg-white` : `bg-green-300 text-white font-semibold border-none`} transition-all hover:text-white hover:border-none -mt-2`}
                             onClick={() => handleOpen()}
                         > open </button>
-                        <div className={`flex space-x-2`}>
+                        <button className={`flex space-x-2`}>
                             <Switch
                                 id="veg"
                                 onClick={() => check('veg')}
                                 checked={veg}
                             />
                             <Label htmlFor="airplane-mode" className={`mt-1 ${kanit.className} text-white font-bold`}>Veg</Label>
-                        </div>
-                        <div className="flex space-x-2">
+                        </button>
+                        <button className="flex space-x-2">
                             <Switch
                                 id="non-veg"
                                 onClick={() => check('nonveg')}
                                 checked={nonveg}
                             />
                             <Label htmlFor="airplane-mode" className={`mt-1 ${kanit.className} text-white font-bold`}>Non-veg</Label>
-                        </div>
+                        </button>
                     </div>
                     <div className="flex align-middle mt-10 z-10">
                         <hr className="border-2 border-white w-1/2 ml-8 rounded-sm" />
@@ -262,8 +262,8 @@ export default function Resturants() {
                         {
                             loading ?
                                 !isPresent ? data2.map((x, i) => <div key={i}>
-                                    <div
-                                        className={`p-2 -ml-16 sm:ml-24 hover:cursor-pointer`}
+                                    <button
+                                        className={`p-2 -ml-16 sm:ml-24`}
                                         onClick={() => navi(x.info.id)}
                                     >
                                         <Card
@@ -278,7 +278,7 @@ export default function Resturants() {
                                             discount={x.info.aggregatedDiscountInfoV3}
                                             veg={x.info.veg}
                                         />
-                                    </div>
+                                    </button>
                                 </div>) : <div className="flex justify-center mt-[3rem] -ml-8 sm:ml-[10rem] space-x-10 sm:w-[150%] p-2">
                                     <Image
                                         src='/personal/no-swiggies.jpg'
@@ -289,7 +289,7 @@ export default function Resturants() {
                                     />
                                     <p className={`${kanit.className} text-white font-semibold text-xl mt-10 -mr-12`}> There are no swiggies available at your location </p>
                                 </div> : noData ? noData.map((_, i) => <div key={i}>
-                                    <div className={`p-2 -ml-16 sm:ml-24 hover:cursor-pointer`}>
+                                    <button className={`p-2 -ml-16 sm:ml-24`}>
                                         <Card
                                             id={'0'}
                                             name={'loading..'}
@@ -302,7 +302,7 @@ export default function Resturants() {
                                             discount={''}
                                             veg={true}
                                         />
-                                    </div>
+                                    </button>
                                 </div>) : ''
                         }
                     </div>
