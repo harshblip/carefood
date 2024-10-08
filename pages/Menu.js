@@ -74,6 +74,7 @@ export default function Menu() {
                 }
             } : () => {
                 // console.log("hello")
+                setLoading(true)
                 setData(getMenu);
             }
         )()
@@ -582,7 +583,7 @@ export default function Menu() {
                 mycart.length ? <button
                     className={`w-1/2 sm:w-[20rem] h-14 sm:h-11 fixed bottom-0 right-[25%] sm:right-[35%] mb-2 rounded-md bg-emerald-500 flex p-1 justify-between z-10 ${styles.slideup} `}
                     onClick={() => addCart()}
-                > <p className="text-white font-semibold text-lg sm:text-sm p-2"> Add to cart </p> <p className="text-white font-semibold text-lg sm:text-sm p-2"> ₹{billTotal} </p> </button> : ''
+                > <p className="text-white font-semibold text-lg sm:text-sm p-2"> Add to cart </p> <p className="text-white font-semibold text-lg sm:text-sm p-2"> ₹{Math.floor(billTotal)} </p> </button> : ''
             }
         </div>
     )
