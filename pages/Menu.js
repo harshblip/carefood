@@ -178,7 +178,7 @@ export default function Menu() {
     var title = ""
     var p = 0
     var q = 0;
-
+    console.log(restaurant.name, ',jhvgvj')
     return (
         <div className={`${kanit.className} flex flex-col bg-[#b4c6b6] w-[160%] sm:w-full`}>
             <Header />
@@ -206,7 +206,7 @@ export default function Menu() {
                             </div>
                             <p className="text-sm ml-2 font-semibold text-emerald-400 underline"> {restaurant.cuisines[0]}, {restaurant.cuisines[1] || 'Dessert, Dinner'} </p>
                             <div className="flex mt-1">
-                                <svg width="20" height="100" className="mt-2">
+                                <svg width="20" height="70" className="mt-2">
                                     <circle cx="10" cy="10" r="5" fill="#adb5bd" />
                                     <line x1="10" y1="10" x2="10" y2="40" stroke="#adb5bd" strokeWidth="2" />
                                     <circle cx="10" cy="40" r="5" fill="#adb5bd" />
@@ -221,13 +221,15 @@ export default function Menu() {
                                     </div>
                                 </div>
                             </div>
-                            {restaurant.message ? <> <hr className="border border-gray-200 rounded-sm -mt-8 mb-3" />
-                                <div className="flex space-x-2 items-center">
-                                    <Bike
-                                        className="w-4 text-gray-600 ml-1"
-                                    />
-                                    <p className="text-sm font-light"> {restaurant.message || 'Im peak bronze 3 in Valorant'} </p>
-                                </div></> : ''}
+                            <div>
+                                {restaurant.message ? <> <hr className="border border-gray-200 rounded-sm -mt-8 mb-3" />
+                                    <div className="flex space-x-2 items-center">
+                                        <Bike
+                                            className="w-4 text-gray-600 ml-1"
+                                        />
+                                        <p className="text-sm font-light"> {restaurant.message || 'Im peak bronze 3 in Valorant'} </p>
+                                    </div></> : ''}
+                            </div>
                         </div>
                     </div>
                     <div className="mt-6">

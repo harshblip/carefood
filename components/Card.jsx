@@ -24,8 +24,8 @@ export default function Card({ id, name, areaName, locality, costforTwo, cuisine
 
     const random = Math.round(Math.random() * 8);
     return (
-        <div key={id} className={`${varela.className} bg-white p-2 rounded-lg w-[21rem] h-[8rem] flex space-x-1`}>
-            <div className="h-[7rem] w-[7rem] mt-2 flex flex-col justify-around">
+        <div key={id} className={` ${varela.className} bg-white p-2 rounded-lg w-[21rem] h-[8rem] flex space-x-1`}>
+            <div className={`${name === 'loading..' ? `blur-[0.8px]` : ''} h-[7rem] w-[7rem] mt-2 flex flex-col justify-around`}>
                 <Image
                     src={imgs[random]}
                     height={0}
@@ -43,7 +43,7 @@ export default function Card({ id, name, areaName, locality, costforTwo, cuisine
                     </div> : ''
                 }
             </div>
-            <div className="flex flex-col">
+            <div className={` flex flex-col`}>
                 <div className="flex space-x-2 mt-2">
                     <Earth
                         className="w-4 text-gray-500"
