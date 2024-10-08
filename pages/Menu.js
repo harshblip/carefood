@@ -37,6 +37,7 @@ export default function Menu() {
     const [data, setData] = useState([]);
     const [count, setCount] = useState([]);
     const [mycart, setMyCart] = useState([]);
+    const [loading, setLoading] = useState(false);
     const sample = [0, 0, 0, 0, 0]
     const [restaurant, setRestaurant] = useState({
         menu: [],
@@ -68,6 +69,7 @@ export default function Menu() {
                 if (response.status === 200) {
                     console.log(response.data);
                     setData(response.data.data);
+                    setLoading(true)
                     localStorage.setItem('menu', JSON.stringify(response.data.data))
                 }
             } : () => {
@@ -186,8 +188,8 @@ export default function Menu() {
                 <p className={`${anton.className} text-7xl sm:text-[12rem] text-[#d3d9d5] `}> MENU </p>
             </div>
             <div className="flex mt-8 sm:ml-32 ml-6 z-10">
-                <div className="p-2 flex flex-col space-y-2 text-white">
-                    <p className="text-2xl font-semibold"> {restaurant.name || 'Pls Wait'} </p>
+                <div className={`${!loading ? `blur-[0.8px]` : ''} p-2 flex flex-col space-y-2 text-white`}>
+                    <p className={` text-2xl font-semibold`}> {restaurant.name || 'Hold on'} </p>
                     <div className="bg-white text-gray-600 rounded-md shadow w-[26rem] sm:w-[28rem]">
                         <div className="p-4 flex flex-col">
                             <div className="flex">
@@ -256,10 +258,12 @@ export default function Menu() {
                                 )) : ''
                             }
                         </CarouselContent>
-                        <div className="sm:flex hidden">
-                            <CarouselPrevious />
-                            <CarouselNext />
-                        </div>
+                        {
+                            restaurant.offers.length ? <div className="sm:flex hidden">
+                                <CarouselPrevious />
+                                <CarouselNext />
+                            </div> : ''
+                        }
                     </Carousel>
                 </div>
             </div>
