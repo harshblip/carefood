@@ -3,14 +3,20 @@ import React, { useState } from 'react';
 import { signupSuccess } from '../slices/signupSlice';
 import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
-import { Anek_Latin } from 'next/font/google';
+import { Anek_Latin, Yeseva_One } from 'next/font/google';
 import styles from '../src/app/Signup.module.css'
 import axios from 'axios';
 import { Compass, Cookie, Mail, Phone, Shield, ShieldEllipsis, UserRound } from 'lucide-react';
+import Image from 'next/image';
 
 const anek = Anek_Latin({
   weight: ['300', '400', '500', '700'],
   subsets: ['latin']
+})
+
+const yeseva = Yeseva_One ({
+  weight: ['400'],
+  subsets: ['cyrillic']
 })
 
 const Signup = () => {
@@ -113,92 +119,92 @@ const Signup = () => {
 
   return (
     <div className={`h-[100vh] ${anek.className} flex`}>
-      <div className={`${styles.bg} w-full sm:w-1/2 h-full`}>
-        <div className='flex flex-col'>
-          <div className='mt-12 sm:mt-12 ml-12 text-4xl sm:text-5xl text-gray-500'>
-            <p> Hello! Joining Us ? </p>
+      <div className={`${styles.bg}  w-full sm:w-1/2 h-full rounded-r-xl`}>
+        <div className='flex flex-col justify-center '>
+          <div className='mt-24 sm:mt-12 flex justify-center text-5xl sm:text-5xl text-emerald-500'>
+            <p className={`${yeseva.className} `}> Join the Flavor!  </p>
           </div>
-          <div className={`ml-16 sm:mt-0 mt-16`}>
-            <form className={` flex flex-col space-y-4 w-[18rem] mt-10`}>
-              <div className='flex'>
+          <div className={`sm:mt-0 mt-16 flex justify-center sm:-ml-10 -ml-2`}>
+            <form className={` flex flex-col space-y-4 w-[20rem] mt-10 font-medium`}>
+              <div className='flex items-center'>
                 <UserRound
-                  className='w-4 mt-2 mr-2 text-gray-600'
+                  className='w-16 -ml-6 sm:ml-0 sm:w-5 sm:mr-2 mt-2 text-gray-600'
                 />
                 <input
                   name="name"
                   placeholder="name"
                   onChange={handleChange}
-                  className='p-2 outline rounded-md transition-all bg-transparent backdrop-blur-md placeholder:text-black/60 h-10 shadow-md text-white sm:text-gray-600 text-sm w-full'
+                  className='p-2 outline rounded-md transition-all bg-white/70 placeholder:text-base sm:placeholder:text-sm placeholder:font-medium placeholder:text-black/60 h-14 sm:h-10 shadow-md text-white sm:text-gray-600 text-sm w-full'
                   required
                 />
               </div>
               <div className='flex flex-col'>
-                <div className='flex'>
+                <div className='flex items-center'>
                   <Mail
-                    className='w-4 mt-2 mr-2 text-white sm:text-gray-600'
+                    className='w-16 -ml-6 sm:ml-0 sm:w-5 sm:mr-2 mt-2 text-gray-600'
                   />
                   <input
                     name="email"
                     placeholder="email"
                     onChange={handleChange}
-                    className='p-2  rounded-md transition-all bg-transparent backdrop-blur-md placeholder:text-black/60 h-10 shadow-md text-white sm:text-gray-600 text-sm w-full'
+                    className='p-2 outline rounded-md transition-all bg-white/70 placeholder:text-base sm:placeholder:text-sm placeholder:font-medium placeholder:text-black/60 h-14 sm:h-10 shadow-md text-white sm:text-gray-600 text-sm w-full'
                     required
                   />
                 </div>
                 <div>
                   {
-                    emailCheck ? <p className='text-xs text-red-400 font-medium mt-1'> this isn&apos;t a valid email </p> : ''
+                    emailCheck ? <p className='text-xs bg-red-100 p-1 rounded-md text-red-400 font-medium mt-1'> this isn&apos;t a valid email </p> : ''
                   }
                 </div>
               </div>
-              <div className='flex'>
+              <div className='flex items-center'>
                 <Shield
-                  className='w-4 mt-2 mr-2 text-white sm:text-gray-600'
+                  className='w-16 -ml-6 sm:ml-0 sm:w-5 sm:mr-2 mt-2 text-white sm:text-gray-600'
                 />
                 <input
                   name="password"
                   type="password"
                   placeholder="password"
                   onChange={handleChange}
-                  className='p-2 rounded-md transition-all bg-transparent backdrop-blur-md placeholder:text-black/60 h-10 shadow-md text-white sm:text-gray-600 text-sm w-full'
+                  className='p-2 outline rounded-md transition-all bg-white/70 placeholder:text-base sm:placeholder:text-sm placeholder:font-medium placeholder:text-black/60 h-14 sm:h-10 shadow-md text-white sm:text-gray-600 text-sm w-full'
                   required
                 />
               </div>
               <div className='flex flex-col'>
-                <div className='flex'>
+                <div className='flex items-center'>
                   <ShieldEllipsis
-                    className='w-4 mt-2 mr-2 text-gray-600'
+                    className='w-16 -ml-6 sm:ml-0 sm:w-5 sm:mr-2 mt-2 text-white sm:text-gray-600'
                   />
                   <input
                     name="confirmPassword"
                     type="password"
                     placeholder="confirm password"
                     onChange={handleChange}
-                    className='p-2 rounded-md transition-all bg-transparent backdrop-blur-md placeholder:text-black/60 h-10 shadow-md text-gray-600 text-sm w-full'
+                    className='p-2 outline rounded-md transition-all bg-white/70 placeholder:text-base sm:placeholder:text-sm placeholder:font-medium placeholder:text-black/60 h-14 sm:h-10 shadow-md text-white sm:text-gray-600 text-sm w-full'
                     required
                   />
                 </div>
                 {
-                  check ? <p className='text-xs text-red-400 font-medium mt-1'> bro those passwords don&apos;t match </p> : ''
+                  check ? <p className='text-xs bg-red-100 p-1 rounded-md text-red-400 font-medium mt-1'> bro those passwords don&apos;t match </p> : ''
                 }
               </div>
               <div className='flex flex-col'>
-                <div className='flex'>
+                <div className='flex items-center'>
                   <Compass
-                    className='w-4 mt-2 mr-2 text-gray-600'
+                    className='w-16 -ml-6 sm:ml-0 sm:w-5 sm:mr-2 mt-2 text-white sm:text-gray-600'
                   />
                   <input
                     name="city"
                     placeholder="city"
                     onChange={handleChange}
-                    className='p-2  rounded-md transition-all bg-transparent backdrop-blur-md placeholder:text-black/60 h-10 shadow-md text-gray-600 text-sm w-full'
+                    className='p-2 outline rounded-md transition-all bg-white/70 placeholder:text-base sm:placeholder:text-sm placeholder:font-medium placeholder:text-black/60 h-14 sm:h-10 shadow-md text-white sm:text-gray-600 text-sm w-full'
                     value={city ? city : ''}
                     required
                   />
                 </div>
                 {
                   cities.length > 0 && click === false ? (
-                    <div className="rounded-lg border shadow-md transition-all ease-in bg-transparent backdrop-blur-md text-sm p-2">
+                    <div className="rounded-lg border shadow-md transition-all ease-in bg-white/70 placeholder:font-medium text-sm p-2">
                       <div>
                         <div>
                           {
@@ -222,31 +228,31 @@ const Signup = () => {
                 }
               </div>
               <div className='flex flex-col'>
-                <div className='flex'>
+                <div className='flex items-center'>
                   <Phone
-                    className='w-4 mt-2 mr-2 text-gray-600'
+                    className='w-16 -ml-6 sm:ml-0 sm:w-5 sm:mr-2 mt-2 text-gray-600'
                   />
                   <input
                     name="phoneNumber"
                     placeholder="phone number"
                     onChange={handleChange}
-                    className='p-2 rounded-md transition-all bg-transparent backdrop-blur-md placeholder:text-black/60 h-10 shadow-md text-gray-600 text-sm w-full'
+                    className='p-2 outline rounded-md transition-all bg-white/70 placeholder:text-base sm:placeholder:text-sm placeholder:font-medium placeholder:text-black/60 h-14 sm:h-10 shadow-md text-white sm:text-gray-600 text-sm w-full'
                     required
                   />
                 </div>
                 {
-                  phun.length > 11 ? <p className='text-xs text-red-400 font-medium mt-1'> bro this isn&apos;t a valid phone number </p> : ''
+                  phun.length > 11 ? <p className='text-xs bg-red-100 p-1 rounded-md text-red-400 font-medium mt-1'> bro this isn&apos;t a valid phone number </p> : ''
                 }
               </div>
-              <div className='flex'>
+              <div className='flex items-center'>
                 <Cookie
-                  className='w-4 mt-2 mr-2 text-gray-600'
+                  className='w-16 -ml-6 sm:ml-0 sm:w-5 sm:mr-2 mt-2 text-gray-600'
                 />
                 <input
                   name="funFood"
                   placeholder="Which food would describe you the best?"
                   onChange={handleChange}
-                  className='p-2 rounded-md transition-all bg-transparent backdrop-blur-md placeholder:text-black/60 h-10 shadow-md text-gray-600 text-sm w-full'
+                  className='p-2 outline rounded-md transition-all bg-white/70 placeholder:text-sm sm:placeholder:text-sm placeholder:font-medium placeholder:text-black/60 h-14 sm:h-10 shadow-md text-white sm:text-gray-600 text-sm w-full'
                   required
                 />
               </div>
@@ -254,18 +260,25 @@ const Signup = () => {
                 <button
                   type="submit"
                   disabled={(phun.length === 11 || phun.length === 10) && check === false && emailCheck === false ? false : true}
-                  className={`${(phun.length === 11 || phun.length === 10) && check === false && emailCheck === false ? `` : 'bg-white/60 text-gray-300 hover:cursor-not-allowed'} mt-4 w-full p-2 shadow-md font-medium ${error === true ? `bg-red-500` : `bg-white`} rounded-md text-gray-600`}
+                  className={`${(phun.length === 11 || phun.length === 10) && check === false && emailCheck === false ? `` : 'bg-white/60 text-gray-300 hover:cursor-not-allowed'} mt-2 w-full p-4 sm:p-2 shadow-md font-medium ${error === true ? `bg-red-500 shake` : `bg-white`} rounded-md text-gray-600 sm:mt-0 mt-6 `}
                   onClick={handleSubmit}
                 >  {
-                    error === true ? <p className='text-white'> User already exists </p> : <p> Sign up </p>
+                    error === true ? <p className='text-white '> User already exists </p> : <p> Sign up </p>
                   } </button>
               </div>
             </form>
           </div>
         </div>
       </div>
-      <div className={`${styles.bg1} sm:flex hidden w-1/2 p-4`}>
-
+      <div className={`${styles.bg1} sm:flex hidden w-1/2 p-4 rounded-l-2xl`}>
+        <div className='p-16 mt-28'>
+          <Image
+            src='/personal/forgithub.png'
+            height={0}
+            width={800}
+            alt='carefood'
+          />
+        </div>
       </div>
     </div>
 

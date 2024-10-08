@@ -50,7 +50,7 @@ export default function Card({ id, name, areaName, locality, costforTwo, cuisine
                     />
                     <p className="text-gray-600 text-sm mt-[2px] truncate"> {name} </p>
                 </div>
-                <p className={`${kanit.className} text-xs font-extralight`}> {areaName}, {locality} </p>
+                <p className={`${kanit.className} text-xs text-start font-extralight`}> {areaName}, {locality} </p>
                 <div className="flex">
                     <div className="flex">
                         <Star
@@ -73,16 +73,20 @@ export default function Card({ id, name, areaName, locality, costforTwo, cuisine
                         <CurrencyRupeeIcon
                             className="w-4 text-green-400"
                         />
-                        <p className="text-xs mt-[5px] ml-1"> {costforTwo} </p>
+                        <p className="text-xs mt-[5px] ml-[0.2rem]"> {costforTwo} </p>
                     </div>
                 </div>
                 <hr
                     className="w-full border-1 mt-1"
                 />
-                <div className="flex text-gray-600 space-x-2">
-                    <p className="text-xs mt-1"> {cuisine[0]} </p>
-                    <p className="text-xs mt-1"> {cuisine[1]} </p>
-                    <p className="text-xs mt-1"> {cuisine[2]} </p>
+                <div className="flex text-gray-600 space-x-1">
+                    <p className="text-xs mt-1"> {cuisine[0]}{cuisine[1] ? ',' : ''} </p>
+                    {
+                        cuisine[1] ? <p className="text-xs mt-1"> {cuisine[1]}, </p> : ''
+                    }
+                    {
+                        cuisine[2] ? <p className="text-xs mt-1"> {cuisine[2]} </p> : ''
+                    }
                 </div>
                 {
                     veg ? <div className={`${anton.className} ml-44 absolute flex flex-col text-3xl text-green-300 opacity-50`}>
