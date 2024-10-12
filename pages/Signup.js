@@ -10,11 +10,11 @@ import { Compass, Cookie, Mail, Phone, Shield, ShieldEllipsis, UserRound } from 
 import Image from 'next/image';
 
 const anek = Anek_Latin({
-  weight: ['300', '400', '500', '700'],
+  weight: ['300', '400', '500', '600', '700'],
   subsets: ['latin']
 })
 
-const yeseva = Yeseva_One ({
+const yeseva = Yeseva_One({
   weight: ['400'],
   subsets: ['cyrillic']
 })
@@ -119,35 +119,35 @@ const Signup = () => {
 
   return (
     <div className={`h-[100vh] ${anek.className} flex`}>
-      <div className={`${styles.bg}  w-full sm:w-1/2 h-full rounded-r-xl`}>
+      <div className={`${styles.bg} sm:p-0 p-8 w-full sm:w-1/2 h-[110%] sm:h-[full] rounded-r-xl`}>
         <div className='flex flex-col justify-center '>
-          <div className='mt-24 sm:mt-12 flex justify-center text-5xl sm:text-5xl text-emerald-500'>
+          <div className='mt-16 sm:mt-12 flex justify-center text-5xl sm:text-5xl text-emerald-500'>
             <p className={`${yeseva.className} `}> Join the Flavor!  </p>
           </div>
           <div className={`sm:mt-0 mt-16 flex justify-center sm:-ml-10 -ml-2`}>
-            <form className={` flex flex-col space-y-4 w-[20rem] mt-10 font-medium`}>
+            <form className={` flex flex-col space-y-4 w-[20rem] sm:mt-10 font-medium`}>
               <div className='flex items-center'>
                 <UserRound
-                  className='w-16 -ml-6 sm:ml-0 sm:w-5 sm:mr-2 mt-2 text-gray-600'
+                  className='w-16 -ml-6 sm:ml-0 sm:w-5 sm:mr-2 mt-2 text-emerald-400'
                 />
                 <input
                   name="name"
                   placeholder="name"
                   onChange={handleChange}
-                  className='p-2 outline rounded-md transition-all bg-white/70 placeholder:text-base sm:placeholder:text-sm placeholder:font-medium placeholder:text-black/60 h-14 sm:h-10 shadow-md text-white sm:text-gray-600 text-sm w-full'
+                  className='p-2 outline rounded-md transition-all bg-white/50 placeholder:text-base sm:placeholder:text-sm placeholder:font-semibold placeholder:text-emerald-400 h-12 sm:h-10 shadow-md text-white sm:text-emerald-400 font-semibold text-sm w-full shadow-emerald-300'
                   required
                 />
               </div>
               <div className='flex flex-col'>
                 <div className='flex items-center'>
                   <Mail
-                    className='w-16 -ml-6 sm:ml-0 sm:w-5 sm:mr-2 mt-2 text-gray-600'
+                    className='w-16 -ml-6 sm:ml-0 sm:w-5 sm:mr-2 mt-2 text-emerald-400'
                   />
                   <input
                     name="email"
                     placeholder="email"
                     onChange={handleChange}
-                    className='p-2 outline rounded-md transition-all bg-white/70 placeholder:text-base sm:placeholder:text-sm placeholder:font-medium placeholder:text-black/60 h-14 sm:h-10 shadow-md text-white sm:text-gray-600 text-sm w-full'
+                    className={`p-2 outline rounded-md transition-all bg-white/50 placeholder:text-base sm:placeholder:text-sm placeholder:font-semibold placeholder:text-emerald-400 h-12 sm:h-10 shadow-md text-white sm:text-emerald-400 font-semibold text-sm w-full ${emailCheck ? `shadow-red-400` : `shadow-emerald-300`}`}
                     required
                   />
                 </div>
@@ -159,28 +159,28 @@ const Signup = () => {
               </div>
               <div className='flex items-center'>
                 <Shield
-                  className='w-16 -ml-6 sm:ml-0 sm:w-5 sm:mr-2 mt-2 text-white sm:text-gray-600'
+                  className='w-16 -ml-6 sm:ml-0 sm:w-5 sm:mr-2 mt-2 text-emerald-400'
                 />
                 <input
                   name="password"
                   type="password"
                   placeholder="password"
                   onChange={handleChange}
-                  className='p-2 outline rounded-md transition-all bg-white/70 placeholder:text-base sm:placeholder:text-sm placeholder:font-medium placeholder:text-black/60 h-14 sm:h-10 shadow-md text-white sm:text-gray-600 text-sm w-full'
+                  className='p-2 outline rounded-md transition-all bg-white/50 placeholder:text-base sm:placeholder:text-sm placeholder:font-semibold placeholder:text-emerald-400 h-12 sm:h-10 shadow-md text-white sm:text-emerald-400 font-semibold text-sm w-full shadow-emerald-300'
                   required
                 />
               </div>
               <div className='flex flex-col'>
                 <div className='flex items-center'>
                   <ShieldEllipsis
-                    className='w-16 -ml-6 sm:ml-0 sm:w-5 sm:mr-2 mt-2 text-white sm:text-gray-600'
+                    className='w-16 -ml-6 sm:ml-0 sm:w-5 sm:mr-2 mt-2 text-emerald-400'
                   />
                   <input
                     name="confirmPassword"
                     type="password"
                     placeholder="confirm password"
                     onChange={handleChange}
-                    className='p-2 outline rounded-md transition-all bg-white/70 placeholder:text-base sm:placeholder:text-sm placeholder:font-medium placeholder:text-black/60 h-14 sm:h-10 shadow-md text-white sm:text-gray-600 text-sm w-full'
+                    className={`p-2 outline rounded-md transition-all bg-white/50 placeholder:text-base sm:placeholder:text-sm placeholder:font-semibold placeholder:text-emerald-400 h-12 sm:h-10 shadow-md text-white sm:text-emerald-400 font-semibold text-sm w-full ${check ? `shadow-red-400` : `shadow-emerald-300`}`}
                     required
                   />
                 </div>
@@ -191,13 +191,13 @@ const Signup = () => {
               <div className='flex flex-col'>
                 <div className='flex items-center'>
                   <Compass
-                    className='w-16 -ml-6 sm:ml-0 sm:w-5 sm:mr-2 mt-2 text-white sm:text-gray-600'
+                    className='w-16 -ml-6 sm:ml-0 sm:w-5 sm:mr-2 mt-2 text-emerald-400'
                   />
                   <input
                     name="city"
                     placeholder="city"
                     onChange={handleChange}
-                    className='p-2 outline rounded-md transition-all bg-white/70 placeholder:text-base sm:placeholder:text-sm placeholder:font-medium placeholder:text-black/60 h-14 sm:h-10 shadow-md text-white sm:text-gray-600 text-sm w-full'
+                    className='p-2 outline rounded-md transition-all bg-white/50 placeholder:text-base sm:placeholder:text-sm placeholder:font-semibold placeholder:text-emerald-400 h-12 sm:h-10 shadow-md text-white sm:text-emerald-400 font-semibold text-sm w-full shadow-emerald-300'
                     value={city ? city : ''}
                     required
                   />
@@ -211,11 +211,11 @@ const Signup = () => {
                             cities.map((x, i) => {
                               return (
                                 x.feature_type === 'place' || x.feature_type === 'locality' ? <div
-                                  className="hover:cursor-pointer bg-white/25 hover:bg-transparent p-1 rounded-md mt-1"
+                                  className="hover:cursor-pointer bg-white/25 hover:bg-transparent p-1 rounded-md mt-1 hover:bg-[#99DDCC] text-gray-600 hover:text-white transition-all"
                                   onClick={() => (setCity(x.name), setClick(true))}
                                   key={i}
                                 >
-                                  {x.name}, {x.place_formatted}
+                                  <p className='p-1'> {x.name}, {x.place_formatted} </p>
                                 </div> : ''
                               )
                             })
@@ -230,13 +230,13 @@ const Signup = () => {
               <div className='flex flex-col'>
                 <div className='flex items-center'>
                   <Phone
-                    className='w-16 -ml-6 sm:ml-0 sm:w-5 sm:mr-2 mt-2 text-gray-600'
+                    className='w-16 -ml-6 sm:ml-0 sm:w-5 sm:mr-2 mt-2 text-emerald-400'
                   />
                   <input
                     name="phoneNumber"
                     placeholder="phone number"
                     onChange={handleChange}
-                    className='p-2 outline rounded-md transition-all bg-white/70 placeholder:text-base sm:placeholder:text-sm placeholder:font-medium placeholder:text-black/60 h-14 sm:h-10 shadow-md text-white sm:text-gray-600 text-sm w-full'
+                    className={`p-2 outline rounded-md transition-all bg-white/50 placeholder:text-base sm:placeholder:text-sm placeholder:font-semibold placeholder:text-emerald-400 h-12 sm:h-10 shadow-md text-white sm:text-emerald-400 font-semibold text-sm w-full ${phun.length > 11 ? `shadow-red-400` : `shadow-emerald-300`}`}
                     required
                   />
                 </div>
@@ -246,13 +246,13 @@ const Signup = () => {
               </div>
               <div className='flex items-center'>
                 <Cookie
-                  className='w-16 -ml-6 sm:ml-0 sm:w-5 sm:mr-2 mt-2 text-gray-600'
+                  className='w-16 -ml-6 sm:ml-0 sm:w-5 sm:mr-2 mt-2 text-emerald-400'
                 />
                 <input
                   name="funFood"
                   placeholder="Which food would describe you the best?"
                   onChange={handleChange}
-                  className='p-2 outline rounded-md transition-all bg-white/70 placeholder:text-sm sm:placeholder:text-sm placeholder:font-medium placeholder:text-black/60 h-14 sm:h-10 shadow-md text-white sm:text-gray-600 text-sm w-full'
+                  className='p-2 outline rounded-md transition-all bg-white/50 placeholder:text-base sm:placeholder:text-sm placeholder:font-semibold placeholder:text-emerald-400 h-12 sm:h-10 shadow-md text-white sm:text-emerald-400 font-semibold text-sm w-full shadow-emerald-300'
                   required
                 />
               </div>
@@ -260,10 +260,10 @@ const Signup = () => {
                 <button
                   type="submit"
                   disabled={(phun.length === 11 || phun.length === 10) && check === false && emailCheck === false ? false : true}
-                  className={`${(phun.length === 11 || phun.length === 10) && check === false && emailCheck === false ? `` : 'bg-white/60 text-gray-300 hover:cursor-not-allowed'} mt-2 w-full p-4 sm:p-2 shadow-md font-medium ${error === true ? `bg-red-500 shake` : `bg-white`} rounded-md text-gray-600 sm:mt-0 mt-6 `}
+                  className={`${(phun.length === 11 || phun.length === 10) && check === false && emailCheck === false ? `bg-emerald-400 text-white shadow-emerald-400` : 'bg-white/60 text-gray-300 hover:cursor-not-allowed shadow-none'} mt-2 w-full p-4 sm:p-2 shadow-md font-medium ${error === true ? `bg-red-500 shake` : `bg-white`} rounded-md sm:mt-0 mt-2`}
                   onClick={handleSubmit}
                 >  {
-                    error === true ? <p className='text-white '> User already exists </p> : <p> Sign up </p>
+                    error === true ? <p className='text-white'> User already exists </p> : <p> Sign up </p>
                   } </button>
               </div>
             </form>
