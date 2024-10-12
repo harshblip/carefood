@@ -134,7 +134,7 @@ const Signup = () => {
                   name="name"
                   placeholder="name"
                   onChange={handleChange}
-                  className='p-2 outline rounded-md transition-all bg-white/50 placeholder:text-base sm:placeholder:text-sm placeholder:font-semibold placeholder:text-emerald-400 h-12 sm:h-10 shadow-md text-white sm:text-emerald-400 font-semibold text-sm w-full shadow-emerald-300'
+                  className='p-2 outline rounded-md transition-all bg-white/50 placeholder:text-base sm:placeholder:text-sm placeholder:font-semibold placeholder:text-emerald-400 h-12 sm:h-10 shadow-md text-emerald-400 font-semibold text-sm w-full shadow-emerald-300'
                   required
                 />
               </div>
@@ -147,7 +147,7 @@ const Signup = () => {
                     name="email"
                     placeholder="email"
                     onChange={handleChange}
-                    className={`p-2 outline rounded-md transition-all bg-white/50 placeholder:text-base sm:placeholder:text-sm placeholder:font-semibold placeholder:text-emerald-400 h-12 sm:h-10 shadow-md text-white sm:text-emerald-400 font-semibold text-sm w-full ${emailCheck ? `shadow-red-400` : `shadow-emerald-300`}`}
+                    className={`p-2 outline rounded-md transition-all bg-white/50 placeholder:text-base sm:placeholder:text-sm placeholder:font-semibold placeholder:text-emerald-400 h-12 sm:h-10 shadow-md text-emerald-400 font-semibold text-sm w-full ${emailCheck ? `shadow-red-400` : `shadow-emerald-300`}`}
                     required
                   />
                 </div>
@@ -166,7 +166,7 @@ const Signup = () => {
                   type="password"
                   placeholder="password"
                   onChange={handleChange}
-                  className='p-2 outline rounded-md transition-all bg-white/50 placeholder:text-base sm:placeholder:text-sm placeholder:font-semibold placeholder:text-emerald-400 h-12 sm:h-10 shadow-md text-white sm:text-emerald-400 font-semibold text-sm w-full shadow-emerald-300'
+                  className='p-2 outline rounded-md transition-all bg-white/50 placeholder:text-base sm:placeholder:text-sm placeholder:font-semibold placeholder:text-emerald-400 h-12 sm:h-10 shadow-md text-emerald-400 font-semibold text-sm w-full shadow-emerald-300'
                   required
                 />
               </div>
@@ -180,7 +180,7 @@ const Signup = () => {
                     type="password"
                     placeholder="confirm password"
                     onChange={handleChange}
-                    className={`p-2 outline rounded-md transition-all bg-white/50 placeholder:text-base sm:placeholder:text-sm placeholder:font-semibold placeholder:text-emerald-400 h-12 sm:h-10 shadow-md text-white sm:text-emerald-400 font-semibold text-sm w-full ${check ? `shadow-red-400` : `shadow-emerald-300`}`}
+                    className={`p-2 outline rounded-md transition-all bg-white/50 placeholder:text-base sm:placeholder:text-sm placeholder:font-semibold placeholder:text-emerald-400 h-12 sm:h-10 shadow-md text-emerald-400 font-semibold text-sm w-full ${check ? `shadow-red-400` : `shadow-emerald-300`}`}
                     required
                   />
                 </div>
@@ -197,7 +197,7 @@ const Signup = () => {
                     name="city"
                     placeholder="city"
                     onChange={handleChange}
-                    className='p-2 outline rounded-md transition-all bg-white/50 placeholder:text-base sm:placeholder:text-sm placeholder:font-semibold placeholder:text-emerald-400 h-12 sm:h-10 shadow-md text-white sm:text-emerald-400 font-semibold text-sm w-full shadow-emerald-300'
+                    className='p-2 outline rounded-md transition-all bg-white/50 placeholder:text-base sm:placeholder:text-sm placeholder:font-semibold placeholder:text-emerald-400 h-12 sm:h-10 shadow-md text-emerald-400 font-semibold text-sm w-full shadow-emerald-300'
                     value={city ? city : ''}
                     required
                   />
@@ -236,7 +236,7 @@ const Signup = () => {
                     name="phoneNumber"
                     placeholder="phone number"
                     onChange={handleChange}
-                    className={`p-2 outline rounded-md transition-all bg-white/50 placeholder:text-base sm:placeholder:text-sm placeholder:font-semibold placeholder:text-emerald-400 h-12 sm:h-10 shadow-md text-white sm:text-emerald-400 font-semibold text-sm w-full ${phun.length > 11 ? `shadow-red-400` : `shadow-emerald-300`}`}
+                    className={`p-2 outline rounded-md transition-all bg-white/50 placeholder:text-base sm:placeholder:text-sm placeholder:font-semibold placeholder:text-emerald-400 h-12 sm:h-10 shadow-md text-emerald-400 font-semibold text-sm w-full ${phun.length > 11 ? `shadow-red-400` : `shadow-emerald-300`}`}
                     required
                   />
                 </div>
@@ -252,7 +252,7 @@ const Signup = () => {
                   name="funFood"
                   placeholder="Which food would describe you the best?"
                   onChange={handleChange}
-                  className='p-2 outline rounded-md transition-all bg-white/50 placeholder:text-base sm:placeholder:text-sm placeholder:font-semibold placeholder:text-emerald-400 h-12 sm:h-10 shadow-md text-white sm:text-emerald-400 font-semibold text-sm w-full shadow-emerald-300'
+                  className='p-2 outline rounded-md transition-all bg-white/50 placeholder:text-base sm:placeholder:text-sm placeholder:font-semibold placeholder:text-emerald-400 h-12 sm:h-10 shadow-md text-emerald-400 font-semibold text-sm w-full shadow-emerald-300'
                   required
                 />
               </div>
