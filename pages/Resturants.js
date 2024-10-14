@@ -13,6 +13,7 @@ import { storeRestId } from "../slices/restaurantSlice";
 import Image from "next/image";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
+import Head from "next/head";
 
 const kanit = Kanit({
     subsets: ['latin'],
@@ -206,7 +207,9 @@ export default function Resturants() {
 
     return (
         <>
-
+            <Head>
+                <title> Restaurants </title>
+            </Head>
             <header className={`${comfortaa.className} w-[130vw] h-full sm:w-full bg-[#b4c6b6] `}>
                 <div className="flex fixed z-0 my-[20rem] sm:my-[14rem] focus:blur select-none">
                     <p className={`${anton.className} text-7xl sm:text-[12rem] text-[#d3d9d5] `}> RESTAURANTS </p>

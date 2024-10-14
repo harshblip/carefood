@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 import { useRouter } from "next/router";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import Head from "next/head";
 
 const kanit = Kanit({
     subsets: ['latin'],
@@ -49,6 +50,9 @@ export default function PaymentSucess() {
 
     return (
         <div className={`text-white text-semibold flex flex-col bg-[#b4c6b6] h-[100vh] justify-center items-center ${kanit.className}`}>
+            <Head>
+                <title> Payment success </title>
+            </Head>
             <p className="text-2xl"> you just got served ! </p>
             <div>
                 redirecting you in {timer}

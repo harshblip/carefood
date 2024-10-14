@@ -17,6 +17,7 @@ import styles from '../src/app/menu.module.css'
 import { useRouter } from "next/router";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import LoadingMenu from "../components/LoadingMenu";
+import Head from "next/head";
 
 const anton = Anton({
     weight: ['400'],
@@ -184,7 +185,12 @@ export default function Menu() {
     console.log(restaurant.name, ',jhvgvj')
     return (
         <div className={`${kanit.className} flex flex-col bg-[#b4c6b6] w-[160%] sm:w-full`}>
-            <Header />
+            <div className="ml-6 sm:ml-32">
+                <Header />
+            </div>
+            <Head>
+                <title> {restaurant.name} </title>
+            </Head>
             <div className="flex fixed z-0 my-[20rem] sm:my-[14rem] focus:blur select-none">
                 <p className={`${anton.className} text-7xl sm:text-[12rem] text-[#d3d9d5] `}> MENU </p>
             </div>

@@ -18,7 +18,7 @@ export default function Header() {
     return (
         <>
             <div className={`${comfortaa.className} flex justify-between sm:mt-0 mt-12 p-8 ml sm:mr-24 z-10`}>
-                <div className="heavy-weight ml-24">
+                <div className="heavy-weight -ml-6">
                     <p className={`tracking-normal text-[#2d5c3c] text-4xl sm:text-2xl`}>
                         carefood
                     </p>

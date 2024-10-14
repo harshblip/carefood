@@ -8,6 +8,7 @@ import styles from '../src/app/Signup.module.css'
 import axios from 'axios';
 import { Compass, Cookie, Mail, Phone, Shield, ShieldEllipsis, UserRound } from 'lucide-react';
 import Image from 'next/image';
+import Head from 'next/head';
 
 const anek = Anek_Latin({
   weight: ['300', '400', '500', '600', '700'],
@@ -119,6 +120,9 @@ const Signup = () => {
 
   return (
     <div className={`h-[100vh] ${anek.className} flex`}>
+      <Head>
+        <title> Signup </title>
+      </Head>
       <div className={`${styles.bg} sm:p-0 p-8 w-full sm:w-1/2 h-[110%] sm:h-[full] rounded-r-xl`}>
         <div className='flex flex-col justify-center '>
           <div className='mt-16 sm:mt-12 flex justify-center text-5xl sm:text-5xl text-emerald-500'>

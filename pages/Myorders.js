@@ -6,6 +6,8 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import { BadgeIndianRupee, Pin } from "lucide-react";
 import { useRouter } from "next/router";
+import Head from "next/head";
+import Image from "next/image";
 
 const anton = Anton({
     weight: ['400'],
@@ -67,6 +69,9 @@ export default function Myorders() {
 
     return (
         <div className="w-[130vw] h-full sm:w-full bg-[#b4c6b6]">
+            <Head>
+                <title> My Orders </title>
+            </Head>
             <div className="flex flex-col ml-4 sm:ml-24 z-10">
                 <Header />
                 <div className="flex fixed -ml-4 sm:-ml-24 z-0 my-[20rem] sm:my-[14rem] focus:blur select-none">
@@ -131,7 +136,17 @@ export default function Myorders() {
                                 </div>
                             </div>
                         </div>
-                        ) : ''
+                        ) : <>
+                            <div className="z-10 -ml-20 sm:ml-32 mt-2 mb-16 flex sm:flex-row flex-col sm:space-x-4 space-y-4 items-center">
+                                <Image
+                                    src='/personal/shiba.png'
+                                    height={0}
+                                    width={250}
+                                    alt='nothing in the cart'
+                                />
+                                <p className={`${anton.className} text-2xl sm:text-4xl font-semibold text-[#f1faee]`}> You got <span className="text-red-400"> zero</span> active orders </p>   
+                            </div>
+                        </>
                     }
                 </div>
             </div>

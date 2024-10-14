@@ -10,6 +10,7 @@ import { storeRestId, storeOrder } from "../slices/restaurantSlice";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
+import Head from "next/head";
 
 const comfortaa = Comfortaa({
     subsets: ['latin'],
@@ -218,6 +219,9 @@ export default function Cart() {
 
     return (
         <div className="w-[130vw] h-full sm:w-full bg-[#b4c6b6]">
+            <Head>
+                <title> Your cart </title>
+            </Head>
             <div className="flex flex-col ml-4 sm:ml-24 z-10">
                 <Header />
                 <div className="flex fixed -ml-4 sm:-ml-24 z-0 my-[20rem] sm:my-[14rem] focus:blur select-none">

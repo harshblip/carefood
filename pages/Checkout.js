@@ -6,6 +6,7 @@ import Payment from "../components/Payment"
 import currencyCovert from "../utils/currencyConvert"
 import { useState } from "react"
 import { useRouter } from "next/router"
+import Head from "next/head"
 
 const manrop = Manrope({
     weight: ['400', '500', '700'],
@@ -60,6 +61,9 @@ export default function Checkout() {
 
     return (
         <div className="w-[130vw] h-[100vh] sm:w-full bg-[#b4c6b6]">
+            <Head>
+                <title> Pay {amount} </title>
+            </Head>
             <div className="sm:ml-24 ml-4">
                 {userEmail ? <> <div className="flex fixed -ml-4 sm:-ml-24 z-0 my-[20rem] sm:my-[14rem] focus:blur select-none">
                     <p className={`${anton.className} text-start text-7xl sm:text-7xl sm:text-[12rem] text-[#d3d9d5] `}> PAY</p>

@@ -13,6 +13,7 @@ import { storeCity, storeCoord } from '../slices/locationSlice'
 import { useDispatch } from 'react-redux'
 import { useRouter } from 'next/router'
 import Footer from '../components/Footer'
+import Head from 'next/head'
 
 const railway = Raleway({
     weight: ['200', '500', '800'],
@@ -134,6 +135,9 @@ export default function Landingpage() {
 
     return (
         <div className='lmlemlem'>
+            <Head>
+                <title> carefood </title>
+            </Head>
             <div className={`${railway.className} bg h-[100vh] w-[130vw] sm:w-[100vw] flex flex-col`}>
                 <DefaultLayout />
                 <div className='mr-6 ml-6'>
