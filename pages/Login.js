@@ -85,8 +85,8 @@ export default function LoginPage() {
                                 className='mt-2 h-8 w-[16rem] sm:w-[18rem] rounded-md p-2 text-black text-sm font-medium outline-none'
                             />
                         </label>
-                        <button className='hover:cursor-pointer sm:relative' onClick={() => router.push('/Signup')}>
-                            <p className='text-sm underline'> Don&apos;t have an account ? </p>
+                        <button className='text-start hover:cursor-pointer sm:relative' onClick={() => router.push('/Signup')}>
+                            <p className=' text-sm underline'> Don&apos;t have an account ? </p>
                         </button>
                         <button
                             type="submit"
