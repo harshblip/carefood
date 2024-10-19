@@ -271,10 +271,10 @@ export default function Landingpage() {
                             />
                         </div>
                     </div>
-                    <div className='mt-8 sm:ml-0 ml-6'>
+                    <div className='mt-8 sm:ml-0 ml-6  '>
                         {
                             text.map((x, i) => i >= 3 ? <div className='flex flex-col' key={i}>
-                                <div className='bg-[#f5f5f5] hover:bg-[#729071] mt-4 w-[26rem] sm:w-[24rem] rounded-md transition-all'>
+                                <div className='bg-[#f5f5f5] hover:bg-[#729071] mt-4 w-[26rem] sm:w-[24rem] rounded-md transition-all card-container'>
                                     <div className={` hover:text-white flex flex-col p-4  ${lexend.className} hover:cursor-pointer mr-12 ]`}>
                                         <p className='font-normal leading-5 text-sm'> &quot;{x.description}&quot; </p>
                                         <div className='flex space-x-10 mt-6'>
@@ -291,7 +291,7 @@ export default function Landingpage() {
                                                 <p className='font-medium text-sm'> {x.name} </p>
                                                 <p className='font-thin text-xs'> {x.position} </p>
                                             </div>
-                                            <div className='absolute'>
+                                            <div className='absolute card-container-arrow'>
                                                 <ArrowUpRight
                                                     className='ml-[19.5rem] sm:ml-[17.6rem] mt-3 w-14 h-14 rounded-full p-3 border-[0.6rem] border-white'
                                                 />

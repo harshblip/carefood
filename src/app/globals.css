@@ -126,3 +126,27 @@ input::placeholder {
   font-weight: 300;
   font-size: small;
 }
+
+@media only screen and (max-width:425px){
+  .card-container{
+    /* background-color: red; */
+    width: 95%;
+  }
+  .card-container-sec{
+    /* background-color: blue; */
+    width: 95%;
+  }
+  .card-container-arrow{
+    display: none;
+    /* right: 0; */
+    
+   
+  }
+  .bottom-footer{
+    padding: 0;
+    /* background-color: red; */
+  }
+  #mb-img{
+    display: none;
+  }
+}
