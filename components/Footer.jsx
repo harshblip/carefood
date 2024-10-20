@@ -16,8 +16,8 @@ const kanit = Kanit({
 export default function Footer() {
     return (
         <>
-            <div className='w-[130vw] sm:w-[100vw] p-8 absolute mt-40'>
-                <div className='flex justify-around mr-4 ml-4'>
+            <div className='w-[100vw] sm:w-[100vw] p-8 absolute mt-40 bottom-footer'>
+                <div className='flex justify-around mr-4 ml-4 '>
                     <Image
                         src='/plants/plant.png'
                         height={0}
@@ -31,6 +31,7 @@ export default function Footer() {
                         alt='plants-image'
                     />
                     <Image
+                        id="mb-img"
                         src='/plants/plant.png'
                         height={0}
                         width={120}
